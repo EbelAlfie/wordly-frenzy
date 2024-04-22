@@ -10,8 +10,8 @@ export class OceanScene extends Phaser.Scene {
     player = null
 
     preload() {
-        this.load.image('background', '../resource/underwater.png');
-        this.load.image('player', '../resource/player.png') ; //ejnhance 
+        this.load.image('background', 'https://ebelalfie.github.io/resource/underwater.png');
+        this.load.image('player', 'https://ebelalfie.github.io/resource/player.png') ; //ejnhance 
     }
 
     create() {
