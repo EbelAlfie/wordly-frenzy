@@ -18,6 +18,7 @@ export class OceanScene extends Phaser.Scene {
         this.bg = 
             this.add.image(0, 0, 'background').setOrigin(0)
             .setDisplaySize(document.body.clientWidth, document.body.clientHeight);
+        
         this.player = new Player(this, 0, 0) ;
         this.player.start() ;
         
@@ -25,40 +26,14 @@ export class OceanScene extends Phaser.Scene {
             this.pointer = pointer
         });
 
-        this.cameras.main.startFollow(this.player)
-        this.cameras.main.zoom = 0.5
+        //this.cameras.main.startFollow(this.player)
+        // this.cameras.main.zoom = 0.5
     }
 
     update() {
         if (this.player.body && this.pointer !== null) {
 
             const lockedToCamPointer = this.pointer.positionToCamera(this.cameras.main)
-      
-            /**
-              *  TODO - Handle "boost" with spacebar (or possibly left click?)
-              */
-      
-            // if (this.spacebarListener.isDown) {
-            //   console.log('pressing space!')
-      
-            //   let boostDistance = BOOST_DISTANCE
-      
-            //   if (lockedToCamPointer.x <= playerFish.x - MOUSE_X_BUFFER) {
-            //     boostDistance *= -1
-            //   }
-      
-            //   // newPlayerVelocityX += 130 
-      
-            //   this.tweens.add({
-            //     targets: playerFish,
-            //     x: playerFish.x + boostDistance,
-            //     duration: 500,
-            //     ease: 'Cubic',
-            //     yoyo: false,
-            //     loop: false,
-            //   })
-            // }
-      
       
             /**
              *  Move of player's fish
