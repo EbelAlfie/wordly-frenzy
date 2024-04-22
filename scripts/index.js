@@ -1,11 +1,14 @@
-import Phaser from "../node_modules/phaser/src/phaser.js";
-import OceanScene from "./scene.js" ;
+//import Phaser from "./phaser.js";
+import { OceanScene } from "./scene.js" ;
 
 window.onload = (a, t) => {
     const config = {
         type: Phaser.AUTO,
-        width: 800,
-        height: 600,
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        width: document.body.clientWidth,
+        height: document.body.clientHeight,
+        backgroundColor: "#0482ef",
         parent: "aquarium",
         physics: {
             default: 'arcade',
@@ -16,5 +19,5 @@ window.onload = (a, t) => {
         scene: OceanScene
     };
 
-    const game = Phaser.Game(config)
+    const game = new Phaser.Game(config)
 }

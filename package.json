@@ -1,14 +1,16 @@
 {
   "dependencies": {
+    "parcel": "^2.12.0",
     "phaser": "^3.80.1"
   },
   "name": "wordly-frenzy",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./scripts/index.js",
   "type": "module",
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "parcel index.html",
+    "build": "parcel build index.html --public-url _relativeroute_ --no-source-maps --log-level error --config ./parcel/.parcel.prod"
   },
   "repository": {
     "type": "git",
@@ -20,5 +22,11 @@
     "url": "https://github.com/EbelAlfie/wordly-frenzy/issues"
   },
   "homepage": "https://github.com/EbelAlfie/wordly-frenzy#readme",
-  "description": ""
+  "description": "",
+  "staticFiles": {
+    "staticPath": "resource"
+  },
+  "devDependencies": {
+    "process": "^0.11.10"
+  }
 }
