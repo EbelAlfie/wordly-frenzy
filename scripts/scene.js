@@ -10,21 +10,20 @@ export class OceanScene extends Phaser.Scene {
     player = null
 
     preload() {
-        this.load.image('background', 'https://ebelalfie.github.io/resource/underwater.png');
-        this.load.image('player', 'https://ebelalfie.github.io/resource/player.png') ; //ejnhance 
+        this.load.image('background', '../resource/underwater.png');
+        this.load.image('player', '../resource/player.png') ; //ejnhance 
     }
 
     create() {
         this.bg = 
-            this.add.image(0, 0, 'background').setOrigin(0);
-
+            this.add.image(0, 0, 'background').setOrigin(0)
+            .setDisplaySize(document.body.clientWidth, document.body.clientHeight);
         this.player = new Player(this, 0, 0) ;
         this.player.start() ;
         
         this.input.on('pointermove', (pointer) => {
             this.pointer = pointer
         });
-        this.spacebarListener = this.input.keyboard.addKey('Space');
 
         this.cameras.main.startFollow(this.player)
         this.cameras.main.zoom = 0.5
