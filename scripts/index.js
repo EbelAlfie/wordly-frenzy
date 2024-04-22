@@ -1,4 +1,4 @@
-import Phaser from "phaser";
+import Phaser from "../node_modules/phaser/src/phaser.js";
 import OceanScene from "./scene.js" ;
 
 window.onload = (a, t) => {
