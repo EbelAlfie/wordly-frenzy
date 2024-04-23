@@ -33,7 +33,7 @@ export class OceanScene extends Phaser.Scene {
         this.bg = 
             this.add.image(0, 0, 'background').setOrigin(0)
             .setDisplaySize(document.body.clientWidth, document.body.clientHeight);
-        
+            
         this.scoreText = this.add.text(16, 32, 'Score   0', 40).setDepth(1);
         
         this.player = new Player(this, 0, 0) ;
@@ -115,7 +115,7 @@ export class OceanScene extends Phaser.Scene {
 
     eaten(enemy) {
       this.player.kill() ;
-      
+
     }
 
     getPlayerLocation(location) {

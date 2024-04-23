@@ -8,6 +8,13 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
+        scene.anims.create({
+            key: 'move',
+            frames: scene.anims.generateFrameNames('enemy', { start: 0, end: 5 }),
+            frameRate: 8,
+            repeat: -1
+        })
+
         this.play('move') ;
 
         this.setScale(0.9);
