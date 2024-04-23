@@ -1,5 +1,6 @@
 import { Enemy } from "./enemy.js"
 import Player from "./player.js"
+import { Food } from "./food.js"
 
 export class OceanScene extends Phaser.Scene {
     MOUSE_X_BUFFER = 30
@@ -12,7 +13,7 @@ export class OceanScene extends Phaser.Scene {
     preload() {
         this.load.image('background', '../resource/underwater.png');
         this.load.image('player', '../resource/player.png') ; //ejnhance 
-        //this.load.image('enemy', '../resource/enemy.png') ;
+        this.load.image('food', '../resource/food.png') ;
         this.load.spritesheet(
           'enemy', 
           '../resource/enemy.png', 
@@ -23,6 +24,9 @@ export class OceanScene extends Phaser.Scene {
             endFrame: 5
           }
         )
+
+        this.scoreText;
+        this.score = 0;
     }
 
     create() {
@@ -30,11 +34,16 @@ export class OceanScene extends Phaser.Scene {
             this.add.image(0, 0, 'background').setOrigin(0)
             .setDisplaySize(document.body.clientWidth, document.body.clientHeight);
         
+        this.scoreText = this.add.text(16, 32, 'Score   0', 40).setDepth(1);
+        
         this.player = new Player(this, 0, 0) ;
         this.player.start() ;
 
         let enemy = new Enemy(this, 100, 100, 200) ;
         enemy.start() ;
+
+        let food = new Food(this, 100, 100, 200) ;
+        food.start() ;
         
         this.input.on('pointermove', (pointer) => {
             this.pointer = pointer
@@ -44,6 +53,7 @@ export class OceanScene extends Phaser.Scene {
         })
 
         this.physics.add.overlap(this.player, enemy, (enemy) => this.eaten(enemy));
+        this.physics.add.overlap(this.player, food, (food) => this.eat(food));
 
         //this.cameras.main.startFollow(this.player)
         // this.cameras.main.zoom = 0.5
@@ -95,13 +105,17 @@ export class OceanScene extends Phaser.Scene {
           }
     }
 
-    eat() {
-
+    eat(food) {
+      if (!food.isDead) {
+        this.score++ ;
+        this.scoreText.setText('Score   ' + this.score);
+        food.kill() ;
+      }
     }
 
     eaten(enemy) {
       this.player.kill() ;
-
+      
     }
 
     getPlayerLocation(location) {

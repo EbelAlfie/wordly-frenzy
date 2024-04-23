@@ -1,4 +1,4 @@
-export class Enemy extends Phaser.Physics.Arcade.Image {
+export class Enemy extends Phaser.Physics.Arcade.Sprite {
     isChasing = true ;
     
     constructor (scene, x, y, speed)
@@ -8,12 +8,7 @@ export class Enemy extends Phaser.Physics.Arcade.Image {
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
-        scene.anims.create({
-            key: 'move',
-            frames: scene.anims.generateFrameNumbers('enemy', { start: 0, end: 5 }),
-            frameRate: 10,
-            repeat: -1
-        });
+        this.play('move') ;
 
         this.setScale(0.9);
 
