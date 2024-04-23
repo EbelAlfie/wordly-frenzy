@@ -1,4 +1,4 @@
-
+import { Enemy } from "./enemy.js"
 import Player from "./player.js"
 
 export class OceanScene extends Phaser.Scene {
@@ -12,6 +12,17 @@ export class OceanScene extends Phaser.Scene {
     preload() {
         this.load.image('background', '../resource/underwater.png');
         this.load.image('player', '../resource/player.png') ; //ejnhance 
+        //this.load.image('enemy', '../resource/enemy.png') ;
+        this.load.spritesheet(
+          'enemy', 
+          '../resource/enemy.png', 
+          {
+            frameWidth: 290,
+            frameHeight: 250,
+            startFrame: 0,
+            endFrame: 5
+          }
+        )
     }
 
     create() {
@@ -21,10 +32,18 @@ export class OceanScene extends Phaser.Scene {
         
         this.player = new Player(this, 0, 0) ;
         this.player.start() ;
+
+        let enemy = new Enemy(this, 100, 100, 200) ;
+        enemy.start() ;
         
         this.input.on('pointermove', (pointer) => {
             this.pointer = pointer
         });
+        this.input.once('pointerdown', (pointer) => {
+          this.player.start()
+        })
+
+        this.physics.add.overlap(this.player, enemy, (enemy) => this.eaten(enemy));
 
         //this.cameras.main.startFollow(this.player)
         // this.cameras.main.zoom = 0.5
@@ -35,9 +54,6 @@ export class OceanScene extends Phaser.Scene {
 
             const lockedToCamPointer = this.pointer.positionToCamera(this.cameras.main)
       
-            /**
-             *  Move of player's fish
-             */
             let newPlayerVelocityX = this.player.body.velocity.x - this.WATER_FRICTION
             let newPlayerVelocityY = this.player.body.velocity.y - this.WATER_FRICTION
       
@@ -47,10 +63,6 @@ export class OceanScene extends Phaser.Scene {
       
             if (newPlayerVelocityY < 0)
               newPlayerVelocityY = 0
-      
-            /**
-             *  Move Player fish horizontally
-             */
       
             if (lockedToCamPointer.x >= this.player.x + this.MOUSE_X_BUFFER) {
       
@@ -66,10 +78,6 @@ export class OceanScene extends Phaser.Scene {
       
             }
       
-            /**
-             *  Move Player fish vertically
-             */
-      
             if (lockedToCamPointer.y >= this.player.y + this.MOUSE_Y_BUFFER) {
       
               newPlayerVelocityY = (lockedToCamPointer.y - this.player.y) / this.player.scale * 2
@@ -84,14 +92,21 @@ export class OceanScene extends Phaser.Scene {
       
             this.player.body.setVelocityX(newPlayerVelocityX)
             this.player.body.setVelocityY(newPlayerVelocityY)
-      
-      
-            /**
-             *  Update player Fish scale.
-             */
-      
-            //this.player.scale = this.gameState.
-      
           }
+    }
+
+    eat() {
+
+    }
+
+    eaten(enemy) {
+      this.player.kill() ;
+
+    }
+
+    getPlayerLocation(location) {
+      location.x = this.player.x;
+      location.y = this.player.y;
+      return location ;
     }
 }
