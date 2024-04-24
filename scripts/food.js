@@ -1,9 +1,10 @@
 export class Food extends Phaser.Physics.Arcade.Sprite {
     isDead = false ;
-    
-    constructor (scene, x, y, speed)
+    score = 0 ;
+
+    constructor (config, scene, x, y)
     {
-        super(scene, x, y, 'food');
+        super(scene, x, y, config.sprite);
 
         scene.add.existing(this);
         scene.physics.add.existing(this);
@@ -12,7 +13,9 @@ export class Food extends Phaser.Physics.Arcade.Sprite {
 
         this.setCollideWorldBounds(false);
 
-        this.speed = speed;
+        this.score = config.value ;
+
+        this.speed = config.speed;
         this.target = new Phaser.Math.Vector2();
     }
 
@@ -35,7 +38,7 @@ export class Food extends Phaser.Physics.Arcade.Sprite {
         const endPositionX = 25 + Math.random() * (this.scene.bg.width - 25)
         const endPositionY = 25 + Math.random() * (this.scene.bg.height - 25)
 
-        this.setFlipX(this.x > endPositionX)
+        this.setFlipX(this.body.width/2 + this.x < endPositionX) ;
         this.scene.tweens.add({
             targets: this,
             props: {
@@ -46,5 +49,7 @@ export class Food extends Phaser.Physics.Arcade.Sprite {
             yoyo: true,
             repeat: -1
         });
+
+        this.scene.physics.moveTo(this, endPositionX, endPositionY, this.speed) + 1.5707963267948966;
     }
 }

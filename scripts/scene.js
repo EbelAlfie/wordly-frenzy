@@ -1,14 +1,14 @@
 import { Enemy } from "./enemy.js"
 import Player from "./player.js"
 import { Food } from "./food.js"
+import { foodConfig, MOUSE_X_BUFFER, MOUSE_Y_BUFFER, WATER_FRICTION, MAX_FOOD } from "./config/game_config.js"
 
 export class OceanScene extends Phaser.Scene {
-    MOUSE_X_BUFFER = 30
-    MOUSE_Y_BUFFER = 13
-    WATER_FRICTION = 2
 
     pointer = null
     player = null
+
+    foods = Array() ;
 
     preload() {
         this.load.image('background', '../resource/underwater.png');
@@ -42,8 +42,8 @@ export class OceanScene extends Phaser.Scene {
         let enemy = new Enemy(this, 100, 100, 200) ;
         enemy.start() ;
 
-        let food = new Food(this, 100, 100, 200) ;
-        food.start() ;
+        // let food = new Food(foodConfig["small"], this, Math.random() * this.bg.width/2, Math.random() * this.bg.height/2, 200) ;
+        // food.start() ;
         
         this.input.on('pointermove', (pointer) => {
             this.pointer = pointer
@@ -53,63 +53,36 @@ export class OceanScene extends Phaser.Scene {
         })
 
         this.physics.add.overlap(this.player, enemy, (player, enemy) => this.eaten(enemy));
-        this.physics.add.overlap(this.player, food, (player, food) => this.eat(food));
 
         //this.cameras.main.startFollow(this.player)
         // this.cameras.main.zoom = 0.5
     }
 
     update() {
-        if (this.player.body && this.pointer !== null) {
+      setInterval(() => {
+        if (this.foods.length >= MAX_FOOD) return ;
+        var keys = Object.keys(foodConfig);
+        
+        let newFood = new Food(
+          foodConfig[keys[ keys.length * Math.random() << 0]],
+          this,
+          Math.random() * this.bg.width,
+          Math.random() * this.bg.height
+         ) ;
+         newFood.start() ;
+         this.physics.add.overlap(this.player, newFood, (player, food) => this.eat(food));
+         this.foods.push(newFood) ;
+      }, 5000) ;
 
-            const lockedToCamPointer = this.pointer.positionToCamera(this.cameras.main)
-      
-            let newPlayerVelocityX = this.player.body.velocity.x - this.WATER_FRICTION
-            let newPlayerVelocityY = this.player.body.velocity.y - this.WATER_FRICTION
-      
-      
-            if (newPlayerVelocityX < 0)
-              newPlayerVelocityX = 0
-      
-            if (newPlayerVelocityY < 0)
-              newPlayerVelocityY = 0
-      
-            if (lockedToCamPointer.x >= this.player.x + this.MOUSE_X_BUFFER) {
-      
-              this.player.flipX = false
-              newPlayerVelocityX = (lockedToCamPointer.x - this.player.x) / this.player.scale
-      
-            }
-      
-            else if (lockedToCamPointer.x <= this.player.x - this.MOUSE_X_BUFFER) {
-      
-              newPlayerVelocityX = -1 * Math.abs(lockedToCamPointer.x - this.player.x) / this.player.scale
-              this.player.flipX = true
-      
-            }
-      
-            if (lockedToCamPointer.y >= this.player.y + this.MOUSE_Y_BUFFER) {
-      
-              newPlayerVelocityY = (lockedToCamPointer.y - this.player.y) / this.player.scale * 2
-      
-            }
-      
-            else if (lockedToCamPointer.y <= this.player.y - this.MOUSE_Y_BUFFER) {
-      
-              newPlayerVelocityY = -1 * Math.abs(lockedToCamPointer.y - this.player.y) / this.player.scale * 2
-      
-            }
-      
-            this.player.body.setVelocityX(newPlayerVelocityX)
-            this.player.body.setVelocityY(newPlayerVelocityY)
-          }
+      this.move() ;
     }
 
     eat(food) {
       if (!food.isDead) {
-        this.score++ ;
+        this.score += food.score ;
         this.scoreText.setText('Score   ' + this.score);
         food.kill() ;
+        this.foods.splice(this.foods.indexOf(food), 1) ;
       }
     }
 
@@ -122,5 +95,51 @@ export class OceanScene extends Phaser.Scene {
       location.x = this.player.x;
       location.y = this.player.y;
       return location ;
+    }
+
+    move() {
+      if (this.player.body && this.pointer !== null) {
+
+        const lockedToCamPointer = this.pointer.positionToCamera(this.cameras.main)
+  
+        let newPlayerVelocityX = this.player.body.velocity.x - WATER_FRICTION
+        let newPlayerVelocityY = this.player.body.velocity.y - WATER_FRICTION
+  
+  
+        if (newPlayerVelocityX < 0)
+          newPlayerVelocityX = 0
+  
+        if (newPlayerVelocityY < 0)
+          newPlayerVelocityY = 0
+  
+        if (lockedToCamPointer.x >= this.player.x + MOUSE_X_BUFFER) {
+  
+          this.player.flipX = false
+          newPlayerVelocityX = (lockedToCamPointer.x - this.player.x) / this.player.scale
+  
+        }
+  
+        else if (lockedToCamPointer.x <= this.player.x - MOUSE_X_BUFFER) {
+  
+          newPlayerVelocityX = -1 * Math.abs(lockedToCamPointer.x - this.player.x) / this.player.scale
+          this.player.flipX = true
+  
+        }
+  
+        if (lockedToCamPointer.y >= this.player.y + MOUSE_Y_BUFFER) {
+  
+          newPlayerVelocityY = (lockedToCamPointer.y - this.player.y) / this.player.scale * 2
+  
+        }
+  
+        else if (lockedToCamPointer.y <= this.player.y - MOUSE_Y_BUFFER) {
+  
+          newPlayerVelocityY = -1 * Math.abs(lockedToCamPointer.y - this.player.y) / this.player.scale * 2
+  
+        }
+  
+        this.player.body.setVelocityX(newPlayerVelocityX)
+        this.player.body.setVelocityY(newPlayerVelocityY)
+      }
     }
 }
