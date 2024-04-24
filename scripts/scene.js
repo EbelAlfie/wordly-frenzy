@@ -52,6 +52,21 @@ export class OceanScene extends Phaser.Scene {
           this.player.start()
         })
 
+        setInterval(() => {
+          if (this.foods.length >= MAX_FOOD) return ;
+          var keys = Object.keys(foodConfig);
+          
+          let newFood = new Food(
+            foodConfig[keys[ keys.length * Math.random() << 0]],
+            this,
+            Math.random() * this.bg.width,
+            Math.random() * this.bg.height
+           ) ;
+           newFood.start() ;
+           this.physics.add.overlap(this.player, newFood, (player, food) => this.eat(food));
+           this.foods.push(newFood) ;
+        }, 1000) ;
+
         this.physics.add.overlap(this.player, enemy, (player, enemy) => this.eaten(enemy));
 
         //this.cameras.main.startFollow(this.player)
@@ -59,21 +74,6 @@ export class OceanScene extends Phaser.Scene {
     }
 
     update() {
-      setInterval(() => {
-        if (this.foods.length >= MAX_FOOD) return ;
-        var keys = Object.keys(foodConfig);
-        
-        let newFood = new Food(
-          foodConfig[keys[ keys.length * Math.random() << 0]],
-          this,
-          Math.random() * this.bg.width,
-          Math.random() * this.bg.height
-         ) ;
-         newFood.start() ;
-         this.physics.add.overlap(this.player, newFood, (player, food) => this.eat(food));
-         this.foods.push(newFood) ;
-      }, 5000) ;
-
       this.move() ;
     }
 
