@@ -52,8 +52,8 @@ export class OceanScene extends Phaser.Scene {
           this.player.start()
         })
 
-        this.physics.add.overlap(this.player, enemy, (enemy) => this.eaten(enemy));
-        this.physics.add.overlap(this.player, food, (food) => this.eat(food));
+        this.physics.add.overlap(this.player, enemy, (player, enemy) => this.eaten(enemy));
+        this.physics.add.overlap(this.player, food, (player, food) => this.eat(food));
 
         //this.cameras.main.startFollow(this.player)
         // this.cameras.main.zoom = 0.5

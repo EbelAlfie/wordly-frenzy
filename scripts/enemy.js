@@ -54,7 +54,8 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
     preUpdate ()
     {
         let playerTarget = this.scene.getPlayerLocation(this.target);
-        this.setFlipX(this.x > playerTarget.x) ;
+        let realBody = this.body.width/2 + this.x ;
+        this.setFlipX(realBody > playerTarget.x) ;
         this.scene.physics.moveToObject(this, playerTarget, this.speed) + 1.5707963267948966;
     }
 }
