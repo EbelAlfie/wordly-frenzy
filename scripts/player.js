@@ -28,6 +28,8 @@ export default class Player extends Phaser.Physics.Arcade.Image
             {
                 this.target.x = pointer.x;
                 this.target.y = pointer.y;
+                this.setAccelerationX(pointer.x) ;
+                this.setAccelerationY(pointer.y) ;
             }
         });
     }

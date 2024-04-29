@@ -46,7 +46,7 @@ export class OceanScene extends Phaser.Scene {
             this.pointer = pointer
         });
         this.input.once('pointerdown', (pointer) => {
-          this.player.start()
+          this.player.start() ;
         })
 
         setInterval(() => {
