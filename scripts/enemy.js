@@ -5,22 +5,22 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
     {
         super(scene, x, y, 'enemy');
 
-        scene.add.existing(this);
-        scene.physics.add.existing(this);
-
-        scene.anims.create({
+        this.anims.create({
             key: 'move',
-            frames: scene.anims.generateFrameNames('enemy', { start: 0, end: 5 }),
+            frames: this.anims.generateFrameNumbers('enemy', { start: 0, end: 5 }),
             frameRate: 8,
             repeat: -1
         })
 
-        this.play('move') ;
+        scene.add.existing(this);
+        scene.physics.add.existing(this);
+
+        this.anims.play('move', true) ;
 
         this.setScale(0.9);
 
-        this.setCircle(14, 3, 6);
-        this.setCollideWorldBounds(false);
+        //this.setCircle(14, 3, 6);
+        //this.setCollideWorldBounds(false);
 
         this.speed = speed;
         this.target = new Phaser.Math.Vector2();

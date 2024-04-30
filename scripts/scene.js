@@ -18,10 +18,8 @@ export class OceanScene extends Phaser.Scene {
           'enemy', 
           '../resource/enemy.png', 
           {
-            frameWidth: 290,
-            frameHeight: 250,
-            startFrame: 0,
-            endFrame: 5
+            frameWidth: 20 * 16,
+            frameHeight: 18 * 16
           }
         )
 
@@ -36,6 +34,7 @@ export class OceanScene extends Phaser.Scene {
             
         this.scoreText = this.add.text(16, 32, 'Score   0', 40).setDepth(1);
         
+        //this.physics.add.sprite
         this.player = new Player(this, 0, 0) ;
         this.player.start() ;
 
