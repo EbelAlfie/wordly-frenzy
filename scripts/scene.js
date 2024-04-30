@@ -14,6 +14,8 @@ export class OceanScene extends Phaser.Scene {
         this.load.image('background', '../resource/underwater.png');
         this.load.image('player', '../resource/player.png') ; //ejnhance 
         this.load.image('food', '../resource/food.png') ;
+        this.load.image('food2', '../resource/food2.jpg') ;
+        this.load.image('food3', '../resource/food3.jpg') ;
         this.load.spritesheet(
           'enemy', 
           '../resource/enemy.png', 
@@ -61,7 +63,7 @@ export class OceanScene extends Phaser.Scene {
            newFood.start() ;
            this.physics.add.overlap(this.player, newFood, (player, food) => this.eat(food));
            this.foods.push(newFood) ;
-        }, 1000) ;
+        }, 500) ;
 
         this.physics.add.overlap(this.player, enemy, (player, enemy) => this.eaten(enemy));
 
@@ -70,7 +72,7 @@ export class OceanScene extends Phaser.Scene {
     }
 
     update() {
-      //this.move() ;
+      this.move() ;
     }
 
     eat(food) {
