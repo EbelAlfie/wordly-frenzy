@@ -41,14 +41,11 @@ export class OceanScene extends Phaser.Scene {
         let enemy = new Enemy(this, 100, 100, 200) ;
         enemy.start() ;
 
-        // let food = new Food(foodConfig["small"], this, Math.random() * this.bg.width/2, Math.random() * this.bg.height/2, 200) ;
-        // food.start() ;
-        
         this.input.on('pointermove', (pointer) => {
             this.pointer = pointer
         });
         this.input.once('pointerdown', (pointer) => {
-          this.player.start()
+          this.player.start() ;
         })
 
         setInterval(() => {
@@ -73,7 +70,7 @@ export class OceanScene extends Phaser.Scene {
     }
 
     update() {
-      this.move() ;
+      //this.move() ;
     }
 
     eat(food) {
