@@ -11,7 +11,7 @@ export class Food extends Phaser.Physics.Arcade.Sprite {
 
         this.setScale(config.scale);
 
-        this.setCollideWorldBounds(false);
+        this.setCollideWorldBounds(true);
 
         this.score = config.value ;
 
