@@ -7,7 +7,7 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
 
         this.anims.create({
             key: 'move',
-            frames: this.anims.generateFrameNumbers('enemy', { start: 0, end: 5 }),
+            frames: this.anims.generateFrameNumbers('enemy', { frames: [ 0, 1, 2, 3, 4, 5 ] }),
             frameRate: 8,
             repeat: -1
         })
