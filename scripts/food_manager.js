@@ -8,32 +8,32 @@ export class FoodManager extends Phaser.Physics.Arcade.Group {
     }
     start ()
     {
-        let food1 = new Food(
-            foodConfig["small"],
-            this.scene,
-            this.scene.bg.getBounds().left,
-            Math.random() * this.scene.bg.height
-           ) ;
-        let food2 = new Food(
-            foodConfig["medium"],
-            this.scene,
-            this.scene.bg.getBounds().left,
-            Math.random() * this.scene.bg.height
-           ) ;
-        let food3 = new Food(
-            foodConfig["large"],
-            this.scene,
-            this.scene.bg.getBounds().left,
-            Math.random() * this.scene.bg.height
-           ) ;
+        // let food1 = new Food(
+        //     foodConfig["small"],
+        //     this.scene,
+        //     this.scene.bg.getBounds().left,
+        //     Math.random() * this.scene.bg.height
+        //    ) ;
+        // let food2 = new Food(
+        //     foodConfig["medium"],
+        //     this.scene,
+        //     this.scene.bg.getBounds().left,
+        //     Math.random() * this.scene.bg.height
+        //    ) ;
+        // let food3 = new Food(
+        //     foodConfig["large"],
+        //     this.scene,
+        //     this.scene.bg.getBounds().left,
+        //     Math.random() * this.scene.bg.height
+        //    ) ;
 
-        this.add(food1, true);
-        this.add(food2, true);
-        this.add(food3, true);
+        // this.add(food1, true);
+        // this.add(food2, true);
+        // this.add(food3, true);
 
-        food1.start();
-        food2.start();
-        food3.start();
+        // food1.start();
+        // food2.start();
+        // food3.start();
 
         this.timedEvent = this.scene.time.addEvent({ delay: 2000, callback: this.manageFoods, callbackScope: this, loop: true });
     }
@@ -55,8 +55,7 @@ export class FoodManager extends Phaser.Physics.Arcade.Group {
         const y = Phaser.Math.RND.between(0, 600);
 
         let food;
-
-        let config = Phaser.Math.RND.pick(this.foodConfig);
+        var keys = Object.keys(this.foodConfig);
 
         // this.getChildren().forEach((child) => {
 
@@ -67,13 +66,13 @@ export class FoodManager extends Phaser.Physics.Arcade.Group {
 
         // });
 
-
+        console.log(this.foodConfig) ;
         food = new Food(
-            config,
-            this,
+            this.foodConfig[keys[ keys.length * Math.random() << 0]],
+            this.scene,
             this.scene.bg.getBounds().left,
             Math.random() * this.scene.bg.height
-            ) ;;
+        ) ;
 
         this.add(food, true);
 

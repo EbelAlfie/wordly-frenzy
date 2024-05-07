@@ -71,7 +71,7 @@ export class OceanScene extends Phaser.Scene {
 
         //this.physics.add.overlap(this.player, enemy, (player, enemy) => this.eaten(enemy));
 
-        this.physics.add.overlap(this.player, foodManager, (player, food) => this.eat(food))
+        this.physics.add.overlap(this.player, this.foodManager, (player, food) => this.eat(food))
         //this.cameras.main.startFollow(this.player)
         // this.cameras.main.zoom = 0.5
     }
@@ -85,7 +85,7 @@ export class OceanScene extends Phaser.Scene {
         this.score += food.score ;
         this.scoreText.setText('Score   ' + this.score);
         food.kill() ;
-        this.foods.splice(this.foods.indexOf(food), 1) ;
+        //this.foods.splice(this.foods.indexOf(food), 1) ;
       }
     }
 
