@@ -2,6 +2,7 @@ import { Enemy } from "./enemy.js"
 import Player from "./player.js"
 import { Food } from "./food.js"
 import { foodConfig, MAX_FOOD } from "./config/game_config.js"
+import { FoodManager } from "./food_manager.js"
 
 export class OceanScene extends Phaser.Scene {
 
@@ -39,7 +40,9 @@ export class OceanScene extends Phaser.Scene {
         //this.physics.add.sprite
         this.player = new Player(this, 0, 0) ;
         this.player.start() ;
-
+        
+        this.foodManager = new FoodManager(this.physics.world, this) ;
+        this.foodManager.start() ;
         // let enemy = new Enemy(this, 100, 100, 200) ;
         // enemy.start() ;
 
@@ -48,25 +51,27 @@ export class OceanScene extends Phaser.Scene {
         });
         this.input.once('pointerdown', (pointer) => {
           this.player.start() ;
+          this.foodManager.start() ;
         })
 
-        setInterval(() => {
-          if (this.foods.length >= MAX_FOOD) return ;
-          var keys = Object.keys(foodConfig);
+        // setInterval(() => {
+        //   if (this.foods.length >= MAX_FOOD) return ;
+        //   var keys = Object.keys(foodConfig);
           
-          let newFood = new Food(
-            foodConfig[keys[ keys.length * Math.random() << 0]],
-            this,
-            this.bg.getBounds().left,
-            Math.random() * this.bg.height
-           ) ;
-           newFood.start() ;
-           this.physics.add.overlap(this.player, newFood, (player, food) => this.eat(food));
-           this.foods.push(newFood) ;
-        }, 500) ;
+        //   let newFood = new Food(
+        //     foodConfig[keys[ keys.length * Math.random() << 0]],
+        //     this,
+        //     this.bg.getBounds().left,
+        //     Math.random() * this.bg.height
+        //    ) ;
+        //    newFood.start() ;
+        //    this.physics.add.overlap(this.player, newFood, (player, food) => this.eat(food));
+        //    this.foods.push(newFood) ;
+        // }, 500) ;
 
         //this.physics.add.overlap(this.player, enemy, (player, enemy) => this.eaten(enemy));
 
+        this.physics.add.overlap(this.player, foodManager, (player, food) => this.eat(food))
         //this.cameras.main.startFollow(this.player)
         // this.cameras.main.zoom = 0.5
     }
