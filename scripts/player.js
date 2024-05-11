@@ -65,11 +65,9 @@ export default class Player extends Phaser.Physics.Arcade.Image
           let newPlayerVelocityY = this.body.velocity.y - WATER_FRICTION
     
     
-          if (newPlayerVelocityX < 0)
-            newPlayerVelocityX = 0
+          if (newPlayerVelocityX < 0) newPlayerVelocityX = 0
     
-          if (newPlayerVelocityY < 0)
-            newPlayerVelocityY = 0
+          if (newPlayerVelocityY < 0) newPlayerVelocityY = 0
     
           if (lockedToCamPointer.x >= this.x + MOUSE_X_BUFFER) {
     
