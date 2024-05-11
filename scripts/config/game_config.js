@@ -11,3 +11,4 @@ export const MOUSE_Y_BUFFER = 13
 export const WATER_FRICTION = 2
 
 export const MAX_FOOD = 20
+export const MAX_POWERUPS = 3

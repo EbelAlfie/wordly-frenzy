@@ -3,6 +3,7 @@ import Player from "./player.js"
 import { Food } from "./food.js"
 import { foodConfig, MAX_FOOD } from "./config/game_config.js"
 import { FoodManager } from "./food_manager.js"
+import { PowerUpManager } from "./power_up_manager.js"
 
 export class OceanScene extends Phaser.Scene {
 
@@ -43,35 +44,12 @@ export class OceanScene extends Phaser.Scene {
         
         this.foodManager = new FoodManager(this.physics.world, this) ;
         this.foodManager.start() ;
-        // let enemy = new Enemy(this, 100, 100, 200) ;
-        // enemy.start() ;
 
-        this.input.on('pointermove', (pointer) => {
-            this.pointer = pointer
-        });
-        this.input.once('pointerdown', (pointer) => {
-          this.player.start() ;
-          this.foodManager.start() ;
-        })
-
-        // setInterval(() => {
-        //   if (this.foods.length >= MAX_FOOD) return ;
-        //   var keys = Object.keys(foodConfig);
-          
-        //   let newFood = new Food(
-        //     foodConfig[keys[ keys.length * Math.random() << 0]],
-        //     this,
-        //     this.bg.getBounds().left,
-        //     Math.random() * this.bg.height
-        //    ) ;
-        //    newFood.start() ;
-        //    this.physics.add.overlap(this.player, newFood, (player, food) => this.eat(food));
-        //    this.foods.push(newFood) ;
-        // }, 500) ;
-
-        //this.physics.add.overlap(this.player, enemy, (player, enemy) => this.eaten(enemy));
-
-        this.physics.add.overlap(this.player, this.foodManager, (player, food) => this.eat(food))
+        this.powerUpManager = new PowerUpManager(this.physics.world, this) ;
+        this.powerUpManager.start() ;
+        
+        this.physics.add.overlap(this.player, this.foodManager, (player, food) => this.eat(food, this.foodManager))
+        this.physics.add.overlap(this.player, this.powerUpManager, (player, powerUp) => this.power(powerUp, player))
         //this.cameras.main.startFollow(this.player)
         // this.cameras.main.zoom = 0.5
     }
@@ -80,13 +58,18 @@ export class OceanScene extends Phaser.Scene {
       //this.move() ;
     }
 
-    eat(food) {
+    eat(food, foodManager) {
       if (!food.isDead) {
         this.score += food.score ;
         this.scoreText.setText('Score   ' + this.score);
+        foodManager.remove(food) ;
         food.kill() ;
         //this.foods.splice(this.foods.indexOf(food), 1) ;
       }
+    }
+
+    power(power, player) {
+      
     }
 
     eaten(enemy) {
