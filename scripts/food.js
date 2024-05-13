@@ -2,12 +2,14 @@ export class Food extends Phaser.Physics.Arcade.Sprite {
     isDead = false ;
     score = 0 ;
 
-    constructor (config, scene, x, y)
+    constructor (config, scene, x, y, label)
     {
         super(scene, x, y, config.sprite);
 
         scene.add.existing(this);
         scene.physics.add.existing(this);
+
+        this.add.text(16, 32, 'Score   0', 40).setDepth(1);
 
         this.setScale(config.scale);
 

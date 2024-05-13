@@ -1,5 +1,5 @@
 //import Phaser from "./phaser.js";
-import { OceanScene } from "./scene.js" ;
+import { OceanScene } from "./scenes/game.js" ;
 
 window.onload = (a, t) => {
     const config = {
@@ -16,7 +16,7 @@ window.onload = (a, t) => {
                 gravity: { y: 200 }
             }
         },
-        scene: OceanScene
+        scene: [OceanScene]
     };
 
     const game = new Phaser.Game(config)

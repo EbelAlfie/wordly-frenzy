@@ -6,9 +6,16 @@ export class FoodManager extends Phaser.Physics.Arcade.Group {
         super(world, scene);
         this.foodConfig = foodConfig ;
     }
-    start ()
+    start (answers)
     {
-        this.timedEvent = this.scene.time.addEvent({ delay: 2000, callback: this.manageFoods, callbackScope: this, loop: true });
+        this.timedEvent = this.scene.time.addEvent({ 
+            delay: 2000, 
+            callback: () => {
+                this.manageFoods(answers)
+            }, 
+            callbackScope: this, 
+            loop: true 
+        });
     }
 
     stop ()
@@ -22,7 +29,7 @@ export class FoodManager extends Phaser.Physics.Arcade.Group {
         });
     }
 
-    manageFoods ()
+    manageFoods (answers)
     {
         const y = Phaser.Math.RND.between(0, this.scene.bg.height);
 
@@ -31,15 +38,19 @@ export class FoodManager extends Phaser.Physics.Arcade.Group {
         console.log(this.getChildren().length) ;
 
         if (this.getChildren().length >= MAX_FOOD) return
-        let food = new Food(
-            this.foodConfig[keys[ keys.length * Math.random() << 0]],
-            this.scene,
-            this.scene.bg.getBounds().left,
-            y
-        ) ;
+        answers.forEach((answer) => {
+            let food = new Food(
+                this.foodConfig[keys[ keys.length * Math.random() << 0]],
+                this.scene,
+                this.scene.bg.getBounds().left,
+                y,
+                answer
+            ) ;
+    
+            this.add(food, true);
+    
+            food.start();
+        })
 
-        this.add(food, true);
-
-        food.start();
     }
 }
