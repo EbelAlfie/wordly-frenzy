@@ -9,6 +9,15 @@ export default class Player extends Phaser.Physics.Arcade.Image
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
+        this.scene.anims.create(
+          "player",
+          frames= {
+            start:0, 
+            end: 15
+          }
+        ) 
+        //this.scene.anims.play("player") ;
+
         this.setScale(0.3);
 
         this.setCircle(14, 3, 6);

@@ -17,7 +17,15 @@ export class OceanScene extends Phaser.Scene {
 
   preload() {
       this.load.image('background', '../resource/underwater.png');
-      this.load.image('player', '../resource/player.png') ; //ejnhance 
+      //this.load.image('player', '../resource/player.png') ; //ejnhance 
+      this.load.spritesheet(
+        'player', 
+        '../resource/me.png', 
+        {
+          frameWidth: 14 * 16,
+          frameHeight: 15 * 16
+        }
+      )
       this.load.image('food', '../resource/food.png') ;
       this.load.image('food2', '../resource/food2.jpg') ;
       this.load.image('food3', '../resource/food3.jpg') ;
@@ -33,23 +41,36 @@ export class OceanScene extends Phaser.Scene {
       this.scoreText;
   }
 
+  onQuizLoaded(quizModel) {
+    console.log(quizModel) ;
+    document.querySelector("soal_quiz").innerHTML = quizModel.soal
+    //dismissLoading()
+    //restartGame()
+  }
+
   create() {
 
       //loadQuiz
-      quizModule.queryQuiz("") ;
+      this.quizModule.queryQuiz("")
+      .then((quiz) => {
+        this.onQuizLoaded(quiz) ;
+      })
+      .catch(() => {
+        
+      }) ;
 
       this.bg = 
           this.add.image(0, 0, 'background').setOrigin(0)
           .setDisplaySize(document.body.clientWidth, document.body.clientHeight);
           
-      this.scoreText = this.add.text(16, 32, `Score   ${quizModule.score}`, 40).setDepth(1);
+      this.scoreText = this.add.text(16, 32, `Score   ${this.quizModule.score}`, 40).setDepth(1);
       
       //this.physics.add.sprite
       this.player = new Player(this, 0, 0) ;
       this.player.start() ;
       
       this.foodManager = new FoodManager(this.physics.world, this) ;
-      this.foodManager.start(quizModule.currentQuiz.jawaban) ;
+      this.foodManager.start(this.quizModule.currentQuiz.jawaban) ;
 
       // this.powerUpManager = new PowerUpManager(this.physics.world, this) ;
       // this.powerUpManager.start() ;
@@ -66,7 +87,7 @@ export class OceanScene extends Phaser.Scene {
 
   eat(food, foodManager) {
     if (!food.isDead) {
-      quizModule.postAnswer(food.answer) ;
+      this.quizModule.postAnswer(food.answer) ;
       this.scoreText.setText('Score   ' + this.quizModule.score);
       foodManager.remove(food) ;
       food.kill() ;

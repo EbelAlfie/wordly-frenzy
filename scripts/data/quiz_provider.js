@@ -9,7 +9,20 @@ export class QuizModule {
     }
 
     queryQuiz(type) {
-        currentQuiz =  {
+        return new Promise((resolve, reject) => {
+            this.currentQuiz = this.getQuiz()
+            resolve(this.currentQuiz)
+            
+            // if (this.currentQuiz != null) {
+            //     resolve(this.currentQuiz)
+            // } else {
+            //     reject() 
+            // }
+        })
+    }
+
+    getQuiz() {
+        return {
             soal: "Hai",
             jawaban: ["aku", "bukan", "akus"],
             score: 100,
@@ -17,11 +30,12 @@ export class QuizModule {
         }    
     }
     
+    
     postAnswer(answer) {
         if (answer != this.currentQuiz.jawaban[this.currentQuiz.jawabanBenar]) {
-            score -= this.currentQuiz.score ;
+            this.score -= this.currentQuiz.score ;
         } else {
-            score += this.currentQuiz.score ;
+            this.score += this.currentQuiz.score ;
         }
         //update id soal benar/ salah, update point user
     }

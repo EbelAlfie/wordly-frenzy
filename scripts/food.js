@@ -1,6 +1,7 @@
 export class Food extends Phaser.Physics.Arcade.Sprite {
     isDead = false ;
     score = 0 ;
+    text = "" ;
 
     constructor (config, scene, x, y, label)
     {
@@ -9,13 +10,15 @@ export class Food extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
-        this.add.text(16, 32, 'Score   0', 40).setDepth(1);
+        //this.add.text(16, 32, 'Score   0', 40).setDepth(1);
 
         this.setScale(config.scale);
 
         this.setCollideWorldBounds(true);
 
         this.score = config.value ;
+
+        this.text = label ;
 
         this.speed = config.speed;
         this.target = new Phaser.Math.Vector2();
