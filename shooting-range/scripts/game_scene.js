@@ -19,6 +19,7 @@ export class GameScene extends Phaser.Scene {
   preload() {
     this.load.image('background', 'assets/bg.png');
     this.load.image('background_red', 'assets/bg_red.png');
+    this.load.image('background_red_blur', 'assets/bg_red_blur.png');
     this.load.image('crosshair', 'assets/crosshair.png');
     this.load.image('target', 'assets/target.png');
     this.load.css('google-fonts', 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap');
@@ -158,6 +159,7 @@ export class GameScene extends Phaser.Scene {
       fontFamily: 'Poppins, Arial, sans-serif',
       wordWrap: { width: textWidth },
       align: 'left',
+      fontStyle: 'bold',
     });
     this.paragraphText.setOrigin(0, 0.5); // Align left and center vertically
 
@@ -165,7 +167,8 @@ export class GameScene extends Phaser.Scene {
     this.timerText = this.add.text(window.innerWidth - 60, window.innerHeight - 160 + 65, '100', {
       fontSize: '64px',
       fill: '#ffffff',
-      fontFamily: 'Poppins, Arial, sans-serif'
+      fontFamily: 'Poppins, Arial, sans-serif',
+      fontStyle: 'bold',
     });
     this.timerText.setOrigin(1, 0.5); // Align right and center vertically
 
@@ -461,17 +464,97 @@ export class GameScene extends Phaser.Scene {
   }
 
   displayScore() {
+    this.background = this.add.image(0, 0, 'background_red_blur').setOrigin(0);
+    this.updateBgSize(this.background);
+    
     const finalScore = ((this.score / this.totalQuestion) * 100).toFixed(0);
 
-    // display the score on the screen
-    const scoreText = this.add.text(this.game.config.width / 2, this.game.config.height / 2, `${this.score} dari ${this.totalQuestion} soal berhasil terjawab dari tembakan pertama\nsehingga nilaimu adalah: ${finalScore} / 100`, {
-      fontSize: '32px',
-      fill: '#000000',
-      align: 'center',
-      fontFamily: 'Poppins, Arial, sans-serif',
+    // Create a graphics object for the score box
+    const scoreBox = this.add.graphics();
+    scoreBox.fillStyle(0x000000, 0.7); // Black color with 70% opacity
+    scoreBox.fillRect(0, this.game.config.height / 2 - 100, this.game.config.width, 200); // 200px height, spans entire width
+
+    let rating = '';
+
+    if (finalScore == 100) {
+      rating = 'S';
+    } else if (finalScore >= 90 && finalScore < 100) {
+      rating = 'A';
+    } else if (finalScore >= 80 && finalScore < 90) {
+      rating = 'B+';
+    } else if (finalScore >= 70 && finalScore < 80) {
+      rating = 'B';
+    } else if (finalScore >= 60 && finalScore < 70) {
+      rating = 'C+';
+    } else if (finalScore >= 50 && finalScore < 60) {
+      rating = 'C';
+    } else if (finalScore < 50) {
+      rating = 'D';
+    }
+
+    // Add text for the final score (left column)
+    const scoreText = this.add.text(40, this.game.config.height / 2, `Pertanyaan yang terjawab benar dari sekali tembak: ${this.score}\nNilai anda: ${finalScore}\nRating anda: ${rating}`, {
+        fontSize: '24px',
+        fill: '#ffffff',
+        align: 'left',
+        fontFamily: 'Poppins, Arial, sans-serif',
+        lineSpacing: 10,
     });
-    scoreText.setOrigin(0.5);
+    scoreText.setOrigin(0, 0.5); // Align left and center vertically
+
+    // Add buttons (right column)
+    const buttonSpacing = 20; // Space between buttons
+    const buttonWidth = 220; // Width of each button
+    const buttonHeight = 50; // Height of each button
+
+    const button1X = this.game.config.width - buttonWidth - buttonSpacing - 280; // Adjust position with spacing
+    const button1Y = this.game.config.height / 2 - 25; // Centered vertically
+
+    const button2X = this.game.config.width - buttonWidth - buttonSpacing - 20; // Adjust position with spacing
+    const button2Y = this.game.config.height / 2 - 25; // Centered vertically
+
+    // Create button graphics for button 1
+    const button1Graphics = this.add.graphics();
+    button1Graphics.fillStyle(0x3DB2FF, 1); // Red color
+    button1Graphics.fillRoundedRect(button1X, button1Y, buttonWidth, buttonHeight, 25); // Rounded rectangle with border radius 10
+    button1Graphics.setInteractive(new Phaser.Geom.Rectangle(button1X, button1Y, buttonWidth, buttonHeight), Phaser.Geom.Rectangle.Contains);
+
+    // Add text on top of button 1 graphics
+    const button1Text = this.add.text(button1X + buttonWidth / 2, button1Y + buttonHeight / 2, 'Coba lagi', {
+        fontSize: '20px',
+        fill: '#ffffff',
+        fontFamily: 'Poppins, Arial, sans-serif',
+        align: 'center',
+    });
+    button1Text.setOrigin(0.5); // Center align text within the button
+
+    // Create button graphics for button 2
+    const button2Graphics = this.add.graphics();
+    button2Graphics.fillStyle(0x8B22DE, 1); // Green color
+    button2Graphics.fillRoundedRect(button2X, button2Y, buttonWidth, buttonHeight, 25); // Rounded rectangle with border radius 10
+    button2Graphics.setInteractive(new Phaser.Geom.Rectangle(button2X, button2Y, buttonWidth, buttonHeight), Phaser.Geom.Rectangle.Contains);
+
+    // Add text on top of button 2 graphics
+    const button2Text = this.add.text(button2X + buttonWidth / 2, button2Y + buttonHeight / 2, 'Ke menu utama', {
+        fontSize: '20px',
+        fill: '#ffffff',
+        fontFamily: 'Poppins, Arial, sans-serif',
+        align: 'center',
+    });
+    button2Text.setOrigin(0.5); // Center align text within the button
+
+    // Add pointer events for button 1
+    button1Graphics.on('pointerdown', () => {
+        console.log('Button 1 clicked');
+    });
+
+    // Add pointer events for button 2
+    button2Graphics.on('pointerdown', () => {
+        console.log('Button 2 clicked');
+    });
   }
+
+
 
   hideGameElements() {
     // clear and destroy all targets in the targetsGroup
