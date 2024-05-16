@@ -164,7 +164,7 @@ export class GameScene extends Phaser.Scene {
     this.paragraphText.setOrigin(0, 0.5); // Align left and center vertically
 
     // Add text for the timer (right column) floated right within the container
-    this.timerText = this.add.text(window.innerWidth - 60, window.innerHeight - 160 + 65, '100', {
+    this.timerText = this.add.text(window.innerWidth - 60, window.innerHeight - 160 + 65, '60', {
       fontSize: '64px',
       fill: '#ffffff',
       fontFamily: 'Poppins, Arial, sans-serif',
@@ -173,7 +173,7 @@ export class GameScene extends Phaser.Scene {
     this.timerText.setOrigin(1, 0.5); // Align right and center vertically
 
     // Set the initial time in seconds
-    let timeInSeconds = 100;
+    let timeInSeconds = 60;
 
     // Update the timer text every second using setInterval
     this.timerInterval = setInterval(() => {
