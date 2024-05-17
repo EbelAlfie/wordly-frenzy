@@ -43,7 +43,7 @@ export class OceanScene extends Phaser.Scene {
 
   onQuizLoaded(quizModel) {
     console.log(quizModel) ;
-    document.querySelector("soal_quiz").innerHTML = quizModel.soal
+    document.getElementById('soal_quiz').innerText = quizModel.soal
     //dismissLoading()
     //restartGame()
   }
