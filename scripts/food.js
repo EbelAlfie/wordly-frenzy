@@ -10,7 +10,7 @@ export class Food extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
-        //this.add.text(16, 32, 'Score   0', 40).setDepth(1);
+        this.add.text(x, y, label, 40).setDepth(1);
 
         this.setScale(config.scale);
 

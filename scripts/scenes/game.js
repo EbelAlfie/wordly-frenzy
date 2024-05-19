@@ -55,7 +55,10 @@ export class OceanScene extends Phaser.Scene {
     this.showLoading() ;
     this.quizModule.queryQuiz("")
     .then((quiz) => {
-      this.onQuizLoaded(quiz) ;
+      if (quiz === null) {
+        //gameover
+      } else 
+        this.onQuizLoaded(quiz) ;
       this.dismissLoading() ;
     })
     .catch((error) => {
@@ -76,7 +79,6 @@ export class OceanScene extends Phaser.Scene {
     this.scoreText = 
     this.add.text(60, 32, `Score   ${this.quizModule.score}`, 40).setDepth(1);
     
-    //this.physics.add.sprite
     this.player = new Player(this, 0, 0) ;
     this.player.start() ;
     
@@ -88,7 +90,7 @@ export class OceanScene extends Phaser.Scene {
     //this.physics.add.overlap(this.player, this.powerUpManager, (player, powerUp) => this.power(powerUp, player))
     //this.cameras.main.startFollow(this.player)
     // this.cameras.main.zoom = 0.5
-     //loadQuiz
+    //loadQuiz
     this.loadQuiz() ;
   }
 
@@ -96,18 +98,11 @@ export class OceanScene extends Phaser.Scene {
     this.foodManager.spawn(currentQuiz.jawaban) ;
   }
 
-  update() {
-    //this.move() ;
-  }
-
   eat(food, foodManager) {
     this.showLoading() ;
     if (!food.isDead) {
       this.quizModule.postAnswer(food.answer) ;
       this.scoreText.setText('Score   ' + this.quizModule.score);
-      // foodManager.remove(food) ;
-      // food.kill() ;
-      //reset game
       foodManager.stop();
       this.loadQuiz() ;
     }
@@ -115,10 +110,6 @@ export class OceanScene extends Phaser.Scene {
 
   power(power, player) {
     
-  }
-
-  eaten(enemy) {
-    this.player.kill() ;
   }
 
   getPlayerLocation(location) {

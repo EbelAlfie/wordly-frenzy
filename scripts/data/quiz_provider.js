@@ -32,7 +32,7 @@ export class QuizModule {
 
     queryQuiz(type) {
         return new Promise((resolve, reject) => {
-            this.choosenQuiz = this.getQuiz()
+            this.choosenQuiz = this.getQuiz() ;
             resolve(this.choosenQuiz)
             
             // if (this.currentQuiz != null) {
@@ -44,6 +44,7 @@ export class QuizModule {
     }
 
     getQuiz() {
+        if (this.new > this.quizes.length) return null ;
         return this.quizes[this.new] ;
     }
     
