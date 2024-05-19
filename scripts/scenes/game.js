@@ -41,44 +41,59 @@ export class OceanScene extends Phaser.Scene {
       this.scoreText;
   }
 
+  showLoading() {
+    let loading = document.getElementById("loading-screen") ;
+    loading.style.visibility = "visible"
+  }
+
+  dismissLoading() {
+    let loading = document.getElementById("loading-screen") ;
+    loading.style.visibility = "hidden"
+  }
+
+  loadQuiz() {
+    this.showLoading() ;
+    this.quizModule.queryQuiz("")
+    .then((quiz) => {
+      this.onQuizLoaded(quiz) ;
+      this.dismissLoading() ;
+    })
+    .catch((error) => {
+      console.log("LOAD QUIZ ERROR " + error)
+    }) ;
+  }
+
   onQuizLoaded(quizModel) {
-    console.log(quizModel) ;
     document.getElementById('soal_quiz').innerText = quizModel.soal
-    //dismissLoading()
-    //restartGame()
+    this.restart(quizModel);
   }
 
   create() {
-
-      //loadQuiz
-      this.quizModule.queryQuiz("")
-      .then((quiz) => {
-        this.onQuizLoaded(quiz) ;
-      })
-      .catch(() => {
+    this.bg = 
+        this.add.image(0, 0, 'background').setOrigin(0)
+        .setDisplaySize(document.body.clientWidth, document.body.clientHeight);
         
-      }) ;
+    this.scoreText = 
+    this.add.text(60, 32, `Score   ${this.quizModule.score}`, 40).setDepth(1);
+    
+    //this.physics.add.sprite
+    this.player = new Player(this, 0, 0) ;
+    this.player.start() ;
+    
+    this.foodManager = new FoodManager(this.physics.world, this) ;
+    // this.powerUpManager = new PowerUpManager(this.physics.world, this) ;
+    // this.powerUpManager.start() ;
+    
+    this.physics.add.overlap(this.player, this.foodManager, (player, food) => this.eat(food, this.foodManager))
+    //this.physics.add.overlap(this.player, this.powerUpManager, (player, powerUp) => this.power(powerUp, player))
+    //this.cameras.main.startFollow(this.player)
+    // this.cameras.main.zoom = 0.5
+     //loadQuiz
+    this.loadQuiz() ;
+  }
 
-      this.bg = 
-          this.add.image(0, 0, 'background').setOrigin(0)
-          .setDisplaySize(document.body.clientWidth, document.body.clientHeight);
-          
-      this.scoreText = this.add.text(16, 32, `Score   ${this.quizModule.score}`, 40).setDepth(1);
-      
-      //this.physics.add.sprite
-      this.player = new Player(this, 0, 0) ;
-      this.player.start() ;
-      
-      this.foodManager = new FoodManager(this.physics.world, this) ;
-      this.foodManager.start(this.quizModule.currentQuiz.jawaban) ;
-
-      // this.powerUpManager = new PowerUpManager(this.physics.world, this) ;
-      // this.powerUpManager.start() ;
-      
-      this.physics.add.overlap(this.player, this.foodManager, (player, food) => this.eat(food, this.foodManager))
-      //this.physics.add.overlap(this.player, this.powerUpManager, (player, powerUp) => this.power(powerUp, player))
-      //this.cameras.main.startFollow(this.player)
-      // this.cameras.main.zoom = 0.5
+  restart(currentQuiz) {
+    this.foodManager.spawn(currentQuiz.jawaban) ;
   }
 
   update() {
@@ -86,12 +101,15 @@ export class OceanScene extends Phaser.Scene {
   }
 
   eat(food, foodManager) {
+    this.showLoading() ;
     if (!food.isDead) {
       this.quizModule.postAnswer(food.answer) ;
       this.scoreText.setText('Score   ' + this.quizModule.score);
-      foodManager.remove(food) ;
-      food.kill() ;
+      // foodManager.remove(food) ;
+      // food.kill() ;
       //reset game
+      foodManager.stop();
+      this.loadQuiz() ;
     }
   }
 

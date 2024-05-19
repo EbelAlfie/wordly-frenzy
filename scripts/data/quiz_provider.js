@@ -1,7 +1,29 @@
 export class QuizModule {
     score = 0;
 
-    currentQuiz = {
+    new = 0 ;
+    quizes = [
+        {
+            soal: "Seandainya aku tidak mencintaimu, tidak akan terbit rindu sewaktu berpisah. Tak ingin menulis surat atau meneleponmu. Tidak memberimu bunga saat ulang tahun. Tidak memandang matamu, menyentuh tanganmu, dan sesekali mencium. (Cerpen “Hari Terakhir Mencintaimu”, karya Kurnia Efendi)",
+            jawaban: ["Misteri", "Fantasi", "Konflik", "Cinta"],
+            score: 100,
+            jawabanBenar: 0 
+        },
+        {
+            soal: "Seandainya rbit ri ingin menulis surat atau meneleponmu. Tidak memberimu bunga saat ulang tahun. Tidak memandang matamu, menyentuh tanganmu, dan sesekali mencium. (Cerpen “Hari Terakhir Mencintaimu”, karya Kurnia Efendi)",
+            jawaban: ["Misteri", "Fantasi", "Konflik", "Cinta"],
+            score: 100,
+            jawabanBenar: 0 
+        },
+        {
+            soal: "Seandainya ",
+            jawaban: ["Misteri", "Fantasi", "Konflik", "Cinta"],
+            score: 100,
+            jawabanBenar: 0 
+        }
+    ] 
+
+    choosenQuiz = {
         soal: "Seandainya aku tidak mencintaimu, tidak akan terbit rindu sewaktu berpisah. Tak ingin menulis surat atau meneleponmu. Tidak memberimu bunga saat ulang tahun. Tidak memandang matamu, menyentuh tanganmu, dan sesekali mencium. (Cerpen “Hari Terakhir Mencintaimu”, karya Kurnia Efendi)",
         jawaban: ["Misteri", "Fantasi", "Konflik", "Cinta"],
         score: 100,
@@ -10,8 +32,8 @@ export class QuizModule {
 
     queryQuiz(type) {
         return new Promise((resolve, reject) => {
-            this.currentQuiz = this.getQuiz()
-            resolve(this.currentQuiz)
+            this.choosenQuiz = this.getQuiz()
+            resolve(this.choosenQuiz)
             
             // if (this.currentQuiz != null) {
             //     resolve(this.currentQuiz)
@@ -22,22 +44,19 @@ export class QuizModule {
     }
 
     getQuiz() {
-        return {
-            soal: "Hai",
-            jawaban: ["aku", "bukan", "akus"],
-            score: 100,
-            jawabanBenar: 0 
-        }    
+        return this.quizes[this.new] ;
     }
     
     
     postAnswer(answer) {
-        if (answer != this.currentQuiz.jawaban[this.currentQuiz.jawabanBenar]) {
-            this.score -= this.currentQuiz.score ;
+        console.log("QUIZZ" + this.choosenQuiz) ;
+        if (answer != this.choosenQuiz.jawaban[this.choosenQuiz.jawabanBenar]) {
+            this.score -= this.choosenQuiz.score ;
         } else {
-            this.score += this.currentQuiz.score ;
+            this.score += this.choosenQuiz.score ;
         }
         //update id soal benar/ salah, update point user
+        this.new++ ; 
     }
     
     postResult() {        

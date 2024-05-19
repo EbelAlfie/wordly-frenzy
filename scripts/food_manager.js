@@ -6,27 +6,20 @@ export class FoodManager extends Phaser.Physics.Arcade.Group {
         super(world, scene);
         this.foodConfig = foodConfig ;
     }
-    start (answers)
+
+    spawn (answers)
     {
-        this.timedEvent = this.scene.time.addEvent({ 
-            delay: 2000, 
-            callback: () => {
-                this.manageFoods(answers)
-            }, 
-            callbackScope: this, 
-            loop: true 
-        });
+        this.manageFoods(answers)
     }
 
     stop ()
     {
-        this.timedEvent.remove();
-
         this.getChildren().forEach((child) => {
-
+            console.log(child.label);
             child.kill();
-
+            this.remove(child) ;
         });
+        console.log("length stop " + this.getChildren().length) ;
     }
 
     manageFoods (answers)
@@ -35,9 +28,7 @@ export class FoodManager extends Phaser.Physics.Arcade.Group {
 
         var keys = Object.keys(this.foodConfig);
 
-        console.log(this.getChildren().length) ;
-
-        if (this.getChildren().length >= MAX_FOOD) return
+        console.log(answers) ;
         answers.forEach((answer) => {
             let food = new Food(
                 this.foodConfig[keys[ keys.length * Math.random() << 0]],
@@ -52,5 +43,6 @@ export class FoodManager extends Phaser.Physics.Arcade.Group {
             food.start();
         })
 
+        console.log("length init " + this.getChildren().length) ;
     }
 }
