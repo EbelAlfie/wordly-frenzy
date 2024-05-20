@@ -28,11 +28,35 @@ body {
     background-color: #04823f;
 }
 
-#quiz_container {
+#soal_quiz {
     align-self: center;
     height: 10%;
     width: 50%;
     background-color: #0482ef;
+}
+
+#time {
+  align-self: flex-end;
+}
+
+#end-game-screen {
+  display: flex; 
+  visibility: hidden;
+  justify-content: center ;
+  align-items: center ;
+  width: 100% ;
+  height: 100% ;
+  position: absolute; 
+  background-color: rgba(128, 128, 128, 0.55);
+}
+
+#end-game {
+  display: flex;
+  justify-self: center;
+  align-self: center;  
+  position: relative ;
+  background-color: #8B22DE;
+  padding: 10px;
 }
 
 #loading-screen {

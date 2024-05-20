@@ -1,7 +1,7 @@
 export class QuizModule {
     score = 0;
 
-    new = 0 ;
+    currentQuiz = 0 ;
     quizes = [
         {
             soal: "Seandainya aku tidak mencintaimu, tidak akan terbit rindu sewaktu berpisah. Tak ingin menulis surat atau meneleponmu. Tidak memberimu bunga saat ulang tahun. Tidak memandang matamu, menyentuh tanganmu, dan sesekali mencium. (Cerpen “Hari Terakhir Mencintaimu”, karya Kurnia Efendi)",
@@ -44,8 +44,8 @@ export class QuizModule {
     }
 
     getQuiz() {
-        if (this.new > this.quizes.length) return null ;
-        return this.quizes[this.new] ;
+        if (this.currentQuiz > this.quizes.length) return null 
+        else return this.quizes[this.currentQuiz] ;
     }
     
     
@@ -57,7 +57,7 @@ export class QuizModule {
             this.score += this.choosenQuiz.score ;
         }
         //update id soal benar/ salah, update point user
-        this.new++ ; 
+        this.currentQuiz++ ; 
     }
     
     postResult() {        

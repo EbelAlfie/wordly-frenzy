@@ -38,7 +38,7 @@ export class OceanScene extends Phaser.Scene {
         }
       )
 
-      this.scoreText;
+      this.scoreText = this.add.text(0, 0, `Score ${this.quizModule.score}`) ;
   }
 
   showLoading() {
@@ -51,6 +51,16 @@ export class OceanScene extends Phaser.Scene {
     loading.style.visibility = "hidden"
   }
 
+  showEndGameScreen() {
+    let endGame = document.querySelector("end-game") ;
+    endGame.style.visibility = "visible" ;
+    let stats = endGame.querySelector("stats") ;
+    let answered = endGame.querySelector("soal_terjawab") ;
+    let scoreLayout = endGame.querySelector("nilai") ;
+    answered.innerText = `Pertanyaan yang terjawab benar dari sekali X` ;
+    scoreLayout.innerText = `Nilai anda: ${this.quizModule.score}`
+  }
+
   loadQuiz() {
     this.showLoading() ;
     this.quizModule.queryQuiz("")
@@ -61,23 +71,37 @@ export class OceanScene extends Phaser.Scene {
         this.onQuizLoaded(quiz) ;
       this.dismissLoading() ;
     })
-    .catch((error) => {
-      console.log("LOAD QUIZ ERROR " + error)
-    }) ;
+    // .catch((error) => {
+    //   console.log("LOAD QUIZ ERROR " + error)
+    // }) ;
   }
 
   onQuizLoaded(quizModel) {
-    document.getElementById('soal_quiz').innerText = quizModel.soal
+    const textWidth = window.innerWidth * 0.9 - 120; 
+    const timeWidth = window.innerWidth * 0.1;
+
+    this.bottomBar = this.add.graphics();
+    this.bottomBar.fillStyle(0x8B22DE, 0.7); 
+    this.bottomBar.fillRect(0, 0, window.innerWidth, 205); 
+
+    const verticalCenter = 205 / 2; 
+
+    this.paragraphText = this.add.text(60, verticalCenter, quizModel.soal, {
+      fontSize: '16px',
+      fill: '#ffffff',
+      fontFamily: 'Poppins, Arial, sans-serif',
+      wordWrap: { width: textWidth },
+      align: 'left',
+      fontStyle: 'bold',
+    });
+    this.paragraphText.setOrigin(0, 0.5); 
     this.restart(quizModel);
   }
 
   create() {
     this.bg = 
         this.add.image(0, 0, 'background').setOrigin(0)
-        .setDisplaySize(document.body.clientWidth, document.body.clientHeight);
-        
-    this.scoreText = 
-    this.add.text(60, 32, `Score   ${this.quizModule.score}`, 40).setDepth(1);
+        .setDisplaySize(document.body.clientWidth, document.body.clientHeight) ;
     
     this.player = new Player(this, 0, 0) ;
     this.player.start() ;
