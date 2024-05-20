@@ -37,9 +37,7 @@ export class OceanScene extends Phaser.Scene {
           frameHeight: 18 * 16
         }
       )
-
-      this.scoreText = this.add.text(0, 0, `Score ${this.quizModule.score}`) ;
-  }
+    }
 
   showLoading() {
     let loading = document.getElementById("loading-screen") ;
@@ -65,7 +63,7 @@ export class OceanScene extends Phaser.Scene {
     this.showLoading() ;
     this.quizModule.queryQuiz("")
     .then((quiz) => {
-      if (quiz === null) {
+      if (quiz === null || quiz === undefined) {
         //gameover
       } else 
         this.onQuizLoaded(quiz) ;
@@ -77,6 +75,18 @@ export class OceanScene extends Phaser.Scene {
   }
 
   onQuizLoaded(quizModel) {
+    this.paragraphText.setText(quizModel.soal) ;
+    this.restart(quizModel);
+  }
+
+  create() {
+
+    this.bg = 
+      this.add.image(0, 0, 'background').setOrigin(0)
+        .setDisplaySize(document.body.clientWidth, document.body.clientHeight) ;
+
+    this.scoreText = this.add.text(0, 0, `Score ${this.quizModule.score}`) ;
+    
     const textWidth = window.innerWidth * 0.9 - 120; 
     const timeWidth = window.innerWidth * 0.1;
 
@@ -86,7 +96,7 @@ export class OceanScene extends Phaser.Scene {
 
     const verticalCenter = 205 / 2; 
 
-    this.paragraphText = this.add.text(60, verticalCenter, quizModel.soal, {
+    this.paragraphText = this.add.text(60, verticalCenter, "quizModel.soal", {
       fontSize: '16px',
       fill: '#ffffff',
       fontFamily: 'Poppins, Arial, sans-serif',
@@ -95,13 +105,6 @@ export class OceanScene extends Phaser.Scene {
       fontStyle: 'bold',
     });
     this.paragraphText.setOrigin(0, 0.5); 
-    this.restart(quizModel);
-  }
-
-  create() {
-    this.bg = 
-        this.add.image(0, 0, 'background').setOrigin(0)
-        .setDisplaySize(document.body.clientWidth, document.body.clientHeight) ;
     
     this.player = new Player(this, 0, 0) ;
     this.player.start() ;

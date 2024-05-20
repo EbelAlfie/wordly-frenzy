@@ -36,6 +36,7 @@ export class Food extends Phaser.Physics.Arcade.Sprite {
         this.setActive(false);
         this.setVisible(false);
         this.setAlpha(0);
+        this.destroy() ; 
     }
 
     preUpdate ()

@@ -15,21 +15,20 @@ export class FoodManager extends Phaser.Physics.Arcade.Group {
     stop ()
     {
         this.getChildren().forEach((child) => {
-            console.log(child.label);
             child.kill();
-            this.remove(child) ;
+            this.getChildren().pop() ;
+            this.remove(child, true) ;
         });
         console.log("length stop " + this.getChildren().length) ;
     }
 
     manageFoods (answers)
     {
-        const y = Phaser.Math.RND.between(0, this.scene.bg.height);
-
         var keys = Object.keys(this.foodConfig);
 
         console.log(answers) ;
         answers.forEach((answer) => {
+            const y = Phaser.Math.RND.between(0, this.scene.bg.height);
             let food = new Food(
                 this.foodConfig[keys[ keys.length * Math.random() << 0]],
                 this.scene,
