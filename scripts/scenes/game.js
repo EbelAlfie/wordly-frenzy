@@ -1,10 +1,7 @@
-import { Enemy } from "../enemy.js"
 import Player from "../player.js"
-import { Food } from "../food.js"
-import { foodConfig, MAX_FOOD } from "../config/game_config.js"
 import { FoodManager } from "../food_manager.js"
-import { PowerUpManager } from "../power_up_manager.js"
 import { QuizModule } from "../data/quiz_provider.js"
+import { background, foodConfig } from "../config/game_config.js";
 
 export class OceanScene extends Phaser.Scene {
 
@@ -13,22 +10,40 @@ export class OceanScene extends Phaser.Scene {
   pointer = null
   player = null
 
+  isAnswering = false ;
   foods = Array() ;
 
   preload() {
       this.load.image('background', '../resource/underwater.png');
+      this.load.image('background1', '../resource/Deep Sea.png');
+      this.load.image('background2', '../resource/ocean.png');
       //this.load.image('player', '../resource/player.png') ; //ejnhance 
       this.load.spritesheet(
         'player', 
         '../resource/me.png', 
         {
-          frameWidth: 14 * 16,
-          frameHeight: 15 * 16
+          frameWidth: 90,
+          frameHeight: 58
         }
       )
+      
       this.load.image('food', '../resource/food.png') ;
       this.load.image('food2', '../resource/food2.jpg') ;
-      this.load.image('food3', '../resource/food3.jpg') ;
+      this.load.spritesheet(
+        'food3', 
+        '../resource/food3.png', 
+        {
+          frameWidth: foodConfig["large"].frameWidth,
+          frameHeight: foodConfig["large"].frameHeight
+        }
+      )
+      this.anims.create({
+        key: 'move',
+        frames: this.anims.generateFrameNames('food3', { start: 1, end: 12 }),
+        frameRate: 8,
+        repeat: -1
+      });
+
       this.load.spritesheet(
         'enemy', 
         '../resource/enemy.png', 
@@ -50,13 +65,13 @@ export class OceanScene extends Phaser.Scene {
   }
 
   showEndGameScreen() {
-    let endGame = document.querySelector("end-game") ;
+    let endGame = document.getElementById("end-game") ;
     endGame.style.visibility = "visible" ;
-    let stats = endGame.querySelector("stats") ;
-    let answered = endGame.querySelector("soal_terjawab") ;
-    let scoreLayout = endGame.querySelector("nilai") ;
+    let stats = document.getElementById("stats") ;
+    let answered = document.getElementById("soal_terjawab") ;
+    let scoreLayout = document.getElementById("nilai") ;
     answered.innerText = `Pertanyaan yang terjawab benar dari sekali X` ;
-    scoreLayout.innerText = `Nilai anda: ${this.quizModule.score}`
+    scoreLayout.innerText = `Nilai anda: ${this.quizModule.score}` ;
   }
 
   loadQuiz() {
@@ -65,8 +80,10 @@ export class OceanScene extends Phaser.Scene {
     .then((quiz) => {
       if (quiz === null || quiz === undefined) {
         //gameover
-      } else 
+        this.gameOver() ;
+      } else {
         this.onQuizLoaded(quiz) ;
+      }
       this.dismissLoading() ;
     })
     // .catch((error) => {
@@ -80,19 +97,19 @@ export class OceanScene extends Phaser.Scene {
   }
 
   create() {
-
-    this.bg = 
-      this.add.image(0, 0, 'background').setOrigin(0)
+    let choosenBackground = Phaser.Math.RND.pick(background)
+    this.bg = this.add.image(0, 0, choosenBackground).setOrigin(0)
         .setDisplaySize(document.body.clientWidth, document.body.clientHeight) ;
+    this.updateBgSize(this.bg) ;
 
-    this.scoreText = this.add.text(0, 0, `Score ${this.quizModule.score}`) ;
+    //this.scoreText = this.add.text(0, 0, `Score ${this.quizModule.score}`) ;
     
     const textWidth = window.innerWidth * 0.9 - 120; 
     const timeWidth = window.innerWidth * 0.1;
 
-    this.bottomBar = this.add.graphics();
-    this.bottomBar.fillStyle(0x8B22DE, 0.7); 
-    this.bottomBar.fillRect(0, 0, window.innerWidth, 205); 
+    this.topBar = this.add.graphics();
+    this.topBar.fillStyle(0x8B22DE, 0.7); 
+    this.topBar.fillRect(0, 0, window.innerWidth, 205); 
 
     const verticalCenter = 205 / 2; 
 
@@ -106,7 +123,7 @@ export class OceanScene extends Phaser.Scene {
     });
     this.paragraphText.setOrigin(0, 0.5); 
     
-    this.player = new Player(this, 0, 0) ;
+    this.player = new Player(this, this.bg.getCenter().x, this.bg.getCenter().y) ;
     this.player.start() ;
     
     this.foodManager = new FoodManager(this.physics.world, this) ;
@@ -114,22 +131,44 @@ export class OceanScene extends Phaser.Scene {
     // this.powerUpManager.start() ;
     
     this.physics.add.overlap(this.player, this.foodManager, (player, food) => this.eat(food, this.foodManager))
-    //this.physics.add.overlap(this.player, this.powerUpManager, (player, powerUp) => this.power(powerUp, player))
-    //this.cameras.main.startFollow(this.player)
+    // this.physics.add.overlap(this.player, this.powerUpManager, (player, powerUp) => this.power(powerUp, player))
+    // this.cameras.main.startFollow(this.player)
     // this.cameras.main.zoom = 0.5
-    //loadQuiz
     this.loadQuiz() ;
+  }
+
+  update() {
+    this.physics.world.collide(this.foodManager.getChildren());
+  }
+
+  updateBgSize(image) {
+    const windowAspectRatio = window.innerWidth / window.innerHeight;
+    const imageAspectRatio = image.width / image.height;
+
+    if (windowAspectRatio > imageAspectRatio) {
+      image.displayWidth = window.innerWidth;
+      image.displayHeight = window.innerWidth / imageAspectRatio;
+    } else {
+      image.displayHeight = window.innerHeight;
+      image.displayWidth = window.innerHeight * imageAspectRatio;
+    }
+
+    image.x = (window.innerWidth - image.displayWidth) / 2;
+    image.y = (window.innerHeight - image.displayHeight) / 2;
   }
 
   restart(currentQuiz) {
     this.foodManager.spawn(currentQuiz.jawaban) ;
+    this.isAnswering = false ;
   }
 
   eat(food, foodManager) {
+    console.log("Answer")
     this.showLoading() ;
-    if (!food.isDead) {
+    if (!food.isDead && !this.isAnswering) {
+      this.isAnswering = true ;
       this.quizModule.postAnswer(food.answer) ;
-      this.scoreText.setText('Score   ' + this.quizModule.score);
+      //this.scoreText.setText('Score   ' + this.quizModule.score);
       foodManager.stop();
       this.loadQuiz() ;
     }
@@ -137,6 +176,12 @@ export class OceanScene extends Phaser.Scene {
 
   power(power, player) {
     
+  }
+
+  gameOver() {
+    this.player.stop() ;
+    this.foodManager.stop() ;
+    this.showEndGameScreen()
   }
 
   getPlayerLocation(location) {

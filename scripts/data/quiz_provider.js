@@ -48,11 +48,10 @@ export class QuizModule {
         else return this.quizes[this.currentQuiz] ;
     }
     
-    
     postAnswer(answer) {
         console.log("QUIZZ" + this.choosenQuiz) ;
         if (answer != this.choosenQuiz.jawaban[this.choosenQuiz.jawabanBenar]) {
-            this.score -= this.choosenQuiz.score ;
+            if (this.score > 0) this.score -= this.choosenQuiz.score ;
         } else {
             this.score += this.choosenQuiz.score ;
         }

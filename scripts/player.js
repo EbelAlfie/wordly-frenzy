@@ -1,6 +1,6 @@
 import {MOUSE_X_BUFFER, MOUSE_Y_BUFFER, WATER_FRICTION } from "./config/game_config.js"
 
-export default class Player extends Phaser.Physics.Arcade.Image
+export default class Player extends Phaser.Physics.Arcade.Sprite
 {
     constructor (scene, x, y)
     {
@@ -9,30 +9,30 @@ export default class Player extends Phaser.Physics.Arcade.Image
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
-        this.scene.anims.create(
-          "player",
-          frames= {
-            start:0, 
-            end: 15
-          }
-        ) 
-        //this.scene.anims.play("player") ;
+        this.scene.anims.create({
+          key: 'move-player',
+          frames: this.scene.anims.generateFrameNames('player', { start: 0, end: 9 }),
+          frameRate: 8,
+          repeat: -1,
+        });
 
-        this.setScale(0.3);
+        this.play('move-player') ;
+
+        this.setScale(2);
 
         this.setCircle(14, 3, 6);
         this.setCollideWorldBounds(true);
 
         this.isAlive = false;
 
-        this.speed = 280;
+        this.speed = 300;
         this.target = new Phaser.Math.Vector2();
     }
 
     start ()
     {
         this.isAlive = true;
-
+        
         this.scene.input.on('pointermove', (pointer) =>
         {
             if (this.isAlive)
@@ -47,7 +47,7 @@ export default class Player extends Phaser.Physics.Arcade.Image
         });
     }
 
-    kill ()
+    stop ()
     {
         this.isAlive = false;
 

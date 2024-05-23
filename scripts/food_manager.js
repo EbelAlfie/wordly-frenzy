@@ -14,21 +14,15 @@ export class FoodManager extends Phaser.Physics.Arcade.Group {
 
     stop ()
     {
-        this.getChildren().forEach((child) => {
-            child.kill();
-            this.getChildren().pop() ;
-            this.remove(child, true) ;
-        });
-        console.log("length stop " + this.getChildren().length) ;
+        this.clear(true) ;
     }
 
     manageFoods (answers)
     {
         var keys = Object.keys(this.foodConfig);
 
-        console.log(answers) ;
         answers.forEach((answer) => {
-            const y = Phaser.Math.RND.between(0, this.scene.bg.height);
+            const y = Phaser.Math.RND.between(0, window.innerHeight);
             let food = new Food(
                 this.foodConfig[keys[ keys.length * Math.random() << 0]],
                 this.scene,
@@ -42,6 +36,9 @@ export class FoodManager extends Phaser.Physics.Arcade.Group {
             food.start();
         })
 
-        console.log("length init " + this.getChildren().length) ;
+    }
+
+    update() {
+        this.scene.physics.world.collide(this.children);
     }
 }
