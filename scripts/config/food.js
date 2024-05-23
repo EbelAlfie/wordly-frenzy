@@ -10,7 +10,7 @@ export const foodSmall = {
 export const foodMedium = {
     sprite: "food2",
     value: 200,
-    scale: 0.5,
+    scale: 0.2,
     speed: 200,
     frameWidth: 41,
     frameHeight: 32

@@ -16,6 +16,7 @@ export class OceanScene extends Phaser.Scene {
   preload() {
       this.load.image('background', '../resource/underwater.png');
       this.load.image('background1', '../resource/Deep Sea.png');
+      this.load.image('background2', '../resource/ocean.gif');
       this.load.spritesheet(
         'player', 
         '../resource/me.png', 
@@ -26,7 +27,7 @@ export class OceanScene extends Phaser.Scene {
       )
       
       this.load.image('food', '../resource/food.png') ;
-      this.load.image('food2', '../resource/food2.jpg') ;
+      this.load.image('food2', '../resource/food2.png') ;
       this.load.spritesheet(
         'food3', 
         '../resource/food3.png', 
@@ -65,10 +66,9 @@ export class OceanScene extends Phaser.Scene {
   showEndGameScreen() {
     let endGame = document.getElementById("end-game") ;
     endGame.style.visibility = "visible" ;
-    let stats = document.getElementById("stats") ;
     let answered = document.getElementById("soal_terjawab") ;
     let scoreLayout = document.getElementById("nilai") ;
-    answered.innerText = `Pertanyaan yang terjawab benar dari sekali X` ;
+    answered.innerText = `Pertanyaan yang terjawab benar dari sekali ${this.quizModule.soalBenar}` ;
     scoreLayout.innerText = `Nilai anda: ${this.quizModule.score}` ;
   }
 
@@ -116,7 +116,7 @@ export class OceanScene extends Phaser.Scene {
       fill: '#ffffff',
       fontFamily: 'Poppins, Arial, sans-serif',
       wordWrap: { width: textWidth },
-      align: 'left',
+      align: 'center',
       fontStyle: 'bold',
     });
     this.paragraphText.setOrigin(0, 0.5); 

@@ -1,5 +1,6 @@
 export class QuizModule {
     score = 0;
+    soalBenar = 0 ;
 
     currentQuiz = 0 ;
     quizes = [
@@ -99,6 +100,7 @@ Cuplikan cerpen diatas menggambarkan bahwa tokoh "Lelaki tua" itu dulunmbong", "
         if (answer != this.choosenQuiz.jawaban[this.choosenQuiz.jawabanBenar]) {
             if (this.score > 0) this.score -= this.choosenQuiz.score ;
         } else {
+            this.soalBenar++ ;
             this.score += this.choosenQuiz.score ;
         }
         //update id soal benar/ salah, update point user
