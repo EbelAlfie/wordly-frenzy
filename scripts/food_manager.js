@@ -14,7 +14,14 @@ export class FoodManager extends Phaser.Physics.Arcade.Group {
 
     stop ()
     {
-        this.clear(true) ;
+        console.log(this.getChildren()) ;
+        let childrens = this.getChildren() ;
+        let length = childrens.length
+        for (let i = length - 1; i >= 0; i--) {
+            const child = childrens[i];
+            child.kill();
+        }
+        this.clear(true);
     }
 
     manageFoods (answers)

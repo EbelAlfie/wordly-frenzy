@@ -80,27 +80,27 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
     
           if (lockedToCamPointer.x >= this.x + MOUSE_X_BUFFER) {
     
-            this.flipX = false
-            newPlayerVelocityX = (lockedToCamPointer.x - this.x) / this.scale
+            this.flipX = true
+            newPlayerVelocityX = (lockedToCamPointer.x - this.x)
     
           }
     
           else if (lockedToCamPointer.x <= this.x - MOUSE_X_BUFFER) {
     
-            newPlayerVelocityX = -1 * Math.abs(lockedToCamPointer.x - this.x) / this.scale
-            this.flipX = true
+            newPlayerVelocityX = -1 * Math.abs(lockedToCamPointer.x - this.x) 
+            this.flipX = false
     
           }
     
           if (lockedToCamPointer.y >= this.y + MOUSE_Y_BUFFER) {
     
-            newPlayerVelocityY = (lockedToCamPointer.y - this.y) / this.scale * 2
+            newPlayerVelocityY = (lockedToCamPointer.y - this.y) 
     
           }
     
           else if (lockedToCamPointer.y <= this.y - MOUSE_Y_BUFFER) {
     
-            newPlayerVelocityY = -1 * Math.abs(lockedToCamPointer.y - this.y) / this.scale * 2
+            newPlayerVelocityY = -1 * Math.abs(lockedToCamPointer.y - this.y) 
     
           }
     

@@ -16,8 +16,6 @@ export class OceanScene extends Phaser.Scene {
   preload() {
       this.load.image('background', '../resource/underwater.png');
       this.load.image('background1', '../resource/Deep Sea.png');
-      this.load.image('background2', '../resource/ocean.png');
-      //this.load.image('player', '../resource/player.png') ; //ejnhance 
       this.load.spritesheet(
         'player', 
         '../resource/me.png', 
@@ -167,9 +165,8 @@ export class OceanScene extends Phaser.Scene {
     this.showLoading() ;
     if (!food.isDead && !this.isAnswering) {
       this.isAnswering = true ;
-      this.quizModule.postAnswer(food.answer) ;
-      //this.scoreText.setText('Score   ' + this.quizModule.score);
-      foodManager.stop();
+      this.quizModule.postAnswer(food.label) ;
+      this.foodManager.stop();
       this.loadQuiz() ;
     }
   }
