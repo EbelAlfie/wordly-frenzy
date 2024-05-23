@@ -545,12 +545,12 @@ export class GameScene extends Phaser.Scene {
 
     // Add pointer events for button 1
     button1Graphics.on('pointerdown', () => {
-        console.log('Button 1 clicked');
+      window.location.reload(); // Reload the current page
     });
 
     // Add pointer events for button 2
     button2Graphics.on('pointerdown', () => {
-        console.log('Button 2 clicked');
+      window.location.href = "../home.html"; // Navigate to home page
     });
   }
 
