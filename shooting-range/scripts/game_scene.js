@@ -550,7 +550,7 @@ export class GameScene extends Phaser.Scene {
 
     // Add pointer events for button 2
     button2Graphics.on('pointerdown', () => {
-      window.location.href = "../home.html"; // Navigate to home page
+      window.location.href = "../index.html"; // Navigate to home page
     });
   }
 
