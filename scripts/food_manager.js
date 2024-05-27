@@ -29,11 +29,11 @@ export class FoodManager extends Phaser.Physics.Arcade.Group {
         var keys = Object.keys(this.foodConfig);
 
         answers.forEach((answer) => {
-            const y = Phaser.Math.RND.between(0, window.innerHeight);
+            const y = Phaser.Math.RND.between(0, this.world.bounds.height);
             let food = new Food(
                 this.foodConfig[keys[ keys.length * Math.random() << 0]],
                 this.scene,
-                this.scene.bg.getBounds().left,
+                this.world.bounds.left,
                 y,
                 answer
             ) ;

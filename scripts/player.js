@@ -9,21 +9,19 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
-        this.scene.anims.create({
-          key: 'move-player',
-          frames: this.scene.anims.generateFrameNames('player', { start: 0, end: 9 }),
-          frameRate: 8,
-          repeat: -1,
-        });
+        //this.play(config, 'move-player') ;
 
-        this.play('move-player') ;
+        this.setBounce(0.2, 0.2)
+        this.setDrag(300, 300)
+        this.setMaxVelocity(600, 600)
+        this.setGravity(0, 450);
 
         this.setScale(2);
 
         this.setCircle(14, 3, 6);
         this.setCollideWorldBounds(true);
 
-        this.isAlive = false;
+        this.isAlive = true;
 
         this.speed = 300;
         this.target = new Phaser.Math.Vector2();

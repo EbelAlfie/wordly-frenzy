@@ -90,6 +90,11 @@ Cuplikan cerpen diatas menggambarkan bahwa tokoh "Lelaki tua" itu dulunmbong", "
         })
     }
 
+    reset() {
+        this.score = 0;
+        this.currentQuiz = 0 ;
+    }
+
     getQuiz() {
         if (this.currentQuiz > this.quizes.length) return null 
         else return this.quizes[this.currentQuiz] ;
