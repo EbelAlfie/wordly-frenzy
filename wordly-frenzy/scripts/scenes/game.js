@@ -14,23 +14,23 @@ export class OceanScene extends Phaser.Scene {
   foods = Array() ;
 
   preload() {
-      this.load.image('background', '../resource/underwater.png');
-      this.load.image('background1', '../resource/Deep Sea.png');
-      this.load.image('background2', '../resource/ocean.gif');
+      this.load.image('background', 'resource/underwater.png');
+      this.load.image('background1', 'resource/Deep Sea.png');
+      this.load.image('background2', 'resource/ocean.gif');
       this.load.spritesheet(
         'player', 
-        '../resource/me.png', 
+        'resource/me.png', 
         {
           frameWidth: 90,
           frameHeight: 58
         }
       )
       
-      this.load.image('food', '../resource/food.png') ;
-      this.load.image('food2', '../resource/food2.png') ;
+      this.load.image('food', 'resource/food.png') ;
+      this.load.image('food2', 'resource/food2.png') ;
       this.load.spritesheet(
         'food3', 
-        '../resource/food3.png', 
+        'resource/food3.png', 
         {
           frameWidth: foodConfig["large"].frameWidth,
           frameHeight: foodConfig["large"].frameHeight
@@ -45,7 +45,7 @@ export class OceanScene extends Phaser.Scene {
 
       this.load.spritesheet(
         'enemy', 
-        '../resource/enemy.png', 
+        'resource/enemy.png', 
         {
           frameWidth: 20 * 16,
           frameHeight: 18 * 16
