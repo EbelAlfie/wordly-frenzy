@@ -70,6 +70,7 @@ export class OceanScene extends Phaser.Scene {
   }
 
   showEndGameScreen() {
+    this.timerText.setText("0");
     let endGame = document.getElementById("end-game") ;
     endGame.style.visibility = "visible" ;
     let answered = document.getElementById("soal_terjawab") ;
@@ -130,7 +131,15 @@ export class OceanScene extends Phaser.Scene {
       align: 'center',
       fontStyle: 'bold',
     });
-    this.paragraphText.setOrigin(0, 0.5); 
+    this.paragraphText.setOrigin(0, 0.5);
+    
+    this.timerText = this.add.text(window.innerWidth - 60, verticalCenter, '60', {
+      fontSize: '64px',
+      fill: '#ffffff',
+      fontFamily: 'Poppins, Arial, sans-serif',
+      fontStyle: 'bold',
+    });
+    this.timerText.setOrigin(1, 0.5); 
     
     this.player = new Player(this, this.bg.getCenter().x, this.bg.getCenter().y) ;
     this.player.start() ;
@@ -166,6 +175,18 @@ export class OceanScene extends Phaser.Scene {
   }
 
   restart(currentQuiz) {
+    let timeInSeconds = 60;
+
+    this.timerInterval = setInterval(() => {
+      timeInSeconds--; 
+
+      this.timerText.setText(timeInSeconds.toString());
+
+      if (timeInSeconds <= 0) {
+        clearInterval(this.timerInterval);
+        this.onRoundOver("");
+      }
+    }, 1000);
     this.foodManager.spawn(currentQuiz.jawaban) ;
     this.isAnswering = false ;
   }
@@ -175,10 +196,16 @@ export class OceanScene extends Phaser.Scene {
     this.showLoading() ;
     if (!food.isDead && !this.isAnswering) {
       this.isAnswering = true ;
-      this.quizModule.postAnswer(food.label) ;
-      this.foodManager.stop();
-      this.loadQuiz() ;
+      this.onRoundOver(food.label) ;
     }
+  }
+
+  onRoundOver(answer) {
+    clearInterval(this.timerInterval);
+    this.showLoading() ;
+    this.quizModule.postAnswer(answer) ;
+    this.foodManager.stop();
+    this.loadQuiz() ;
   }
 
   power(power, player) {
@@ -186,6 +213,7 @@ export class OceanScene extends Phaser.Scene {
   }
 
   gameOver() {
+    clearInterval(this.timerInterval);
     this.player.stop() ;
     this.foodManager.stop() ;
     this.showEndGameScreen()
