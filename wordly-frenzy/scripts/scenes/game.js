@@ -25,6 +25,13 @@ export class OceanScene extends Phaser.Scene {
           frameHeight: 58
         }
       )
+
+      this.anims.create({
+        key: 'move-player',
+        frames: this.anims.generateFrameNames('player', { start: 0, end: 9 }),
+        frameRate: 8,
+        repeat: -1,
+      });
       
       this.load.image('food', 'resource/food.png') ;
       this.load.image('food2', 'resource/food2.png') ;
@@ -36,12 +43,6 @@ export class OceanScene extends Phaser.Scene {
           frameHeight: foodConfig["large"].frameHeight
         }
       )
-      this.anims.create({
-        key: 'move',
-        frames: this.anims.generateFrameNames('food3', { start: 1, end: 12 }),
-        frameRate: 8,
-        repeat: -1
-      });
 
       this.load.spritesheet(
         'enemy', 
@@ -63,13 +64,24 @@ export class OceanScene extends Phaser.Scene {
     loading.style.visibility = "hidden"
   }
 
+  resetGame() {
+    this.quizModule.reset() ;
+    this.create() ;
+  }
+
   showEndGameScreen() {
+    this.timerText.setText("0");
     let endGame = document.getElementById("end-game") ;
     endGame.style.visibility = "visible" ;
     let answered = document.getElementById("soal_terjawab") ;
     let scoreLayout = document.getElementById("nilai") ;
+    let btnReset = document.getElementById("btn-reset") ;
     answered.innerText = `Pertanyaan yang terjawab benar dari sekali ${this.quizModule.soalBenar}` ;
     scoreLayout.innerText = `Nilai anda: ${this.quizModule.score}` ;
+    btnReset.onclick = () => { 
+      endGame.style.visibility = "hidden" ;
+      this.resetGame() 
+    } 
   }
 
   loadQuiz() {
@@ -119,14 +131,21 @@ export class OceanScene extends Phaser.Scene {
       align: 'center',
       fontStyle: 'bold',
     });
-    this.paragraphText.setOrigin(0, 0.5); 
+    this.paragraphText.setOrigin(0, 0.5);
+    
+    this.timerText = this.add.text(window.innerWidth - 60, verticalCenter, '60', {
+      fontSize: '64px',
+      fill: '#ffffff',
+      fontFamily: 'Poppins, Arial, sans-serif',
+      fontStyle: 'bold',
+    });
+    this.timerText.setOrigin(1, 0.5); 
     
     this.player = new Player(this, this.bg.getCenter().x, this.bg.getCenter().y) ;
     this.player.start() ;
     
     this.foodManager = new FoodManager(this.physics.world, this) ;
-    // this.powerUpManager = new PowerUpManager(this.physics.world, this) ;
-    // this.powerUpManager.start() ;
+    this.physics.add.collider(this.foodManager) ;
     
     this.physics.add.overlap(this.player, this.foodManager, (player, food) => this.eat(food, this.foodManager))
     // this.physics.add.overlap(this.player, this.powerUpManager, (player, powerUp) => this.power(powerUp, player))
@@ -156,6 +175,18 @@ export class OceanScene extends Phaser.Scene {
   }
 
   restart(currentQuiz) {
+    let timeInSeconds = 60;
+
+    this.timerInterval = setInterval(() => {
+      timeInSeconds--; 
+
+      this.timerText.setText(timeInSeconds.toString());
+
+      if (timeInSeconds <= 0) {
+        clearInterval(this.timerInterval);
+        this.onRoundOver("");
+      }
+    }, 1000);
     this.foodManager.spawn(currentQuiz.jawaban) ;
     this.isAnswering = false ;
   }
@@ -165,10 +196,16 @@ export class OceanScene extends Phaser.Scene {
     this.showLoading() ;
     if (!food.isDead && !this.isAnswering) {
       this.isAnswering = true ;
-      this.quizModule.postAnswer(food.label) ;
-      this.foodManager.stop();
-      this.loadQuiz() ;
+      this.onRoundOver(food.label) ;
     }
+  }
+
+  onRoundOver(answer) {
+    clearInterval(this.timerInterval);
+    this.showLoading() ;
+    this.quizModule.postAnswer(answer) ;
+    this.foodManager.stop();
+    this.loadQuiz() ;
   }
 
   power(power, player) {
@@ -176,6 +213,7 @@ export class OceanScene extends Phaser.Scene {
   }
 
   gameOver() {
+    clearInterval(this.timerInterval);
     this.player.stop() ;
     this.foodManager.stop() ;
     this.showEndGameScreen()
