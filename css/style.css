@@ -1,0 +1,15 @@
+body {
+  background-color: #eeeeee;
+}
+
+p {
+  font-family: "Poppins-Medium";
+}
+
+.bg {
+  position: fixed;
+  bottom: -50px;
+  pointer-events: none;
+  z-index: -1;
+  width: 100vw;
+}
