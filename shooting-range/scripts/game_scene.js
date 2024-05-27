@@ -474,26 +474,8 @@ export class GameScene extends Phaser.Scene {
     scoreBox.fillStyle(0x000000, 0.7); // Black color with 70% opacity
     scoreBox.fillRect(0, this.game.config.height / 2 - 100, this.game.config.width, 200); // 200px height, spans entire width
 
-    let rating = '';
-
-    if (finalScore == 100) {
-      rating = 'S';
-    } else if (finalScore >= 90 && finalScore < 100) {
-      rating = 'A';
-    } else if (finalScore >= 80 && finalScore < 90) {
-      rating = 'B+';
-    } else if (finalScore >= 70 && finalScore < 80) {
-      rating = 'B';
-    } else if (finalScore >= 60 && finalScore < 70) {
-      rating = 'C+';
-    } else if (finalScore >= 50 && finalScore < 60) {
-      rating = 'C';
-    } else if (finalScore < 50) {
-      rating = 'D';
-    }
-
     // Add text for the final score (left column)
-    const scoreText = this.add.text(40, this.game.config.height / 2, `Pertanyaan yang terjawab benar dari sekali tembak: ${this.score}\nNilai anda: ${finalScore}\nRating anda: ${rating}`, {
+    const scoreText = this.add.text(40, this.game.config.height / 2, `Pertanyaan yang terjawab benar dari sekali tembak: ${this.score}\nNilai anda: ${finalScore}`, {
         fontSize: '24px',
         fill: '#ffffff',
         align: 'left',
