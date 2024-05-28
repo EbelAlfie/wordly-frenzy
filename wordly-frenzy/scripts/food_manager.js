@@ -43,10 +43,8 @@ export class FoodManager extends Phaser.Physics.Arcade.Group {
     
             food.start();
         })
+        this.scene.physics.add.collider(this);
 
     }
 
-    update() {
-        this.scene.physics.world.collide(this.children);
-    }
 }

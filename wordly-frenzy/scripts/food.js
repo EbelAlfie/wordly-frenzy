@@ -15,11 +15,13 @@ export class Food extends Phaser.Physics.Arcade.Sprite {
         
         //this.text = this.scene.add.text(x, y, label, 40)
         this.text = this.scene.add.text(x, y, label, {
-            fontSize: '16px',
-            fill: '#ef4e04',
+            fontSize: '20px',
+            fill: '#ffffff',
             fontFamily: 'Poppins, Arial, sans-serif',
             align: 'center',
             fontStyle: 'bold',
+            strokeThickness: 2,
+            stroke: '#000000'
           });
 
         this.text.setDepth(1);

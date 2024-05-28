@@ -67,6 +67,7 @@ export class OceanScene extends Phaser.Scene {
 
   resetGame() {
     this.quizModule.reset() ;
+    this.music.stop() ;
     this.create() ;
   }
 
@@ -103,6 +104,7 @@ export class OceanScene extends Phaser.Scene {
   }
 
   onQuizLoaded(quizModel) {
+    this.topBar.fillRect(0, 0, window.innerWidth, this.paragraphText.height); 
     this.paragraphText.setText(quizModel.soal) ;
     this.restart(quizModel);
   }
@@ -116,16 +118,15 @@ export class OceanScene extends Phaser.Scene {
     this.input.setDefaultCursor('url(resource/cursor.png), pointer');
     this.music = this.sound.play('scene-music', { loop: true });
     //this.scoreText = this.add.text(0, 0, `Score ${this.quizModule.score}`) ;
-    
-    const textWidth = window.innerWidth * 0.9 - 120; 
-    const timeWidth = window.innerWidth * 0.1;
-
-    this.topBar = this.add.graphics();
-    this.topBar.fillStyle(0x8B22DE, 0.7); 
-    this.topBar.fillRect(0, 0, window.innerWidth, 205); 
 
     const verticalCenter = 205 / 2; 
 
+    const textWidth = window.innerWidth * 0.9 - 120 ; 
+
+    this.topBar = this.add.graphics();
+    this.topBar.fillStyle(0x8B22DE, 0.9); 
+    this.topBar.fillRect(0, 0, window.innerWidth, 205); 
+    
     this.paragraphText = this.add.text(60, verticalCenter, "quizModel.soal", {
       fontSize: '16px',
       fill: '#ffffff',
@@ -133,6 +134,8 @@ export class OceanScene extends Phaser.Scene {
       wordWrap: { width: textWidth },
       align: 'center',
       fontStyle: 'bold',
+      strokeThickness: 2,
+      stroke: '#000000'
     });
     this.paragraphText.setOrigin(0, 0.5);
     
