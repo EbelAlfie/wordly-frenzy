@@ -12,9 +12,12 @@ export class OceanScene extends Phaser.Scene {
   foods = Array() ;
 
   preload() {
-      this.load.image('background', 'resource/underwater.png');
-      this.load.image('background1', 'resource/Deep Sea.png');
-      this.load.image('background2', 'resource/ocean.gif');
+      // this.load.image('background', 'resource/underwater.png');
+      // this.load.image('background1', 'resource/Deep Sea.png');
+      // this.load.image('background2', 'resource/ocean.gif');
+      this.load.image('background', 'resource/ocean1.png');
+      this.load.image('background1', 'resource/ocean2.png');
+      this.load.image('background2', 'resource/ocean3.png');
       this.load.spritesheet(
         'player', 
         'resource/me.png', 

@@ -58,36 +58,34 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
       let newPlayerVelocityY = this.body.velocity.y - WATER_FRICTION
 
 
-      if (newPlayerVelocityX < 0)
-        newPlayerVelocityX = 0
+      if (newPlayerVelocityX < 0) newPlayerVelocityX = 0
 
-      if (newPlayerVelocityY < 0)
-        newPlayerVelocityY = 0
+      if (newPlayerVelocityY < 0) newPlayerVelocityY = 0
 
 
       if (pointer.x >= this.x + MOUSE_X_BUFFER) {
 
         this.flipX = true
-        newPlayerVelocityX = (pointer.x - this.x) 
+        newPlayerVelocityX = 5 * (pointer.x - this.x) 
 
       }
 
       else if (pointer.x <= this.x - MOUSE_X_BUFFER) {
 
-        newPlayerVelocityX = -1 * Math.abs(pointer.x - this.x)
+        newPlayerVelocityX = -5 * Math.abs(pointer.x - this.x)
         this.flipX = false
 
       }
 
       if (pointer.y >= this.y + MOUSE_Y_BUFFER) {
 
-        newPlayerVelocityY = (pointer.y - this.y) 
+        newPlayerVelocityY = 5 * (pointer.y - this.y) 
 
       }
 
       else if (pointer.y <= this.y - MOUSE_Y_BUFFER) {
 
-        newPlayerVelocityY = -1 * Math.abs(pointer.y - this.y) 
+        newPlayerVelocityY = -5 * Math.abs(pointer.y - this.y) 
 
       }
 
