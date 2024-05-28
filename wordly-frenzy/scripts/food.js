@@ -45,7 +45,7 @@ export class Food extends Phaser.Physics.Arcade.Sprite {
         this.isDead = false ;
 
         let endPositionX = Phaser.Math.RND.between(50, window.innerWidth - 50) ; 
-        let endPositionY = Phaser.Math.RND.between(50, window.innerHeight - 50) ;
+        let endPositionY = Phaser.Math.RND.between(205, window.innerHeight - 50) ;
         
         let tween = this.scene.tweens.add({
             targets: this,
