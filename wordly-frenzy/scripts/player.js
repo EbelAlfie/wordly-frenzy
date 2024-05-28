@@ -23,7 +23,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
 
         this.isAlive = true;
 
-        this.speed = 600;
+        this.speed = 500;
         this.target = new Phaser.Math.Vector2();
     }
 
