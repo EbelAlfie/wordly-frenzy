@@ -26,6 +26,18 @@ export class GameScene extends Phaser.Scene {
 
     // load the question and answer from a JSON file
     this.load.json('gameData', 'scripts/game_data.json');
+
+    // load audio
+    this.load.audio('backgroundMusic', '../wordly-frenzy/resource/frenzy.mp3');
+  }
+
+  playBackgroundMusic() {
+    this.backgroundMusic = this.sound.add('backgroundMusic', {
+        loop: true, // loop the music
+        volume: 0.5 // set volume level (0 to 1)
+    });
+
+    this.backgroundMusic.play();
   }
 
   updateTargetTexts() {
@@ -34,7 +46,7 @@ export class GameScene extends Phaser.Scene {
     const gameData = this.cache.json.get('gameData');
     const levelData = gameData[this.currentQuestionIndex];
 
-    // Update target texts and correct answer for the current level
+    // update target texts and correct answer for the current level
     this.targetTexts = levelData.targetTexts;
     this.question = levelData.question;
     this.correctAnswer = levelData.correctAnswer;
@@ -102,12 +114,12 @@ export class GameScene extends Phaser.Scene {
       this.targetTextMap[target] = this.targetTexts[i];
       target.hoverText = null; // initialize hoverText property
 
-      // Create hover text for each target
+      // create hover text for each target
       this.createHoverText(target);
 
-      target.text = this.targetTexts[i]; // Set the text property for the target
+      target.text = this.targetTexts[i]; // set the text property for the target
 
-      target.setDepth(0.99); // Adjust the depth value as needed
+      target.setDepth(0.99); // adjust the depth value as needed
     }
 
     const targets = this.targetsGroup.getChildren();
@@ -126,8 +138,8 @@ export class GameScene extends Phaser.Scene {
         ease: 'Sine.easeInOut',
       });
 
-      const text = texts[index]; // Retrieve the text associated with the target
-      if (text) { // Check if the text exists
+      const text = texts[index]; // retrieve the text associated with the target
+      if (text) { // check if the text exists
         this.tweens.add({
           targets: text,
           y: text.y + 10,
@@ -140,19 +152,19 @@ export class GameScene extends Phaser.Scene {
       }
     });
 
-    // Calculate the width for text and time columns
+    // calculate the width for text and time columns
     const textWidth = window.innerWidth * 0.9 - 120; // 90% width minus padding and time column width
     const timeWidth = window.innerWidth * 0.1;
 
-    // Create a graphics object for the bottom bar
+    // create a graphics object for the bottom bar
     this.bottomBar = this.add.graphics();
-    this.bottomBar.fillStyle(0x000000, 0.7); // Black color with 80% opacity
+    this.bottomBar.fillStyle(0x000000, 0.7); // black color with 80% opacity
     this.bottomBar.fillRect(0, window.innerHeight - 205, window.innerWidth, 205); // 120px height, spans entire width
 
-    // Calculate the vertical position for centering text vertically
-    const verticalCenter = window.innerHeight - 160 + 60; // Center vertically within the 120px height bar
+    // calculate the vertical position for centering text vertically
+    const verticalCenter = window.innerHeight - 160 + 60; // center vertically within the 120px height bar
 
-    // Add text for the paragraph (left column) with multiple lines and wrapping, centered vertically
+    // add text for the paragraph (left column) with multiple lines and wrapping, centered vertically
     this.paragraphText = this.add.text(60, verticalCenter, this.question, {
       fontSize: '16px',
       fill: '#ffffff',
@@ -161,34 +173,34 @@ export class GameScene extends Phaser.Scene {
       align: 'left',
       fontStyle: 'bold',
     });
-    this.paragraphText.setOrigin(0, 0.5); // Align left and center vertically
+    this.paragraphText.setOrigin(0, 0.5); // align left and center vertically
 
-    // Add text for the timer (right column) floated right within the container
+    // add text for the timer (right column) floated right within the container
     this.timerText = this.add.text(window.innerWidth - 60, window.innerHeight - 160 + 65, '60', {
       fontSize: '64px',
       fill: '#ffffff',
       fontFamily: 'Poppins, Arial, sans-serif',
       fontStyle: 'bold',
     });
-    this.timerText.setOrigin(1, 0.5); // Align right and center vertically
+    this.timerText.setOrigin(1, 0.5); // align right and center vertically
 
-    // Set the initial time in seconds
+    // set the initial time in seconds
     let timeInSeconds = 60;
 
-    // Update the timer text every second using setInterval
+    // update the timer text every second using setInterval
     this.timerInterval = setInterval(() => {
       timeInSeconds--; // Decrement the time by 1 second
 
-      // Update the timer text
+      // update the timer text
       this.timerText.setText(timeInSeconds.toString());
 
-      // Check if the time has reached zero
+      // check if the time has reached zero
       if (timeInSeconds <= 0) {
         clearInterval(this.timerInterval);
         this.first = false;
         this.handleCorrectAnswer();
       }
-    }, 1000); // Update the timer every second (1000 milliseconds)
+    }, 1000); // update the timer every second (1000 milliseconds)
   }
   
   create() {
@@ -205,6 +217,8 @@ export class GameScene extends Phaser.Scene {
     this.crosshair.setDepth(3); // higher depth value (e.g., 1) to render on top
 
     this.updateTargetTexts();
+
+    this.playBackgroundMusic();
   }
 
   loadBackgroundImage() {
@@ -216,13 +230,13 @@ export class GameScene extends Phaser.Scene {
 
   createHoverText(target) {
     const index = this.targetsGroup.getChildren().indexOf(target);
-    const textToShow = this.targetTexts[index]; // Get the text corresponding to the target
+    const textToShow = this.targetTexts[index]; // get the text corresponding to the target
 
-    // Calculate the vertical offset based on the scaled height of the target
+    // calculate the vertical offset based on the scaled height of the target
     const scaledHeight = target.displayHeight * target.scaleY;
-    const yOffset = scaledHeight / 2 + 30; // Adjust the offset as needed
+    const yOffset = scaledHeight / 2 + 30; // adjust the offset as needed
 
-    // Create the hover text with initial opacity set to 0 (invisible)
+    // create the hover text with initial opacity set to 0 (invisible)
     const hoverText = this.add.text(target.x, target.y - yOffset, textToShow, { 
       fontSize: '16px', 
       fill: '#ffffff',
@@ -231,24 +245,24 @@ export class GameScene extends Phaser.Scene {
       fontFamily: 'Poppins, Arial, sans-serif',
       fontStyle: 'bold',
       fontSize: 18,
-      align: 'center', // Center-align the text
-      alpha: 0, // Initial opacity set to 0 for fade-in effect
+      align: 'center',
+      alpha: 0,
     });
     hoverText.setOrigin(0.5);
-    hoverText.setDepth(1); // Ensure text renders on top
-    hoverText.setVisible(false); // Initially invisible
+    hoverText.setDepth(1);
+    hoverText.setVisible(false); // initially invisible
 
-    // Create a fade-in tween for the hover text
+    // create a fade-in tween for the hover text
     this.tweens.add({
       targets: hoverText,
-      alpha: 1, // Fade from 0 (invisible) to 1 (fully visible)
-      duration: 500, // Duration of the fade-in animation in milliseconds
+      alpha: 1, // fade from 0 (invisible) to 1 (fully visible)
+      duration: 500, // duration of the fade-in animation in milliseconds
     });
 
-    // Store the hover text reference in the target object
+    // store the hover text reference in the target object
     target.hoverText = hoverText;
 
-    // Update the targetTextMap with the correct association
+    // update the targetTextMap with the correct association
     this.targetTextMap[target] = textToShow;
   }
 
@@ -256,7 +270,7 @@ export class GameScene extends Phaser.Scene {
     const hoverText = target.hoverText;
     if (hoverText) {
       hoverText.alpha = 1;
-      hoverText.visible = true; // Ensure the hover text is visible
+      hoverText.visible = true;
     }
   }
 
@@ -264,17 +278,17 @@ export class GameScene extends Phaser.Scene {
     const hoverText = target.hoverText;
     if (hoverText) {
       if (hoverText.visible) {
-        // If the hover text is currently visible, fade out with a shorter duration
+        // if the hover text is currently visible, fade out with a shorter duration
         this.tweens.add({
           targets: hoverText,
           alpha: 0,
-          duration: 250, // Shorter duration for quicker fade-out
+          duration: 250,
           onComplete: () => {
-            hoverText.visible = false; // Hide the hover text after fade-out
+            hoverText.visible = false;
           }
         });
       } else {
-        // If the hover text is not visible, simply hide it
+        // if the hover text is not visible, simply hide it
         hoverText.visible = false;
       }
     }
@@ -338,9 +352,9 @@ export class GameScene extends Phaser.Scene {
         // hide all targets, texts, and bottom bar
         this.hideGameElements();
 
-        // Check if it's past halfway point to change to a new background
+        // check if it's past halfway point to change to a new background
         if (this.currentQuestionIndex >= this.totalQuestion / 2 - 1) {
-          // Change the background assets
+          // change the background assets
           this.loadBackgroundImage();
         }
 
@@ -469,12 +483,12 @@ export class GameScene extends Phaser.Scene {
     
     const finalScore = ((this.score / this.totalQuestion) * 100).toFixed(0);
 
-    // Create a graphics object for the score box
+    // create a graphics object for the score box
     const scoreBox = this.add.graphics();
-    scoreBox.fillStyle(0x000000, 0.7); // Black color with 70% opacity
-    scoreBox.fillRect(0, this.game.config.height / 2 - 100, this.game.config.width, 200); // 200px height, spans entire width
+    scoreBox.fillStyle(0x000000, 0.7);
+    scoreBox.fillRect(0, this.game.config.height / 2 - 100, this.game.config.width, 200);
 
-    // Add text for the final score (left column)
+    // add text for the final score (left column)
     const scoreText = this.add.text(40, this.game.config.height / 2, `Pertanyaan yang terjawab benar dari sekali tembak: ${this.score}\nNilai anda: ${finalScore}`, {
         fontSize: '24px',
         fill: '#ffffff',
@@ -482,57 +496,57 @@ export class GameScene extends Phaser.Scene {
         fontFamily: 'Poppins, Arial, sans-serif',
         lineSpacing: 10,
     });
-    scoreText.setOrigin(0, 0.5); // Align left and center vertically
+    scoreText.setOrigin(0, 0.5); // align left and center vertically
 
     // Add buttons (right column)
-    const buttonSpacing = 20; // Space between buttons
-    const buttonWidth = 220; // Width of each button
-    const buttonHeight = 50; // Height of each button
+    const buttonSpacing = 20;
+    const buttonWidth = 220;
+    const buttonHeight = 50;
 
-    const button1X = this.game.config.width - buttonWidth - buttonSpacing - 280; // Adjust position with spacing
-    const button1Y = this.game.config.height / 2 - 25; // Centered vertically
+    const button1X = this.game.config.width - buttonWidth - buttonSpacing - 280;
+    const button1Y = this.game.config.height / 2 - 25;
 
-    const button2X = this.game.config.width - buttonWidth - buttonSpacing - 20; // Adjust position with spacing
-    const button2Y = this.game.config.height / 2 - 25; // Centered vertically
+    const button2X = this.game.config.width - buttonWidth - buttonSpacing - 20;
+    const button2Y = this.game.config.height / 2 - 25;
 
-    // Create button graphics for button 1
+    // create button graphics for button 1
     const button1Graphics = this.add.graphics();
     button1Graphics.fillStyle(0x3DB2FF, 1); // Red color
-    button1Graphics.fillRoundedRect(button1X, button1Y, buttonWidth, buttonHeight, 25); // Rounded rectangle with border radius 10
+    button1Graphics.fillRoundedRect(button1X, button1Y, buttonWidth, buttonHeight, 25);
     button1Graphics.setInteractive(new Phaser.Geom.Rectangle(button1X, button1Y, buttonWidth, buttonHeight), Phaser.Geom.Rectangle.Contains);
 
-    // Add text on top of button 1 graphics
+    // add text on top of button 1 graphics
     const button1Text = this.add.text(button1X + buttonWidth / 2, button1Y + buttonHeight / 2, 'Coba lagi', {
         fontSize: '20px',
         fill: '#ffffff',
         fontFamily: 'Poppins, Arial, sans-serif',
         align: 'center',
     });
-    button1Text.setOrigin(0.5); // Center align text within the button
+    button1Text.setOrigin(0.5);
 
-    // Create button graphics for button 2
+    // create button graphics for button 2
     const button2Graphics = this.add.graphics();
     button2Graphics.fillStyle(0x8B22DE, 1); // Green color
-    button2Graphics.fillRoundedRect(button2X, button2Y, buttonWidth, buttonHeight, 25); // Rounded rectangle with border radius 10
+    button2Graphics.fillRoundedRect(button2X, button2Y, buttonWidth, buttonHeight, 25);
     button2Graphics.setInteractive(new Phaser.Geom.Rectangle(button2X, button2Y, buttonWidth, buttonHeight), Phaser.Geom.Rectangle.Contains);
 
-    // Add text on top of button 2 graphics
+    // add text on top of button 2 graphics
     const button2Text = this.add.text(button2X + buttonWidth / 2, button2Y + buttonHeight / 2, 'Ke menu utama', {
         fontSize: '20px',
         fill: '#ffffff',
         fontFamily: 'Poppins, Arial, sans-serif',
         align: 'center',
     });
-    button2Text.setOrigin(0.5); // Center align text within the button
+    button2Text.setOrigin(0.5);
 
     // Add pointer events for button 1
     button1Graphics.on('pointerdown', () => {
-      window.location.reload(); // Reload the current page
+      window.location.reload();
     });
 
     // Add pointer events for button 2
     button2Graphics.on('pointerdown', () => {
-      window.location.href = "../index.html"; // Navigate to home page
+      window.location.href = "../index.html";
     });
   }
 
