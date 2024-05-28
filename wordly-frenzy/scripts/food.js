@@ -15,18 +15,20 @@ export class Food extends Phaser.Physics.Arcade.Sprite {
         
         //this.text = this.scene.add.text(x, y, label, 40)
         this.text = this.scene.add.text(x, y, label, {
-            fontSize: '16px',
-            fill: '#ef4e04',
+            fontSize: '20px',
+            fill: '#ffffff',
             fontFamily: 'Poppins, Arial, sans-serif',
             align: 'center',
             fontStyle: 'bold',
+            strokeThickness: 2,
+            stroke: '#000000'
           });
 
         this.text.setDepth(1);
 
         this.setScale(config.scale);
 
-        this.setBounce(1, 1) ;
+        this.setBounce(1) ;
 
         this.setCollideWorldBounds(true).setInteractive();
 
@@ -39,6 +41,13 @@ export class Food extends Phaser.Physics.Arcade.Sprite {
     start ()
     {
         this.isDead = false ;
+
+        const endPositionX = this.scene.bg.width ; 
+        const endPositionY = 25 + Math.random() * (this.scene.bg.height - 50)
+
+        this.setFlipX(this.body.width/2 + this.x < endPositionX) ;
+        
+        this.scene.physics.moveTo(this, endPositionX, endPositionY, this.speed) + 1.5707963267948966;
     }
 
     kill ()
@@ -54,21 +63,11 @@ export class Food extends Phaser.Physics.Arcade.Sprite {
 
     preUpdate ()
     {
-        const endPositionX = this.scene.bg.width ; 
-        const endPositionY = 25 + Math.random() * (this.scene.bg.height - 25)
-
-        this.setFlipX(this.body.width/2 + this.x < endPositionX) ;
-        this.scene.tweens.add({
-            targets: this,
-            props: {
-            x: { value: endPositionX },
-            y: { value: endPositionY, },
-            },
-            ease: 'Sine.easeInOut',
-            yoyo: true,
-            repeat: -1
-        });
         this.text.setPosition(this.x - this.body.width/2, this.y + 30) ;
-        this.scene.physics.moveTo(this, endPositionX, endPositionY, this.speed) + 1.5707963267948966;
+        if (this.validatePosition()) this.scene.onRoundOver("")
+    }
+
+    validatePosition() {
+        return this.x > window.innerWidth || this.x < 0 || this.y > window.innerHeight || this.y < 0 
     }
 }

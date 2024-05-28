@@ -113,30 +113,33 @@ export class OceanScene extends Phaser.Scene {
         .setDisplaySize(document.body.clientWidth, document.body.clientHeight) ;
     this.updateBgSize(this.bg) ;
 
-    this.input.setDefaultCursor('url(resource/cursor.png), pointer');
+    this.sound.stopAll();
     this.music = this.sound.play('scene-music', { loop: true });
-    //this.scoreText = this.add.text(0, 0, `Score ${this.quizModule.score}`) ;
-    
-    const textWidth = window.innerWidth * 0.9 - 120; 
-    const timeWidth = window.innerWidth * 0.1;
-
-    this.topBar = this.add.graphics();
-    this.topBar.fillStyle(0x8B22DE, 0.7); 
-    this.topBar.fillRect(0, 0, window.innerWidth, 205); 
 
     const verticalCenter = 205 / 2; 
 
-    this.paragraphText = this.add.text(60, verticalCenter, "quizModel.soal", {
+    const textWidth = window.innerWidth * 0.9 - 120 ; 
+
+    this.topBar = this.add.graphics();
+    this.topBar.fillStyle(0x8B22DE, 0.9); 
+    this.topBar.fillRect(0, 0, window.innerWidth, 220); 
+
+    let timerTextPosition = window.innerWidth - 60
+    let paragraphTextPosition = (window.innerWidth - timerTextPosition)/2
+
+    this.paragraphText = this.add.text(paragraphTextPosition, verticalCenter, "quizModel.soal", {
       fontSize: '16px',
       fill: '#ffffff',
       fontFamily: 'Poppins, Arial, sans-serif',
       wordWrap: { width: textWidth },
       align: 'center',
       fontStyle: 'bold',
+      strokeThickness: 2,
+      stroke: '#000000'
     });
     this.paragraphText.setOrigin(0, 0.5);
     
-    this.timerText = this.add.text(window.innerWidth - 60, verticalCenter, '60', {
+    this.timerText = this.add.text(timerTextPosition, verticalCenter, '60', {
       fontSize: '64px',
       fill: '#ffffff',
       fontFamily: 'Poppins, Arial, sans-serif',
@@ -148,7 +151,6 @@ export class OceanScene extends Phaser.Scene {
     this.player.start() ;
     
     this.foodManager = new FoodManager(this.physics.world, this) ;
-    this.physics.add.collider(this.foodManager) ;
     
     this.physics.add.overlap(this.player, this.foodManager, (player, food) => this.eat(food, this.foodManager))
     // this.physics.add.overlap(this.player, this.powerUpManager, (player, powerUp) => this.power(powerUp, player))
@@ -158,7 +160,7 @@ export class OceanScene extends Phaser.Scene {
   }
 
   update() {
-    this.physics.world.collide(this.foodManager.getChildren());
+    this.physics.add.collider(this.foodManager);
   }
 
   updateBgSize(image) {
