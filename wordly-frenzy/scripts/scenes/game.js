@@ -6,8 +6,6 @@ import { background, foodConfig } from "../config/game_config.js";
 export class OceanScene extends Phaser.Scene {
 
   quizModule = new QuizModule() ;
-
-  pointer = null
   player = null
 
   isAnswering = false ;
@@ -103,7 +101,10 @@ export class OceanScene extends Phaser.Scene {
   }
 
   onQuizLoaded(quizModel) {
+    this.topBar.clear() ;
     this.paragraphText.setText(quizModel.soal) ;
+    this.topBar.fillStyle(0x8B22DE, 0.9); 
+    this.topBar.fillRect(0, 0, window.innerWidth, 220); 
     this.restart(quizModel);
   }
 
@@ -116,13 +117,13 @@ export class OceanScene extends Phaser.Scene {
     this.sound.stopAll();
     this.music = this.sound.play('scene-music', { loop: true });
 
-    const verticalCenter = 205 / 2; 
+    const verticalCenter = 0 + 160 - 60;
 
     const textWidth = window.innerWidth * 0.9 - 120 ; 
 
     this.topBar = this.add.graphics();
     this.topBar.fillStyle(0x8B22DE, 0.9); 
-    this.topBar.fillRect(0, 0, window.innerWidth, 220); 
+    this.topBar.fillRect(0, 0, window.innerWidth, 205); 
 
     let timerTextPosition = window.innerWidth - 60
     let paragraphTextPosition = (window.innerWidth - timerTextPosition)/2

@@ -2,6 +2,7 @@ import {MOUSE_X_BUFFER, MOUSE_Y_BUFFER, WATER_FRICTION } from "./config/game_con
 
 export default class Player extends Phaser.Physics.Arcade.Sprite
 {
+    mousePointer = null ;
     constructor (scene, x, y)
     {
         super(scene, x, y, 'player');
@@ -30,19 +31,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
     start ()
     {
         this.isAlive = true;
-        
-        this.scene.input.on('pointermove', (pointer) =>
-        {
-            if (this.isAlive)
-            {
-                this.flipX = this.x <= pointer.x;
-                this.scene.physics.moveToObject(this, pointer, this.speed) ;
-                //this.move(pointer); 
-                //this.setPosition(pointer.worldX, pointer.worldY);
-                // this.setAccelerationX(pointer.x) ;
-                // this.setAccelerationY(pointer.y) ;
-            }
-        });
+
+        this.scene.input.once('pointermove', (pointer) =>
+          {
+              if (this.isAlive) this.mousePointer = pointer ;
+          }
+        );
     }
 
     stop ()
@@ -54,55 +48,51 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
 
     preUpdate ()
     {
-        if (this.body.speed > 0 && this.isAlive)
-        {
-            if (Phaser.Math.Distance.Between(this.x, this.y, this.target.x, this.target.y) < 6)
-            {
-                this.body.reset(this.target.x, this.target.y);
-            }
-        }
+      this.move() ;
     }
     
-      move(lockedToCamPointer) {
-        let newPlayerVelocityX = this.body.velocity.x - WATER_FRICTION
-        let newPlayerVelocityY = this.body.velocity.y - WATER_FRICTION
+    move() {
+      let pointer = this.mousePointer ;
+      if (pointer == null) return ; // || !this.isAlive
+      let newPlayerVelocityX = this.body.velocity.x - WATER_FRICTION
+      let newPlayerVelocityY = this.body.velocity.y - WATER_FRICTION
 
 
-        if (newPlayerVelocityX < 0)
-          newPlayerVelocityX = 0
+      if (newPlayerVelocityX < 0)
+        newPlayerVelocityX = 0
 
-        if (newPlayerVelocityY < 0)
-          newPlayerVelocityY = 0
+      if (newPlayerVelocityY < 0)
+        newPlayerVelocityY = 0
 
 
-        if (lockedToCamPointer.x >= this.x + MOUSE_X_BUFFER) {
+      if (pointer.x >= this.x + MOUSE_X_BUFFER) {
 
-          this.flipX = true
-          newPlayerVelocityX = (lockedToCamPointer.x - this.x) // playerFish.scale
-
-        }
-
-        else if (lockedToCamPointer.x <= this.x - MOUSE_X_BUFFER) {
-
-          newPlayerVelocityX = -1 * Math.abs(lockedToCamPointer.x - this.x) // playerFish.scale
-          this.flipX = false
-
-        }
-
-        if (lockedToCamPointer.y >= this.y + MOUSE_Y_BUFFER) {
-
-          newPlayerVelocityY = (lockedToCamPointer.y - this.y) // playerFish.scale * 2
-
-        }
-
-        else if (lockedToCamPointer.y <= this.y - MOUSE_Y_BUFFER) {
-
-          newPlayerVelocityY = -1 * Math.abs(lockedToCamPointer.y - this.y) // playerFish.scale * 2
-
-        }
-
-        this.body.setVelocityX(newPlayerVelocityX)
-        this.body.setVelocityY(newPlayerVelocityY)
+        this.flipX = true
+        newPlayerVelocityX = (pointer.x - this.x) 
 
       }
+
+      else if (pointer.x <= this.x - MOUSE_X_BUFFER) {
+
+        newPlayerVelocityX = -1 * Math.abs(pointer.x - this.x)
+        this.flipX = false
+
+      }
+
+      if (pointer.y >= this.y + MOUSE_Y_BUFFER) {
+
+        newPlayerVelocityY = (pointer.y - this.y) 
+
+      }
+
+      else if (pointer.y <= this.y - MOUSE_Y_BUFFER) {
+
+        newPlayerVelocityY = -1 * Math.abs(pointer.y - this.y) 
+
+      }
+
+      this.body.setVelocityX(newPlayerVelocityX)
+      this.body.setVelocityY(newPlayerVelocityY)
+
+    }
 }
