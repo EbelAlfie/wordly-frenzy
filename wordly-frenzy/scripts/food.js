@@ -28,7 +28,7 @@ export class Food extends Phaser.Physics.Arcade.Sprite {
 
         this.setScale(config.scale);
 
-        this.setBounce(1, 1) ;
+        this.setBounce(1) ;
 
         this.setCollideWorldBounds(true).setInteractive();
 
@@ -64,5 +64,10 @@ export class Food extends Phaser.Physics.Arcade.Sprite {
     preUpdate ()
     {
         this.text.setPosition(this.x - this.body.width/2, this.y + 30) ;
+        if (this.validatePosition()) this.scene.onRoundOver("")
+    }
+
+    validatePosition() {
+        return this.x > window.innerWidth || this.x < 0 || this.y > window.innerHeight || this.y < 0 
     }
 }
