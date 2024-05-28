@@ -81,7 +81,6 @@ Cuplikan cerpen diatas menggambarkan bahwa tokoh "Lelaki tua" itu dulunmbong", "
         return new Promise((resolve, reject) => {
             this.choosenQuiz = this.getQuiz() ;
             resolve(this.choosenQuiz)
-            
             // if (this.currentQuiz != null) {
             //     resolve(this.currentQuiz)
             // } else {
@@ -104,11 +103,17 @@ Cuplikan cerpen diatas menggambarkan bahwa tokoh "Lelaki tua" itu dulunmbong", "
         console.log("QUIZZ" + this.choosenQuiz) ;
         if (answer != this.choosenQuiz.jawaban[this.choosenQuiz.jawabanBenar]) {
             if (this.score > 0) this.score -= this.choosenQuiz.score ;
+            return false ;
         } else {
-            this.soalBenar++ ;
-            this.score += this.choosenQuiz.score ;
+            this.onCorrectAnswer() ;
+            return true ;
         }
         //update id soal benar/ salah, update point user
+    }
+
+    onCorrectAnswer() {
+        this.soalBenar++ ;
+        this.score += this.choosenQuiz.score ;
         this.currentQuiz++ ; 
     }
     

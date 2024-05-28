@@ -193,7 +193,7 @@ export class OceanScene extends Phaser.Scene {
 
       if (timeInSeconds <= 0) {
         clearInterval(this.timerInterval);
-        this.onRoundOver("");
+        this.onRoundFail();
       }
     }, 1000);
     this.foodManager.spawn(currentQuiz.jawaban) ;
@@ -202,17 +202,26 @@ export class OceanScene extends Phaser.Scene {
 
   eat(food, foodManager) {
     console.log("Answer")
-    this.showLoading() ;
     if (!food.isDead && !this.isAnswering) {
       this.isAnswering = true ;
-      this.onRoundOver(food.label) ;
+      let answerStatus = this.quizModule.postAnswer(food.label) ;
+      if (!answerStatus) {
+        food.kill() ;
+        //Hint box
+      }
+      else this.onRoundEnd() ;
+      this.isAnswering = false ;
     }
   }
 
-  onRoundOver(answer) {
-    clearInterval(this.timerInterval);
+  onRoundFail() {
+    this.quizModule.postAnswer("") ;
+    this.onRoundEnd() ;
+  }
+  
+  onRoundEnd() {
     this.showLoading() ;
-    this.quizModule.postAnswer(answer) ;
+    clearInterval(this.timerInterval);
     this.foodManager.stop();
     this.loadQuiz() ;
   }

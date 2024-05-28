@@ -44,19 +44,23 @@ export class Food extends Phaser.Physics.Arcade.Sprite {
     {
         this.isDead = false ;
 
-        const endPositionX = Phaser.Math.RND.between(50, window.innerWidth - 50) ; 
-        const endPositionY = Phaser.Math.RND.between(50, window.innerHeight - 50) ;
+        let endPositionX = Phaser.Math.RND.between(50, window.innerWidth - 50) ; 
+        let endPositionY = Phaser.Math.RND.between(50, window.innerHeight - 50) ;
         
         let tween = this.scene.tweens.add({
             targets: this,
             props: {
                 x: { value: endPositionX, duration: 10000, flipX: true },
-                y: { value: endPositionY, duration: 8000,  },
+                y: { value: endPositionY, duration: 10000,  },
             },
             ease: 'Sine.easeInOut',
             yoyo: true,
             repeat: -1,
-            paused: true
+            paused: true,
+            onRepeat: () => {
+                endPositionX = Phaser.Math.RND.between(50, window.innerWidth - 50) ; 
+                endPositionY = Phaser.Math.RND.between(50, window.innerHeight - 50) ;
+            }
         });
     
         tween.play();
