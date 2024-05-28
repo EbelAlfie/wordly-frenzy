@@ -52,6 +52,7 @@ export class OceanScene extends Phaser.Scene {
           frameHeight: 18 * 16
         }
       )
+      this.load.audio('scene-music', [ 'resource/frenzy.mp3']);
     }
 
   showLoading() {
@@ -112,6 +113,8 @@ export class OceanScene extends Phaser.Scene {
         .setDisplaySize(document.body.clientWidth, document.body.clientHeight) ;
     this.updateBgSize(this.bg) ;
 
+    this.input.setDefaultCursor('url(resource/cursor.png), pointer');
+    this.music = this.sound.play('scene-music', { loop: true });
     //this.scoreText = this.add.text(0, 0, `Score ${this.quizModule.score}`) ;
     
     const textWidth = window.innerWidth * 0.9 - 120; 
