@@ -42,10 +42,8 @@ export class Food extends Phaser.Physics.Arcade.Sprite {
     {
         this.isDead = false ;
 
-        const endPositionX = this.scene.bg.width ; 
-        const endPositionY = 25 + Math.random() * (this.scene.bg.height - 50)
-
-        this.setFlipX(this.body.width/2 + this.x < endPositionX) ;
+        const endPositionX = Phaser.Math.RND.between(50, this.scene.bg.width - 50) ; 
+        const endPositionY = Phaser.Math.RND.between(50, this.scene.bg.height - 50) ;
         
         this.scene.physics.moveTo(this, endPositionX, endPositionY, this.speed) + 1.5707963267948966;
     }
@@ -63,6 +61,7 @@ export class Food extends Phaser.Physics.Arcade.Sprite {
 
     preUpdate ()
     {
+        this.setFlipX(true) ;
         this.text.setPosition(this.x - this.body.width/2, this.y + 30) ;
         if (this.validatePosition()) this.scene.onRoundOver("")
     }

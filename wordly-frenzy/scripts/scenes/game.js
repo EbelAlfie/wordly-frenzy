@@ -127,12 +127,12 @@ export class OceanScene extends Phaser.Scene {
     let timerTextPosition = window.innerWidth - 60
     let paragraphTextPosition = (window.innerWidth - timerTextPosition)/2
 
-    this.paragraphText = this.add.text(paragraphTextPosition, verticalCenter, "quizModel.soal", {
-      fontSize: '16px',
+    this.paragraphText = this.add.text(60, verticalCenter, "quizModel.soal", {
+      fontSize: '20px',
       fill: '#ffffff',
       fontFamily: 'Poppins, Arial, sans-serif',
       wordWrap: { width: textWidth },
-      align: 'center',
+      align: 'justify',
       fontStyle: 'bold',
       strokeThickness: 2,
       stroke: '#000000'
