@@ -122,9 +122,12 @@ export class OceanScene extends Phaser.Scene {
 
     this.topBar = this.add.graphics();
     this.topBar.fillStyle(0x8B22DE, 0.9); 
-    this.topBar.fillRect(0, 0, window.innerWidth, 205); 
+    this.topBar.fillRect(0, 0, window.innerWidth, 220); 
 
-    this.paragraphText = this.add.text(60, verticalCenter, "quizModel.soal", {
+    let timerTextPosition = window.innerWidth - 60
+    let paragraphTextPosition = (window.innerWidth - timerTextPosition)/2
+
+    this.paragraphText = this.add.text(paragraphTextPosition, verticalCenter, "quizModel.soal", {
       fontSize: '16px',
       fill: '#ffffff',
       fontFamily: 'Poppins, Arial, sans-serif',
@@ -136,7 +139,7 @@ export class OceanScene extends Phaser.Scene {
     });
     this.paragraphText.setOrigin(0, 0.5);
     
-    this.timerText = this.add.text(window.innerWidth - 60, verticalCenter, '60', {
+    this.timerText = this.add.text(timerTextPosition, verticalCenter, '60', {
       fontSize: '64px',
       fill: '#ffffff',
       fontFamily: 'Poppins, Arial, sans-serif',
