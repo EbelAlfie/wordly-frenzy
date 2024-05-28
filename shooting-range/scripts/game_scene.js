@@ -28,7 +28,7 @@ export class GameScene extends Phaser.Scene {
     this.load.json('gameData', 'scripts/game_data.json');
 
     // load audio
-    this.load.audio('backgroundMusic', '../wordly-frenzy/resource/frenzy.mp3');
+    this.load.audio('backgroundMusic', '../asset/frenzy.mp3');
   }
 
   playBackgroundMusic() {

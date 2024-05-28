@@ -52,7 +52,7 @@ export class OceanScene extends Phaser.Scene {
           frameHeight: 18 * 16
         }
       )
-      this.load.audio('scene-music', [ 'resource/frenzy.mp3']);
+      this.load.audio('scene-music', [ '../asset/frenzy.mp3']);
     }
 
   showLoading() {
