@@ -1,3 +1,5 @@
+import Phaser from "phaser";
+
 export class Food extends Phaser.Physics.Arcade.Sprite {
     isDead = false ;
     score = 0 ;
@@ -44,7 +46,6 @@ export class Food extends Phaser.Physics.Arcade.Sprite {
 
         const endPositionX = Phaser.Math.RND.between(50, this.scene.bg.width - 50) ; 
         const endPositionY = Phaser.Math.RND.between(50, this.scene.bg.height - 50) ;
-        
         this.scene.physics.moveTo(this, endPositionX, endPositionY, this.speed) + 1.5707963267948966;
     }
 
