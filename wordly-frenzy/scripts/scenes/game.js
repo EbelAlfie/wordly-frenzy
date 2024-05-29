@@ -107,10 +107,10 @@ export class OceanScene extends Phaser.Scene {
   create() {
     this.anims.create({
       key: 'right',
-      frames: this.anims.generateFrameNumbers('player', { start: 0, end: 5 }),
-      frameRate: 12,
+      frames: this.anims.generateFrameNames('player', { start: 0, end: 5 }),
+      frameRate: 8,
       repeat: -1
-  });
+    });
 
     let choosenBackground = Phaser.Math.RND.pick(background)
     this.bg = this.add.image(0, 0, choosenBackground).setOrigin(0)
@@ -118,7 +118,7 @@ export class OceanScene extends Phaser.Scene {
     this.updateBgSize(this.bg) ;
 
     this.sound.stopAll();
-    this.music = this.sound.play('scene-music', { loop: true });
+    this.music = this.sound.play('scene-music', { loop: true, volume: 0.4 });
 
     const verticalCenter = 0 + 160 - 60;
 
@@ -152,7 +152,6 @@ export class OceanScene extends Phaser.Scene {
     this.timerText.setOrigin(1, 0.5); 
     
     this.player = new Player(this, this.bg.getCenter().x, this.bg.getCenter().y) ;
-    this.physics.add.sprite(this.player) ;
     this.player.play('right')
     this.player.start() ;
     
@@ -160,9 +159,6 @@ export class OceanScene extends Phaser.Scene {
     this.physics.add.collider(this.foodManager, undefined);
     
     this.physics.add.overlap(this.player, this.foodManager, (player, food) => this.eat(food, this.foodManager))
-    // this.physics.add.overlap(this.player, this.powerUpManager, (player, powerUp) => this.power(powerUp, player))
-    // this.cameras.main.startFollow(this.player)
-    // this.cameras.main.zoom = 0.5
     this.loadQuiz() ;
   }
 
@@ -227,6 +223,7 @@ export class OceanScene extends Phaser.Scene {
     this.showLoading() ;
     clearInterval(this.timerInterval);
     this.foodManager.stop();
+    this.quizModule.nextQuiz() ;
     this.loadQuiz() ;
   }
 

@@ -112,8 +112,12 @@ Cuplikan cerpen diatas menggambarkan bahwa tokoh "Lelaki tua" itu dulunmbong", "
     }
 
     onCorrectAnswer() {
-        this.soalBenar++ ;
+        this.nextQuiz() ;
         this.score += this.choosenQuiz.score ;
+        this.soalBenar++ ; 
+    }
+
+    nextQuiz() {
         this.currentQuiz++ ; 
     }
     
