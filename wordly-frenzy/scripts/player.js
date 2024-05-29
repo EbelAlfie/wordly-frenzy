@@ -5,20 +5,19 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
     mousePointer = null ;
     constructor (scene, x, y)
     {
-        super(scene, x, y, 'player');
+        super(scene, x, y, 'player', 'right');
 
         scene.add.existing(this);
         scene.physics.add.existing(this);
+        this.play('right', true) ;
 
         this.setBounce(0.2, 0.2)
         this.setDrag(300, 300)
         this.setMaxVelocity(600, 600)
-        this.setGravity(0, 450);
-
-        this.setScale(2);
-
         this.setCircle(14, 3, 6);
         this.setCollideWorldBounds(true);
+
+        this.setScale(2);
 
         this.isAlive = true;
 
