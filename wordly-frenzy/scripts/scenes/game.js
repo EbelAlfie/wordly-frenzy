@@ -2,7 +2,7 @@ import Player from "../player.js"
 import { FoodManager } from "../food_manager.js"
 import { QuizRepository } from "../data/quiz_repository.js"
 import { background, foodConfig, TIME_LIMIT } from "../config/game_config.js";
-import { createHintBox, displayScore, playAnswerAnimation, playCorrectAudio, playWrongAudio, updateBgSize } from "../../../util/phaser-utils.js";
+import { animateClosingDoors, createHintBox, displayScore, playAnswerAnimation, playCorrectAudio, playWrongAudio, updateBgSize } from "../../../util/phaser-utils.js";
 
 export class OceanScene extends Phaser.Scene {
 
@@ -139,7 +139,7 @@ export class OceanScene extends Phaser.Scene {
     this.paragraphText.setOrigin(0, 0.5);
     
     // add text for the timer (right column) floated right within the container
-    this.timerWaktu = this.add.text(window.innerWidth - 60, verticalCenter, 'Waktu', {
+    this.timerWaktu = this.add.text(window.innerWidth - 60, verticalCenter - 10, 'Waktu', {
       fontSize: '36px',
       fill: '#ffffff',
       fontFamily: 'Poppins, Arial, sans-serif',
@@ -148,7 +148,7 @@ export class OceanScene extends Phaser.Scene {
     this.timerWaktu.setOrigin(1, 1); // align right and center vertically
 
     // add text for the timer (right column) floated right within the container
-    this.timerText = this.add.text(window.innerWidth - 78, verticalCenter + 82, TIME_LIMIT, {
+    this.timerText = this.add.text(window.innerWidth - 78, verticalCenter + 60, TIME_LIMIT, {
       fontSize: '64px',
       fill: '#ffffff',
       fontFamily: 'Poppins, Arial, sans-serif',
@@ -224,10 +224,17 @@ export class OceanScene extends Phaser.Scene {
   }
   
   onRoundEnd() {
-    this.showLoading() ;
     clearInterval(this.timerInterval);
     this.foodManager.stop();
-    this.loadQuiz() ;
+    animateClosingDoors(
+      {
+        scene: this,
+        onCompleted: () => {
+          this.showLoading() ;
+          this.loadQuiz() ;
+        }
+      }
+    ) ;
   }
 
   gameOver() {

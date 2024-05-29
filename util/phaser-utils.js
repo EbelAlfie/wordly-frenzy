@@ -167,3 +167,114 @@ export const playAnswerAnimation = (scene, x, y, label) => {
         },
     });
   }
+
+function reverseClosingDoors(scene, door) {
+    scene.tweens.add({
+        targets: door,
+        y: -scene.game.config.height,
+        duration: 1600,
+        ease: 'Expo.easeInOut',
+        onComplete: () => {
+            door.destroy();
+        }
+    });
+}
+
+export const animateClosingDoors = (config) => {
+    let scene = config.scene;
+    const door = scene.add.rectangle(0, - scene.game.config.height, scene.game.config.width, scene.game.config.height, 0xffffff);
+    door.setOrigin(0);
+    door.setDepth(2);
+
+    scene.tweens.add({
+      targets: door,
+      y: 0,
+      duration: 1600,
+      delay: 85,
+      ease: 'Expo.easeInOut',
+      onComplete: () => {
+        scene.time.delayedCall(1000, () => {
+          reverseClosingDoors(scene, door);
+        });
+      }
+    });
+
+    const doorPurple = scene.add.rectangle(0, - scene.game.config.height, scene.game.config.width, scene.game.config.height, 0x8B22DE);
+    doorPurple.setOrigin(0);
+    doorPurple.setDepth(1.99);
+
+    scene.tweens.add({
+      targets: doorPurple,
+      y: 0,
+      duration: 1600,
+      ease: 'Expo.easeInOut',
+      onComplete: () => {
+        scene.time.delayedCall(1170, () => {
+            config.onCompleted() ;
+            reverseClosingDoors(scene, doorPurple);
+        });
+      }
+    });
+  }
+
+function reverseTextAnimation(scene, text) {
+    scene.tweens.add({
+        targets: text,
+        y: -100,
+        duration: 1300,
+        ease: 'Expo.easeInOut',
+    });
+}
+
+export const animateTextLoading = (scene, title, content) => {
+    function changeText(textObject, newText) {
+      textObject.setText(newText);
+    }
+
+    const textBenar = scene.add.text(scene.game.config.width / 2, -100, title, {
+      fontSize: '48px',
+      fill: '#000000',
+      fontFamily: 'Poppins, Arial, sans-serif',
+      fontWeight: 'bold'
+    });
+    textBenar.setOrigin(0.5);
+    textBenar.setDepth(2.01);
+
+    const text = scene.add.text(scene.game.config.width / 2, -100, 'Your Text', {
+      fontSize: '24px',
+      fill: '#000000',
+      fontFamily: 'Poppins, Arial, sans-serif',
+      fontWeight: 'bold'
+    });
+    text.setOrigin(0.5);
+    text.setDepth(2.01);
+
+    // call the changeText function to change the text content immediately
+    changeText(text, content);
+
+    scene.tweens.add({
+      targets: text,
+      y: scene.game.config.height / 2 + 30,
+      duration: 1300,
+      delay: 420,
+      ease: 'Expo.easeInOut',
+      onComplete: () => {
+        scene.time.delayedCall(850, () => {
+          reverseTextAnimation(scene, text);
+        });
+      }
+    });
+
+    scene.tweens.add({
+      targets: textBenar,
+      y: scene.game.config.height / 2 - 30,
+      duration: 1300,
+      delay: 485,
+      ease: 'Expo.easeInOut',
+      onComplete: () => {
+        scene.time.delayedCall(690, () => {
+          reverseTextAnimation(scene, textBenar);
+        });
+      }
+    });
+  }

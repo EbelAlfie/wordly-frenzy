@@ -90,7 +90,7 @@ export class Food extends Phaser.Physics.Arcade.Sprite {
     preUpdate ()
     {
         this.text.setPosition(this.x - this.body.width/2, this.y + 30) ;
-        if (this.validatePosition()) this.scene.onRoundOver("")
+        if (this.validatePosition()) this.scene.onRoundFail()
     }
 
     validatePosition() {

@@ -61,9 +61,7 @@ export class QuizRepository {
     }
 
     calculateScore() {
-        if (this.isWrong) 
-            if (this.score > 0) this.score -= this.choosenQuiz.score 
-        else {
+        if (!this.isWrong) {
             this.soalBenar++ ;
             this.score += this.choosenQuiz.score ;
         }
@@ -75,6 +73,10 @@ export class QuizRepository {
 
     getFinalScore() {
         return ((this.score / this.getTotalQuestion()) * 100).toFixed(0);
+    }
+
+    getTotalCorrect() {
+        return this.soalBenar ;
     }
 
     getTotalQuestion() {
