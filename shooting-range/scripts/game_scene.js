@@ -12,8 +12,12 @@ export class GameScene extends Phaser.Scene {
     this.bottomBar = '';
     this.paragraphText = '';
     this.timerText = '';
+    this.timerWaktu = '';
     this.timerInterval = '';
     this.background = null;
+    this.hintText = null;
+    this.hitBox = null;
+    this.loadingText = null;
   }
 
   preload() {
@@ -29,15 +33,38 @@ export class GameScene extends Phaser.Scene {
 
     // load audio
     this.load.audio('backgroundMusic', '../asset/frenzy.mp3');
+    this.load.audio('correct', '../asset/correct.mp3');
+    this.load.audio('wrong', '../asset/wrong.mp3');
+
+    this.load.image('xImage', 'assets/X.png');
+    this.load.image('correctImage', 'assets/correct.png');
   }
 
   playBackgroundMusic() {
     this.backgroundMusic = this.sound.add('backgroundMusic', {
         loop: true, // loop the music
-        volume: 0.5 // set volume level (0 to 1)
+        volume: 0.3 // set volume level (0 to 1)
     });
 
     this.backgroundMusic.play();
+  }
+
+  playCorrectAudio() {
+    this.correctAudio = this.sound.add('correct', {
+        loop: false,
+        volume: 0.3
+    });
+
+    this.correctAudio.play();
+  }
+
+  playWrongAudio() {
+    this.wrongAudio = this.sound.add('wrong', {
+        loop: false,
+        volume: 0.3
+    });
+
+    this.wrongAudio.play();
   }
 
   updateTargetTexts() {
@@ -50,6 +77,7 @@ export class GameScene extends Phaser.Scene {
     this.targetTexts = levelData.targetTexts;
     this.question = levelData.question;
     this.correctAnswer = levelData.correctAnswer;
+    this.hint = levelData.hint; // get the hint for the current level
 
     // calculate responsive target positions
     const screenWidth = this.sys.game.config.width;
@@ -170,13 +198,22 @@ export class GameScene extends Phaser.Scene {
       fill: '#ffffff',
       fontFamily: 'Poppins, Arial, sans-serif',
       wordWrap: { width: textWidth },
-      align: 'left',
+      align: 'justify',
       fontStyle: 'bold',
     });
     this.paragraphText.setOrigin(0, 0.5); // align left and center vertically
 
     // add text for the timer (right column) floated right within the container
-    this.timerText = this.add.text(window.innerWidth - 60, window.innerHeight - 160 + 65, '60', {
+    this.timerWaktu = this.add.text(window.innerWidth - 60, window.innerHeight - 160 + 29, 'Waktu', {
+      fontSize: '36px',
+      fill: '#ffffff',
+      fontFamily: 'Poppins, Arial, sans-serif',
+      fontStyle: 'bold',
+    });
+    this.timerWaktu.setOrigin(1, 0.5); // align right and center vertically
+
+    // add text for the timer (right column) floated right within the container
+    this.timerText = this.add.text(window.innerWidth - 78, window.innerHeight - 160 + 82, '60', {
       fontSize: '64px',
       fill: '#ffffff',
       fontFamily: 'Poppins, Arial, sans-serif',
@@ -197,6 +234,7 @@ export class GameScene extends Phaser.Scene {
       // check if the time has reached zero
       if (timeInSeconds <= 0) {
         clearInterval(this.timerInterval);
+        this.loadingText = 'Waktumu habis..';
         this.first = false;
         this.handleCorrectAnswer();
       }
@@ -220,6 +258,51 @@ export class GameScene extends Phaser.Scene {
 
     this.playBackgroundMusic();
   }
+
+  createHintBox() {
+    this.hintText = this.add.text(30, 30, '', {
+        fontSize: '16px',
+        fill: '#ffffff',
+        fontFamily: 'Poppins, Arial, sans-serif',
+        wordWrap: { width: window.innerWidth * 0.28, useAdvancedWrap: true }, // enable advanced word wrapping
+        align: 'left',
+        fontStyle: 'bold',
+    });
+    this.hintText.setOrigin(0, 0);
+
+    this.hintText.setText(this.hint);
+    
+    // get the text dimensions
+    const textBounds = this.hintText.getBounds();
+
+    // create a graphics object for the hint box based on text dimensions
+    this.hintBox = this.add.graphics();
+    this.hintBox.fillStyle(0x000000, 0.6);
+    this.hintBox.fillRect(textBounds.x - 20, textBounds.y - 20, textBounds.width + 40, textBounds.height + 40);
+
+    // make sure the hint box and text are grouped together
+    this.hintContainer = this.add.container(20, 20);
+    this.hintContainer.add(this.hintBox);
+    this.hintContainer.add(this.hintText);
+
+    // resize the hint box to fit the text content dynamically
+    this.hintContainer.setSize(textBounds.width + 20, textBounds.height + 20); // adjust padding as needed
+
+    if (this.first != false) {
+      // set initial alpha value to 0 for fade-in effect
+      this.hintContainer.alpha = 0;
+
+      // add fade-in animation for the hint box and text
+      this.tweens.add({
+          targets: [this.hintContainer, this.hintText],
+          alpha: { value: 1, duration: 750 },
+          delay: 300
+      });
+    }
+  }
+
+
+
 
   loadBackgroundImage() {
     if (!this.background) {
@@ -319,11 +402,12 @@ export class GameScene extends Phaser.Scene {
     const textToShow = target.text; // get the text directly from the clicked target
 
     if (textToShow === this.correctAnswer) {
-      console.log('Correct Answer!');
+      this.loadingText = 'Jawabanmu benar!';
       this.handleCorrectAnswer();
+      this.playCorrectAnimation(target.x, target.y);
     } else {
-      console.log('Incorrect Answer!');
       this.handleIncorrectAnswer();
+      this.playXAnimation(target.x, target.y);
     }
 
     // destroy the target
@@ -336,7 +420,61 @@ export class GameScene extends Phaser.Scene {
     }
   }
 
+  playXAnimation(x, y) {
+    const xSprite = this.add.sprite(x, y, 'xImage');
+    xSprite.setScale(0); // Start with scale 0 to make it invisible initially
+
+    // Add a scale animation to make the "X" appear with a bounce effect
+    this.tweens.add({
+        targets: xSprite,
+        scaleX: 0.3,
+        scaleY: 0.3,
+        duration: 500, // Animation duration in milliseconds
+        ease: 'Back', // Easing type for the bounce effect
+        onComplete: () => {
+            // Fade out the "X" sprite after appearing
+            this.tweens.add({
+                targets: xSprite,
+                delay: 350,
+                alpha: 0, // Fade out to transparency
+                duration: 500, // Fade-out duration
+                onComplete: () => {
+                    xSprite.destroy(); // Remove the "X" sprite after fading out
+                },
+            });
+        },
+    });
+  }
+
+  playCorrectAnimation(x, y) {
+    const xSprite = this.add.sprite(x, y, 'correctImage');
+    xSprite.setScale(0); // Start with scale 0 to make it invisible initially
+
+    // Add a scale animation to make the "X" appear with a bounce effect
+    this.tweens.add({
+        targets: xSprite,
+        scaleX: 0.3,
+        scaleY: 0.3,
+        duration: 500, // Animation duration in milliseconds
+        ease: 'Back', // Easing type for the bounce effect
+        onComplete: () => {
+            // Fade out the "X" sprite after appearing
+            this.tweens.add({
+                targets: xSprite,
+                delay: 350,
+                alpha: 0, // Fade out to transparency
+                duration: 500, // Fade-out duration
+                onComplete: () => {
+                    xSprite.destroy(); // Remove the "X" sprite after fading out
+                },
+            });
+        },
+    });
+  }
+
   handleCorrectAnswer() {
+    this.playCorrectAudio();
+
     // animate closing doors
     this.animateClosingDoors();
     this.animateTextLoading();
@@ -347,11 +485,11 @@ export class GameScene extends Phaser.Scene {
     } else {
       this.first = false;
     }
+
+    // hide all targets, texts, and bottom bar instantly on correct answer
+    this.hideGameElements();
     
     this.time.delayedCall(3000, () => {
-        // hide all targets, texts, and bottom bar
-        this.hideGameElements();
-
         // check if it's past halfway point to change to a new background
         if (this.currentQuestionIndex >= this.totalQuestion / 2 - 1) {
           // change the background assets
@@ -367,6 +505,13 @@ export class GameScene extends Phaser.Scene {
           this.timerText.destroy();
           clearInterval(this.timerInterval);
           this.updateTargetTexts();
+          if (this.hintBox && this.hintBox.visible) {
+            this.hintBox.setVisible(false);
+          }
+          
+          if (this.hintText && this.hintText.visible) {
+            this.hintText.setVisible(false);
+          }
         } else {
           this.bottomBar.destroy();
           this.paragraphText.destroy();
@@ -381,6 +526,15 @@ export class GameScene extends Phaser.Scene {
   }
 
   handleIncorrectAnswer() {
+    this.playWrongAudio();
+
+    if (this.first == false){
+      // display the hint
+      this.hintBox.setVisible(false);
+      this.hintText.setVisible(false);
+    }
+
+    this.createHintBox();
     this.first = false;
   }
 
@@ -436,6 +590,15 @@ export class GameScene extends Phaser.Scene {
       textObject.setText(newText);
     }
 
+    const textBenar = this.add.text(this.game.config.width / 2, -100, this.loadingText, {
+      fontSize: '48px',
+      fill: '#000000',
+      fontFamily: 'Poppins, Arial, sans-serif',
+      fontWeight: 'bold'
+    });
+    textBenar.setOrigin(0.5);
+    textBenar.setDepth(2.01);
+
     const text = this.add.text(this.game.config.width / 2, -100, 'Your Text', {
       fontSize: '24px',
       fill: '#000000',
@@ -450,13 +613,26 @@ export class GameScene extends Phaser.Scene {
 
     this.tweens.add({
       targets: text,
-      y: this.game.config.height / 2,
+      y: this.game.config.height / 2 + 30,
       duration: 1300,
       delay: 420,
       ease: 'Expo.easeInOut',
       onComplete: () => {
         this.time.delayedCall(850, () => {
           this.reverseTextAnimation(text);
+        });
+      }
+    });
+
+    this.tweens.add({
+      targets: textBenar,
+      y: this.game.config.height / 2 - 30,
+      duration: 1300,
+      delay: 485,
+      ease: 'Expo.easeInOut',
+      onComplete: () => {
+        this.time.delayedCall(690, () => {
+          this.reverseTextAnimation(textBenar);
         });
       }
     });
@@ -549,8 +725,6 @@ export class GameScene extends Phaser.Scene {
       window.location.href = "../index.html";
     });
   }
-
-
 
   hideGameElements() {
     // clear and destroy all targets in the targetsGroup
