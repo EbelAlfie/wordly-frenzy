@@ -152,6 +152,7 @@ export class OceanScene extends Phaser.Scene {
     this.timerText.setOrigin(1, 0.5); 
     
     this.player = new Player(this, this.bg.getCenter().x, this.bg.getCenter().y) ;
+    this.physics.add.sprite(this.player) ;
     this.player.play('right')
     this.player.start() ;
     
