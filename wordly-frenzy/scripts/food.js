@@ -32,12 +32,11 @@ export class Food extends Phaser.Physics.Arcade.Sprite {
 
         this.setBounce(1) ;
 
-        this.setCollideWorldBounds(true)
+        this.setCollideWorldBounds(true).setInteractive() ;
 
         this.score = config.value ;
 
         this.speed = config.speed;
-        this.target = new Phaser.Math.Vector2();
     }
 
     start ()
@@ -60,6 +59,17 @@ export class Food extends Phaser.Physics.Arcade.Sprite {
             onRepeat: () => {
                 endPositionX = Phaser.Math.RND.between(50, window.innerWidth - 50) ; 
                 endPositionY = Phaser.Math.RND.between(50, window.innerHeight - 50) ;
+            },
+            onPause: () => {
+                this.scene.tweens.add({
+                    targets: this,
+                    props: {
+                        y: { value: this.y + 20, duration: 10000,  },
+                    },
+                    ease: 'Sine.easeInOut',
+                    yoyo: true,
+                    repeat: -1,
+                })
             }
         });
     

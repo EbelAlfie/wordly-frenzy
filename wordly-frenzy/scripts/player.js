@@ -10,8 +10,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
-        //this.play(config, 'move-player') ;
-
         this.setBounce(0.2, 0.2)
         this.setDrag(300, 300)
         this.setMaxVelocity(600, 600)

@@ -20,19 +20,12 @@ export class OceanScene extends Phaser.Scene {
       this.load.image('background2', 'resource/ocean3.png');
       this.load.spritesheet(
         'player', 
-        'resource/me.png', 
+        'resource/dragon.png', 
         {
-          frameWidth: 90,
-          frameHeight: 58
+          frameWidth: 96,
+          frameHeight: 64
         }
       )
-
-      this.anims.create({
-        key: 'move-player',
-        frames: this.anims.generateFrameNames('player', { start: 0, end: 9 }),
-        frameRate: 8,
-        repeat: -1,
-      });
       
       this.load.image('food', 'resource/food.png') ;
       this.load.image('food2', 'resource/food2.png') ;
@@ -112,6 +105,13 @@ export class OceanScene extends Phaser.Scene {
   }
 
   create() {
+    this.anims.create({
+      key: 'right',
+      frames: this.anims.generateFrameNumbers('player', { start: 0, end: 5 }),
+      frameRate: 12,
+      repeat: -1
+  });
+
     let choosenBackground = Phaser.Math.RND.pick(background)
     this.bg = this.add.image(0, 0, choosenBackground).setOrigin(0)
         .setDisplaySize(document.body.clientWidth, document.body.clientHeight) ;
@@ -152,9 +152,11 @@ export class OceanScene extends Phaser.Scene {
     this.timerText.setOrigin(1, 0.5); 
     
     this.player = new Player(this, this.bg.getCenter().x, this.bg.getCenter().y) ;
+    this.player.play('right')
     this.player.start() ;
     
     this.foodManager = new FoodManager(this.physics.world, this) ;
+    this.physics.add.collider(this.foodManager, undefined);
     
     this.physics.add.overlap(this.player, this.foodManager, (player, food) => this.eat(food, this.foodManager))
     // this.physics.add.overlap(this.player, this.powerUpManager, (player, powerUp) => this.power(powerUp, player))
@@ -165,6 +167,7 @@ export class OceanScene extends Phaser.Scene {
 
   update() {
     this.physics.add.collider(this.foodManager);
+    this.player.play('right')
   }
 
   updateBgSize(image) {
