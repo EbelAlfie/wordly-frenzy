@@ -1,11 +1,12 @@
 import Player from "../player.js"
 import { FoodManager } from "../food_manager.js"
-import { QuizModule } from "../data/quiz_provider.js"
-import { background, foodConfig } from "../config/game_config.js";
+import { QuizRepository } from "../data/quiz_repository.js"
+import { background, foodConfig, TIME_LIMIT } from "../config/game_config.js";
+import { createHintBox, displayScore, playAnswerAnimation, playCorrectAudio, playWrongAudio, updateBgSize } from "../../../util/phaser-utils.js";
 
 export class OceanScene extends Phaser.Scene {
 
-  quizModule = new QuizModule() ;
+  quizModule = new QuizRepository() ;
   player = null
 
   isAnswering = false ;
@@ -46,7 +47,14 @@ export class OceanScene extends Phaser.Scene {
           frameHeight: 18 * 16
         }
       )
+      this.load.image('wrongAnim', '../shooting-range/assets/X.png');
+      this.load.image('correctAnim', '../shooting-range/assets/correct.png');
+
+      this.load.audio('correct', '../asset/correct.mp3');
+      this.load.audio('wrong', '../asset/wrong.mp3');
       this.load.audio('scene-music', [ '../asset/frenzy.mp3']);
+
+      this.quizModule.loadAllQuizes() ;
     }
 
   showLoading() {
@@ -65,18 +73,11 @@ export class OceanScene extends Phaser.Scene {
   }
 
   showEndGameScreen() {
-    this.timerText.setText("0");
-    let endGame = document.getElementById("end-game") ;
-    endGame.style.visibility = "visible" ;
-    let answered = document.getElementById("soal_terjawab") ;
-    let scoreLayout = document.getElementById("nilai") ;
-    let btnReset = document.getElementById("btn-reset") ;
-    answered.innerText = `Pertanyaan yang terjawab benar dari sekali ${this.quizModule.soalBenar}` ;
-    scoreLayout.innerText = `Nilai anda: ${this.quizModule.score}` ;
-    btnReset.onclick = () => { 
-      endGame.style.visibility = "hidden" ;
-      this.resetGame() 
-    } 
+    displayScore(
+      this,
+      this.quizModule.soalBenar,
+      this.quizModule.getFinalScore()
+    ) ;
   }
 
   loadQuiz() {
@@ -84,7 +85,6 @@ export class OceanScene extends Phaser.Scene {
     this.quizModule.queryQuiz("")
     .then((quiz) => {
       if (quiz === null || quiz === undefined) {
-        //gameover
         this.gameOver() ;
       } else {
         this.onQuizLoaded(quiz) ;
@@ -97,35 +97,32 @@ export class OceanScene extends Phaser.Scene {
   }
 
   onQuizLoaded(quizModel) {
-    this.topBar.clear() ;
     this.paragraphText.setText(quizModel.soal) ;
-    this.topBar.fillStyle(0x8B22DE, 0.9); 
-    this.topBar.fillRect(0, 0, window.innerWidth, 220); 
     this.restart(quizModel);
   }
 
   create() {
     this.anims.create({
       key: 'right',
-      frames: this.anims.generateFrameNames('player', { start: 0, end: 5 }),
-      frameRate: 8,
+      frames: this.anims.generateFrameNumbers('player', { start: 0, end: 5 }),
+      frameRate: 12,
       repeat: -1
-    });
+  });
 
     let choosenBackground = Phaser.Math.RND.pick(background)
     this.bg = this.add.image(0, 0, choosenBackground).setOrigin(0)
         .setDisplaySize(document.body.clientWidth, document.body.clientHeight) ;
-    this.updateBgSize(this.bg) ;
+    updateBgSize(this.bg) ;
 
     this.sound.stopAll();
-    this.music = this.sound.play('scene-music', { loop: true, volume: 0.4 });
+    this.music = this.sound.play('scene-music', { loop: true, volume: 0.3 });
 
     const verticalCenter = 0 + 160 - 60;
 
     const textWidth = window.innerWidth * 0.9 - 120 ; 
 
     this.topBar = this.add.graphics();
-    this.topBar.fillStyle(0x8B22DE, 0.9); 
+    this.topBar.fillStyle(0x000000, 0.7);
     this.topBar.fillRect(0, 0, window.innerWidth, 205); 
 
     let timerTextPosition = window.innerWidth - 60
@@ -137,59 +134,53 @@ export class OceanScene extends Phaser.Scene {
       fontFamily: 'Poppins, Arial, sans-serif',
       wordWrap: { width: textWidth },
       align: 'justify',
-      fontStyle: 'bold',
-      strokeThickness: 2,
-      stroke: '#000000'
+      fontStyle: 'bold'
     });
     this.paragraphText.setOrigin(0, 0.5);
     
-    this.timerText = this.add.text(timerTextPosition, verticalCenter, '60', {
+    // add text for the timer (right column) floated right within the container
+    this.timerWaktu = this.add.text(window.innerWidth - 60, verticalCenter, 'Waktu', {
+      fontSize: '36px',
+      fill: '#ffffff',
+      fontFamily: 'Poppins, Arial, sans-serif',
+      fontStyle: 'bold',
+    });
+    this.timerWaktu.setOrigin(1, 1); // align right and center vertically
+
+    // add text for the timer (right column) floated right within the container
+    this.timerText = this.add.text(window.innerWidth - 78, verticalCenter + 82, TIME_LIMIT, {
       fontSize: '64px',
       fill: '#ffffff',
       fontFamily: 'Poppins, Arial, sans-serif',
       fontStyle: 'bold',
     });
-    this.timerText.setOrigin(1, 0.5); 
-    
+    this.timerText.setOrigin(1, 1); // align right and center vertically
+
     this.player = new Player(this, this.bg.getCenter().x, this.bg.getCenter().y) ;
-    this.player.play('right')
     this.player.start() ;
     
     this.foodManager = new FoodManager(this.physics.world, this) ;
     this.physics.add.collider(this.foodManager, undefined);
     
     this.physics.add.overlap(this.player, this.foodManager, (player, food) => this.eat(food, this.foodManager))
+
     this.loadQuiz() ;
   }
 
-  update() {
-    this.physics.add.collider(this.foodManager);
-    this.player.play('right')
-  }
-
-  updateBgSize(image) {
-    const windowAspectRatio = window.innerWidth / window.innerHeight;
-    const imageAspectRatio = image.width / image.height;
-
-    if (windowAspectRatio > imageAspectRatio) {
-      image.displayWidth = window.innerWidth;
-      image.displayHeight = window.innerWidth / imageAspectRatio;
-    } else {
-      image.displayHeight = window.innerHeight;
-      image.displayWidth = window.innerHeight * imageAspectRatio;
-    }
-
-    image.x = (window.innerWidth - image.displayWidth) / 2;
-    image.y = (window.innerHeight - image.displayHeight) / 2;
-  }
-
   restart(currentQuiz) {
-    let timeInSeconds = 60;
+    let timeInSeconds = TIME_LIMIT;
 
     this.timerInterval = setInterval(() => {
       timeInSeconds--; 
 
       this.timerText.setText(timeInSeconds.toString());
+
+      if (timeInSeconds <= TIME_LIMIT * 1/4)
+        this.timerText.setColor("#ff0000")
+      else if (timeInSeconds <= TIME_LIMIT * 1/2) 
+        this.timerText.setColor("#efa504")
+      else 
+        this.timerText.setColor("#ffffff")
 
       if (timeInSeconds <= 0) {
         clearInterval(this.timerInterval);
@@ -201,17 +192,30 @@ export class OceanScene extends Phaser.Scene {
   }
 
   eat(food, foodManager) {
-    console.log("Answer")
     if (!food.isDead && !this.isAnswering) {
       this.isAnswering = true ;
-      let answerStatus = this.quizModule.postAnswer(food.label) ;
-      if (!answerStatus) {
-        food.kill() ;
-        //Hint box
-      }
-      else this.onRoundEnd() ;
+      let isWrong = this.quizModule.postAnswer(food.label) ;
+
+      if (isWrong) 
+        this.onWrongAnswer(food) ;
+      else 
+        this.onCorrectAnswer(food) ;
+
       this.isAnswering = false ;
     }
+  }
+
+  onCorrectAnswer(food) {
+    playAnswerAnimation(this, food.x, food.y, 'correctAnim') ;
+    playCorrectAudio(this) ;
+    this.onRoundEnd() ;
+  }
+
+  onWrongAnswer(food) {
+    playAnswerAnimation(this, food.x, food.y, 'wrongAnim') ;
+    playWrongAudio(this) ;
+    createHintBox(this, 0, window.innerHeight, this.quizModule.getHint()) ;
+    food.kill() ;
   }
 
   onRoundFail() {
@@ -223,12 +227,7 @@ export class OceanScene extends Phaser.Scene {
     this.showLoading() ;
     clearInterval(this.timerInterval);
     this.foodManager.stop();
-    this.quizModule.nextQuiz() ;
     this.loadQuiz() ;
-  }
-
-  power(power, player) {
-    
   }
 
   gameOver() {

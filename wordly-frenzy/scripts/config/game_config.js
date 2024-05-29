@@ -14,3 +14,4 @@ export const WATER_FRICTION = 1
 
 export const MAX_FOOD = 20
 export const MAX_POWERUPS = 3
+export const TIME_LIMIT = 60
