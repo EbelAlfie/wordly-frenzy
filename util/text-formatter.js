@@ -13,13 +13,13 @@ export default class TextFormatter extends Phaser.GameObjects.Text {
         "".search
     }
 
-    italic() { return "_ _" }
+    italic() { return "_[\w]+_" }
 
-    bold() { return "* *" }
+    bold() { return "*[\w]+*" }
 
-    strikeThrough() { return "~ ~" }
+    strikeThrough() { return "~[\w]+~" }
 
-    monospace() { return "``` ```" }
+    monospace() { return "```[\w]+```" }
 
 
 }
