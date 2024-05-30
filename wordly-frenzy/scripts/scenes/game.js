@@ -214,7 +214,7 @@ export class OceanScene extends Phaser.Scene {
   onWrongAnswer(food) {
     playAnswerAnimation(this, food.x, food.y, 'wrongAnim') ;
     playWrongAudio(this) ;
-    createHintBox(this, 0, window.innerHeight, this.quizModule.getHint()) ;
+    createHintBox(this, 0, 0, this.quizModule.getHint()) ;
     food.kill() ;
   }
 

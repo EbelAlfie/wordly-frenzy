@@ -83,7 +83,7 @@ export const displayScore = (scene, soalBenar, score) => {
   }
 
 export const createHintBox = (scene, x, y, hint) => {
-    let hintText = scene.add.text(30, 30, '', {
+    let hintText = scene.add.text(30, 30, hint, {
         fontSize: '16px',
         fill: '#ffffff',
         fontFamily: 'Poppins, Arial, sans-serif',
@@ -110,18 +110,15 @@ export const createHintBox = (scene, x, y, hint) => {
 
     // resize the hint box to fit the text content dynamically
     hintContainer.setSize(textBounds.width + 20, textBounds.height + 20); // adjust padding as needed
+    hintContainer.alpha = 0;
 
-    if (scene.first != false) {
-      // set initial alpha value to 0 for fade-in effect
-      hintContainer.alpha = 0;
+    scene.tweens.add({
+        targets: [hintContainer, hintText],
+        alpha: { value: 1, duration: 750 },
+        delay: 300
+    });
 
-      // add fade-in animation for the hint box and text
-      scene.tweens.add({
-          targets: [hintContainer, hintText],
-          alpha: { value: 1, duration: 750 },
-          delay: 300
-      });
-    }
+    return hintContainer ;
   }
 
 export const playCorrectAudio = (scene) => {

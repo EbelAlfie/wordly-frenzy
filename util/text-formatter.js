@@ -9,8 +9,7 @@ export default class TextFormatter extends Phaser.GameObjects.Text {
 
     constructor(scene, x, y, text, style) {
         super(scene, x, y, text, style) ;
-
-        "".search
+        this
     }
 
     italic() { return "_[\w]+_" }
