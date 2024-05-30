@@ -3,6 +3,8 @@ import { FoodManager } from "../food_manager.js"
 import { QuizRepository } from "../data/quiz_repository.js"
 import { background, foodConfig, TIME_LIMIT } from "../config/game_config.js";
 import { animateClosingDoors, createHintBox, displayScore, playAnswerAnimation, playCorrectAudio, playWrongAudio, updateBgSize } from "../../../util/phaser-utils.js";
+import HintContainer from "../../../util/game-hint.js";
+import TextFormatter from "../../../util/text-formatter.js";
 
 export class OceanScene extends Phaser.Scene {
 
@@ -19,13 +21,9 @@ export class OceanScene extends Phaser.Scene {
       this.load.image('background', 'resource/ocean1.png');
       this.load.image('background1', 'resource/ocean2.png');
       this.load.image('background2', 'resource/ocean3.png');
-      this.load.spritesheet(
+      this.load.image(
         'player', 
-        'resource/dragon.png', 
-        {
-          frameWidth: 96,
-          frameHeight: 64
-        }
+        'resource/kunaon.png',
       )
       
       this.load.image('food', 'resource/food.png') ;
@@ -97,7 +95,7 @@ export class OceanScene extends Phaser.Scene {
   }
 
   onQuizLoaded(quizModel) {
-    this.paragraphText.setText(quizModel.soal) ;
+    this.paragraphText.setQuiz(quizModel.soal) ;
     this.restart(quizModel);
   }
 
@@ -128,15 +126,16 @@ export class OceanScene extends Phaser.Scene {
     let timerTextPosition = window.innerWidth - 60
     let paragraphTextPosition = (window.innerWidth - timerTextPosition)/2
 
-    this.paragraphText = this.add.text(60, verticalCenter, "quizModel.soal", {
+    this.paragraphText = new TextFormatter(this, 60, verticalCenter, "",{
       fontSize: '20px',
       fill: '#ffffff',
       fontFamily: 'Poppins, Arial, sans-serif',
       wordWrap: { width: textWidth },
       align: 'justify',
       fontStyle: 'bold'
-    });
+    })
     this.paragraphText.setOrigin(0, 0.5);
+    this.add.existing(this.paragraphText) ;
     
     // add text for the timer (right column) floated right within the container
     this.timerWaktu = this.add.text(window.innerWidth - 60, verticalCenter - 10, 'Waktu', {
@@ -155,6 +154,9 @@ export class OceanScene extends Phaser.Scene {
       fontStyle: 'bold',
     });
     this.timerText.setOrigin(1, 1); // align right and center vertically
+
+    this.hintContainer = new HintContainer(this, 0, window.innerHeight - 160 + 60, '') ;
+    this.add.existing(this.hintContainer) ;
 
     this.player = new Player(this, this.bg.getCenter().x, this.bg.getCenter().y) ;
     this.player.start() ;
@@ -194,12 +196,12 @@ export class OceanScene extends Phaser.Scene {
   eat(food, foodManager) {
     if (!food.isDead && !this.isAnswering) {
       this.isAnswering = true ;
-      let isWrong = this.quizModule.postAnswer(food.label) ;
+      let isCorrect = this.quizModule.postAnswer(food.label) ;
 
-      if (isWrong) 
-        this.onWrongAnswer(food) ;
-      else 
+      if (isCorrect) 
         this.onCorrectAnswer(food) ;
+      else 
+        this.onWrongAnswer(food) ;
 
       this.isAnswering = false ;
     }
@@ -214,21 +216,29 @@ export class OceanScene extends Phaser.Scene {
   onWrongAnswer(food) {
     playAnswerAnimation(this, food.x, food.y, 'wrongAnim') ;
     playWrongAudio(this) ;
-    createHintBox(this, 0, 0, this.quizModule.getHint()) ;
+    this.hintContainer.setHint(this.quizModule.getHint())
+    this.hintContainer.show() ;
     food.kill() ;
   }
 
   onRoundFail() {
     this.quizModule.postAnswer("") ;
+    playWrongAudio(this) ;
     this.onRoundEnd() ;
   }
   
   onRoundEnd() {
     clearInterval(this.timerInterval);
     this.foodManager.stop();
+    this.hintContainer.hide() ;
+    let label = "Sayang sekali! Jawabannya ";
+    if (this.quizModule.isCorrect) label = "Jawaban mu benar! Yaitu" 
+
     animateClosingDoors(
       {
         scene: this,
+        title: `${label} "${this.quizModule.choosenQuiz.jawabanBenar}"`,
+        content: `${this.quizModule.getCurrentQuizIndex()} dari ${this.quizModule.getTotalQuestion()} terjawab`,
         onCompleted: () => {
           this.showLoading() ;
           this.loadQuiz() ;

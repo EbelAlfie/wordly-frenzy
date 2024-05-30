@@ -92,8 +92,6 @@ export const createHintBox = (scene, x, y, hint) => {
         fontStyle: 'bold',
     });
     hintText.setOrigin(0, 0);
-
-    hintText.setText(hint);
     
     // get the text dimensions
     const textBounds = hintText.getBounds();
@@ -178,7 +176,10 @@ function reverseClosingDoors(scene, door) {
 }
 
 export const animateClosingDoors = (config) => {
-    let scene = config.scene;
+    let scene = config.scene ;
+    let title = config.title ;
+    let content = config.content ;
+    
     const door = scene.add.rectangle(0, - scene.game.config.height, scene.game.config.width, scene.game.config.height, 0xffffff);
     door.setOrigin(0);
     door.setDepth(2);
@@ -209,6 +210,50 @@ export const animateClosingDoors = (config) => {
         scene.time.delayedCall(1170, () => {
             config.onCompleted() ;
             reverseClosingDoors(scene, doorPurple);
+        });
+      }
+    });
+
+    const textBenar = scene.add.text(scene.game.config.width / 2, -100, title, {
+      fontSize: '48px',
+      fill: '#000000',
+      fontFamily: 'Poppins, Arial, sans-serif',
+      fontWeight: 'bold'
+    });
+    textBenar.setOrigin(0.5);
+    textBenar.setDepth(2.01);
+
+    const text = scene.add.text(scene.game.config.width / 2, -100, content, {
+      fontSize: '24px',
+      fill: '#000000',
+      fontFamily: 'Poppins, Arial, sans-serif',
+      fontWeight: 'bold'
+    });
+    text.setOrigin(0.5);
+    text.setDepth(2.01);
+
+    scene.tweens.add({
+      targets: text,
+      y: scene.game.config.height / 2 + 30,
+      duration: 1300,
+      delay: 420,
+      ease: 'Expo.easeInOut',
+      onComplete: () => {
+        scene.time.delayedCall(850, () => {
+          reverseTextAnimation(scene, text);
+        });
+      }
+    });
+
+    scene.tweens.add({
+      targets: textBenar,
+      y: scene.game.config.height / 2 - 30,
+      duration: 1300,
+      delay: 485,
+      ease: 'Expo.easeInOut',
+      onComplete: () => {
+        scene.time.delayedCall(690, () => {
+          reverseTextAnimation(scene, textBenar);
         });
       }
     });

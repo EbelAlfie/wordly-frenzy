@@ -12,7 +12,7 @@ export class QuizRepository {
         jawabanBenar: 0 
     }
 
-    isWrong = false ;
+    isCorrect = false ;
 
     async loadAllQuizes() { //TODO error handling in real API
         return fetch('scripts/config/quizes.json')
@@ -46,13 +46,12 @@ export class QuizRepository {
     
     postAnswer(answer) {
         if (answer != this.choosenQuiz.jawabanBenar) {
-            this.isWrong = true ;
+            this.isCorrect = false ;
         } else {
             this.onFinalAnswer() ;
-            this.isWrong = false ;
+            this.isCorrect = true ;
         }
-        return this.isWrong ;
-        //update id soal benar/ salah, update point user
+        return this.isCorrect ;
     }
 
     onFinalAnswer() {
@@ -61,7 +60,7 @@ export class QuizRepository {
     }
 
     calculateScore() {
-        if (!this.isWrong) {
+        if (this.isCorrect) {
             this.soalBenar++ ;
             this.score += this.choosenQuiz.score ;
         }
@@ -79,11 +78,16 @@ export class QuizRepository {
         return this.soalBenar ;
     }
 
+    getCurrentQuizIndex() {
+        return this.currentQuiz ;
+    }
+
     getTotalQuestion() {
-        return this.quizes.length | 0;
+        return this.quizes.length || 0;
     }
 
     getHint() {
-        return this.choosenQuiz.tips | "" ;
+        console.log(this.choosenQuiz.tips) ;
+        return this.choosenQuiz.tips || "" ;
     }
 }

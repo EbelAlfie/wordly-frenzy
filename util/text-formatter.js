@@ -1,5 +1,3 @@
-import Phaser from "phaser"
-
 /**
  * Pass in a formatted text 
  * Baca https://faq.whatsapp.com/539178204879377/?cms_platform=web
@@ -9,16 +7,19 @@ export default class TextFormatter extends Phaser.GameObjects.Text {
 
     constructor(scene, x, y, text, style) {
         super(scene, x, y, text, style) ;
-        this
     }
 
-    italic() { return "_[\w]+_" }
+    setQuiz(quiz) {
+        this.setText(quiz) ;
+    }
 
-    bold() { return "*[\w]+*" }
+    italic() { return /_([^_]+)_/g }
 
-    strikeThrough() { return "~[\w]+~" }
+    bold() { return /\*([^\*]+)\*/g }
 
-    monospace() { return "```[\w]+```" }
+    strikeThrough() { return /~([^~]+)~/g }
+
+    monospace() { return /```([^`]+)```/g }
 
 
 }
