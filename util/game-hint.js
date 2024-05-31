@@ -27,10 +27,13 @@ export default class HintContainer extends Phaser.GameObjects.Container {
     recalculate() {
         const textWidth = this.hintText.displayWidth;
         const textHeight = this.hintText.displayHeight;
-        this.hintBox.clear();
-        this.hintBox.fillRect(0, this.hintText.y - 20 , textWidth + textWidth + 0.2, textHeight * 4);
+        this.y = window.innerHeight - 160 + 60 - textHeight ;
 
-        this.setSize(textWidth + 20, textHeight + 20);
+        this.setSize(textWidth + 40, window.innerHeight - 160 + 60 - this.y) ;
+        this.hintBox.clear();
+        this.hintBox.fillRect(0, 0, textWidth + 40, textHeight * 4);
+        
+        this.hintText.y = this.height/2 ;
         this.bringToTop(this.hintText) ;
     }
 
