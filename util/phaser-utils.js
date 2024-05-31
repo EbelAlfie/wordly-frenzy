@@ -21,7 +21,7 @@ export const displayScore = (scene, soalBenar, score) => {
     scoreBox.fillRect(0, scene.game.config.height / 2 - 100, scene.game.config.width, 200);
 
     // add text for the final score (left column)
-    const scoreText = scene.add.text(40, scene.game.config.height / 2, `Pertanyaan yang terjawab benar dari sekali tembak: ${soalBenar}\nNilai anda: ${score}`, {
+    const scoreText = scene.add.text(40, scene.game.config.height / 2, `Pertanyaan yang terjawab benar dari sekali makan: ${soalBenar}\nNilai anda: ${score}`, {
         fontSize: '24px',
         fill: '#ffffff',
         align: 'left',

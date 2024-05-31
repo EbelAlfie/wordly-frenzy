@@ -7,7 +7,7 @@ export default class HintContainer extends Phaser.GameObjects.Container {
             fontSize: '20px',
             fill: '#ffffff',
             fontFamily: 'Poppins, Arial, sans-serif',
-            wordWrap: { width: window.innerWidth * 0.50, useAdvacedWrap: true}, // enable advanced word wrapping
+            wordWrap: { width: window.innerWidth * 0.28, useAdvacedWrap: true}, // enable advanced word wrapping
             align: 'left',
             fontStyle: 'bold',
         });

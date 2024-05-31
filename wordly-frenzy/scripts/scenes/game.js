@@ -222,8 +222,8 @@ export class OceanScene extends Phaser.Scene {
   }
 
   onRoundFail() {
-    this.quizModule.postAnswer("") ;
     playWrongAudio(this) ;
+    this.quizModule.toNextQuiz() ;
     this.onRoundEnd() ;
   }
   
@@ -232,7 +232,7 @@ export class OceanScene extends Phaser.Scene {
     this.foodManager.stop();
     this.hintContainer.hide() ;
     let label = "Sayang sekali! Jawabannya ";
-    if (this.quizModule.isCorrect) label = "Jawaban mu benar! Yaitu" 
+    if (this.quizModule.isCorrect) label = "Jawabanmu benar! Yaitu" 
 
     animateClosingDoors(
       {
@@ -249,9 +249,17 @@ export class OceanScene extends Phaser.Scene {
 
   gameOver() {
     clearInterval(this.timerInterval);
+    this.dismissQuiz() ;
     this.player.stop() ;
     this.foodManager.stop() ;
     this.showEndGameScreen()
+  }
+
+  dismissQuiz() {
+    this.topBar.destroy() ;
+    this.paragraphText.destroy() ;
+    this.timerWaktu.destroy() ;
+    this.timerText.destroy() ;
   }
 
   getPlayerLocation(location) {

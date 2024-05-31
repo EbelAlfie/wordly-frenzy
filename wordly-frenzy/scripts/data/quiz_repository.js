@@ -13,6 +13,7 @@ export class QuizRepository {
     }
 
     isCorrect = false ;
+    isFirstWrong = false ;
 
     async loadAllQuizes() { //TODO error handling in real API
         return fetch('scripts/config/quizes.json')
@@ -25,6 +26,7 @@ export class QuizRepository {
     queryQuiz(type) {
         return new Promise((resolve, reject) => {
             this.choosenQuiz = this.getQuiz() ;
+            this.isFirstWrong = false ;
             resolve(this.choosenQuiz)
             // if (this.currentQuiz != null) {
             //     resolve(this.currentQuiz)
@@ -35,6 +37,7 @@ export class QuizRepository {
     }
 
     reset() {
+        this.isCorrect = false ;
         this.score = 0;
         this.currentQuiz = 0 ;
     }
@@ -47,6 +50,7 @@ export class QuizRepository {
     postAnswer(answer) {
         if (answer != this.choosenQuiz.jawabanBenar) {
             this.isCorrect = false ;
+            this.isFirstWrong = true ;
         } else {
             this.onFinalAnswer() ;
             this.isCorrect = true ;
@@ -60,7 +64,7 @@ export class QuizRepository {
     }
 
     calculateScore() {
-        if (this.isCorrect) {
+        if (!this.isFirstWrong) {
             this.soalBenar++ ;
             this.score += this.choosenQuiz.score ;
         }
@@ -71,10 +75,12 @@ export class QuizRepository {
     }
 
     getFinalScore() {
+        console.log(`${((this.score / this.getTotalQuestion()) * 100).toFixed(0)} ${this.score} ${this.getTotalQuestion()}`) ;
         return ((this.score / this.getTotalQuestion()) * 100).toFixed(0);
     }
 
     getTotalCorrect() {
+        console.log(this.soalBenar) ;
         return this.soalBenar ;
     }
 

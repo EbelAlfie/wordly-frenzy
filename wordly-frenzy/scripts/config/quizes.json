@@ -7,7 +7,7 @@
     "tips": "Kalimat yang logis, cermat, dan berpadu adalah syarat yang membuat sebuah kalimat bisa disebut efektif."
   },
   {
-    "soal": "2. Kepada semua siswa peserta lomba, agar segera masuk ke dalam ruang seleksi. Pelaksanaan lomba akan segera dimulai. Agar kalimat tersebut efektif, kata yang dihilangkan adalah...",
+    "soal": "Kepada semua siswa peserta lomba, agar segera masuk ke dalam ruang seleksi. Pelaksanaan lomba akan segera dimulai. Agar kalimat tersebut efektif, kata yang dihilangkan adalah...",
     "jawaban": ["Semua, lomba, masuk", "Kepada, siswa, segera", "Semua, peserta, agar", "Kepada, semua, lomba"],
     "jawabanBenar": "Kepada, siswa, segera",
     "score": 1,
@@ -21,7 +21,7 @@
     "tips": "Lalu adalah kata hubung atau konjungsi temporal/yang menyatakan waktu. Kalimat di atas memberi keadaan bahwa hiu memakan ikan-ikan besar, lumba-lumba memakan ikan-ikan kecil."
   },
   {
-    "soal": "Ibu membuat kue cucur sangat terlalu manis, sehingga tak enak dimakan. Kalimat tersebut akan menjadi efektif dihilangkan kata…",
+    "soal": "Ibu membuat kue cucur sangat terlalu manis, sehingga tak enak dimakan. Kalimat tersebut akan menjadi efektif jika dihilangkan kata…",
     "jawaban": ["Ibu", "sangat", "enak", "cucur"],
     "jawabanBenar": "sangat",
     "score": 1,
@@ -38,7 +38,7 @@
     "soal": "Perhatikan kalimat berikut dengan seksama!(1) Kemarin siang telah (2) terjadi tabrakan beruntung (3) yang melibatkan lima kendaraan dan(4) mengakibatkan dua penumpang luka berat. Penggunan kata yang tidak tepat pada kalimat tersebut ditandai nomor...",
     "jawaban": ["(1)", "(2)", "(3)", "(4)"],
     "jawabanBenar": "(2)",
-    "score": 100,
+    "score": 1,
     "tips": "Tabrakan beruntun adalah tabrakan yang melibatkan lebih dari 2 kendaraan secara bersamaan. Sementara beruntung adalah bernasib baik."
   }
 ]
