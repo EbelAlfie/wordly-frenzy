@@ -19,11 +19,6 @@ export default class HintContainer extends Phaser.GameObjects.Container {
         this.add(this.hintText);
         this.add(this.hintBox) ;
 
-        scene.tweens.add({
-            targets: [this, this.hintText],
-            alpha: { value: 1, duration: 750 },
-            delay: 300
-        });
         this.hide() ;
 
         this.recalculate() ;
@@ -46,10 +41,18 @@ export default class HintContainer extends Phaser.GameObjects.Container {
     }
 
     show() {
-        this.setVisible(true) ;
+        this.scene.tweens.add({
+            targets: [this, this.hintText],
+            alpha: { value: 1, duration: 750 },
+            delay: 300
+        });
     }
 
     hide() {
-        this.setVisible(false) ;
+        this.scene.tweens.add({
+            targets: [this, this.hintText],
+            alpha: { value: 0, duration: 750 },
+            delay: 300
+        });
     }
 }
