@@ -20,6 +20,8 @@ export default class HintContainer extends Phaser.GameObjects.Container {
         this.add(this.hintBox) ;
 
         this.hide() ;
+
+        this.recalculate() ;
     }
 
     recalculate() {
