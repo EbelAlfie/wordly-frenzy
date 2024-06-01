@@ -160,7 +160,7 @@ export class OceanScene extends Phaser.Scene {
 
     this.player = new Player(this, this.bg.getCenter().x, this.bg.getCenter().y) ;
     this.player.start() ;
-    
+
     this.foodManager = new FoodManager(this.physics.world, this) ;
     this.physics.add.collider(this.foodManager, undefined);
     
