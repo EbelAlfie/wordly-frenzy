@@ -1,3 +1,4 @@
+
 export class Food extends Phaser.Physics.Arcade.Sprite {
     isDead = false ;
     score = 0 ;
@@ -13,32 +14,66 @@ export class Food extends Phaser.Physics.Arcade.Sprite {
 
         this.label = label ;
         
-        //this.text = this.scene.add.text(x, y, label, 40)
         this.text = this.scene.add.text(x, y, label, {
-            fontSize: '16px',
-            fill: '#ef4e04',
+            fontSize: '20px',
+            fill: '#ffffff',
             fontFamily: 'Poppins, Arial, sans-serif',
             align: 'center',
             fontStyle: 'bold',
+            strokeThickness: 2,
+            stroke: '#000000'
           });
 
         this.text.setDepth(1);
 
+        this.flipX = true ;
+
         this.setScale(config.scale);
 
-        this.setBounce(1, 1) ;
+        this.setBounce(1) ;
 
-        this.setCollideWorldBounds(true).setInteractive();
+        this.setCollideWorldBounds(true).setInteractive() ;
 
         this.score = config.value ;
 
         this.speed = config.speed;
-        this.target = new Phaser.Math.Vector2();
     }
 
     start ()
     {
         this.isDead = false ;
+
+        let endPositionX = Phaser.Math.RND.between(50, window.innerWidth - 50) ; 
+        let endPositionY = Phaser.Math.RND.between(205, window.innerHeight - 50) ;
+        
+        let tween = this.scene.tweens.add({
+            targets: this,
+            props: {
+                x: { value: endPositionX, duration: 10000, flipX: true },
+                y: { value: endPositionY, duration: 10000,  },
+            },
+            ease: 'Sine.easeInOut',
+            yoyo: true,
+            repeat: -1,
+            paused: true,
+            onRepeat: () => {
+                endPositionX = Phaser.Math.RND.between(50, window.innerWidth - 50) ; 
+                endPositionY = Phaser.Math.RND.between(50, window.innerHeight - 50) ;
+            },
+            onPause: () => {
+                this.scene.tweens.add({
+                    targets: this,
+                    props: {
+                        y: { value: this.y + 20, duration: 10000,  },
+                    },
+                    ease: 'Sine.easeInOut',
+                    yoyo: true,
+                    repeat: -1,
+                })
+            }
+        });
+    
+        tween.play();
     }
 
     kill ()
@@ -54,21 +89,11 @@ export class Food extends Phaser.Physics.Arcade.Sprite {
 
     preUpdate ()
     {
-        const endPositionX = this.scene.bg.width ; 
-        const endPositionY = 25 + Math.random() * (this.scene.bg.height - 25)
-
-        this.setFlipX(this.body.width/2 + this.x < endPositionX) ;
-        this.scene.tweens.add({
-            targets: this,
-            props: {
-            x: { value: endPositionX },
-            y: { value: endPositionY, },
-            },
-            ease: 'Sine.easeInOut',
-            yoyo: true,
-            repeat: -1
-        });
         this.text.setPosition(this.x - this.body.width/2, this.y + 30) ;
-        this.scene.physics.moveTo(this, endPositionX, endPositionY, this.speed) + 1.5707963267948966;
+        if (this.validatePosition()) this.scene.onRoundFail()
+    }
+
+    validatePosition() {
+        return this.x > window.innerWidth || this.x < 0 || this.y > window.innerHeight || this.y < 0 
     }
 }
