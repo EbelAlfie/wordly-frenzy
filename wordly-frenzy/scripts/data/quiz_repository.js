@@ -1,3 +1,5 @@
+import axios, { Axios } from "axios";
+
 export class QuizRepository {
     score = 0;
     soalBenar = 0 ;
@@ -16,7 +18,7 @@ export class QuizRepository {
     isFirstWrong = false ;
 
     async loadAllQuizes() { //TODO error handling in real API
-        return fetch('scripts/config/quizes.json')
+        return axios('scripts/config/quizes.json')
         .then(response => response.json())
         .then(json => {
             this.quizes = json ;

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word.ly | Home</title>
+
+  <!-- Include -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/font.css" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
+
+  <link href="../style.css" rel="stylesheet">
+</head>
+<body>
+  <img class="bg" src="../asset/bg-home.png" alt="">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg w-100">
+    <div class="container">
+      <a class="navbar-brand" href="#"><img src="../asset/Word.ly-white.png" alt="Word.ly" width="150"></a>
+      <p class="float-end mb-0 text-white welcome-text">Selamat datang!</p>
+    </div>
+  </nav>
+
+  <!-- UI buttons -->
+  <div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="col">
+      <div class="row">
+        <button class="ui-nav" style="background: #3DB2FF;" onclick="redirectToWordlyFrenzy()">
+          Mulai Wordly Frenzy
+        </button>
+      </div>
+      <div class="row">
+        <button class="ui-nav" style="background: #00CD2D;" onclick="redirectToWordlyRange()">
+          Mulai Wordly Range
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <script src="../js/bootstrap.bundle.min.js"></script>
+  <script>
+    function redirectToWordlyFrenzy() {
+      window.location.href = '../wordly-frenzy/wordly-frenzy.html';
+    }
+
+    function redirectToWordlyRange() {
+      window.location.href = '../shooting-range/index.html';
+    }
+  </script>
+</body>
+</html>

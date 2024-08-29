@@ -10,38 +10,8 @@
   <link href="css/font.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
 
-  <style>
-    .navbar {
-      background-color: #8B22DE;
-      position: fixed;
-      top: 0;
-    }
-
-    .welcome-text {
-      font-size: 20px;
-    }
-
-    .ui-nav {
-      font-family: "Poppins-Bold";
-      width: 280px;
-      margin-bottom: 26px;
-      border: none;
-      border-radius: 100px;
-      margin-left: auto;
-      margin-right: auto;
-      font-size: 20px;
-      color: #fff;
-      padding-top: 12px;
-      padding-bottom: 12px;
-      box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
-      transition: all 0.25s ease;
-    }
-
-    .ui-nav:hover {
-      transform: translateY(-4px);
-      opacity: 0.65;
-    }
-  </style>
+  <link href="style.css" rel="stylesheet">
+  
 </head>
 <body>
   <img class="bg" src="asset/bg-home.png" alt="">
@@ -54,30 +24,38 @@
     </div>
   </nav>
 
-  <!-- UI buttons -->
   <div class="container d-flex justify-content-center align-items-center vh-100">
-    <div class="col">
-      <div class="row">
-        <button class="ui-nav" style="background: #3DB2FF;" onclick="redirectToWordlyFrenzy()">
-          Mulai Wordly Frenzy
-        </button>
-      </div>
-      <div class="row">
-        <button class="ui-nav" style="background: #00CD2D;" onclick="redirectToWordlyRange()">
-          Mulai Wordly Range
-        </button>
-      </div>
-    </div>
+    <div class="container-sm col">
+        <div class="row align-self-center">
+            <label class="form-label">Masukan Nama</label>
+            <input type="text" class="form-control" placeholder="email">
+        </div>
+
+        <div class="row align-self-center">
+            <label class="form-label">Masukan Password</label>
+            <input type="password" class="form-control" placeholder="password">
+        </div>
+
+        <div class="row">
+            <button class="ui-nav" style="background: #3DB2FF;" onclick="redirectToHomePage()">
+            Play Now
+            </button>
+            <button class="ui-nav" style="background: #00CD2D;" onclick="redirectToWordlyRange()">
+            Sign In
+            </button>
+        </div>
+
+    </div> 
   </div>
   
   <script src="js/bootstrap.bundle.min.js"></script>
   <script>
-    function redirectToWordlyFrenzy() {
-      window.location.href = './wordly-frenzy/wordly-frenzy.html';
+    function redirectToHomePage() {
+      window.location.href = './home/index.html';
     }
 
     function redirectToWordlyRange() {
-      window.location.href = './shooting-range/index.html';
+      window.location.href = './login/login.html';
     }
   </script>
 </body>
