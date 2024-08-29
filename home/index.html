@@ -36,11 +36,21 @@
           Mulai Wordly Range
         </button>
       </div>
+      <div class="row invisible" id="buttonEditQuiz">
+        <button class="ui-nav" style="background: #ff0202;" onclick="redirectToEditQuiz()">
+          Edit Soal
+        </button>
+      </div>
     </div>
   </div>
   
   <script src="../js/bootstrap.bundle.min.js"></script>
   <script>
+    function main() {
+      let accessToken = getCookie("accessToken") 
+      if (accessToken !== "") document.getElementById("buttonEditQuiz").className = "row visible" ; //TODO, should show not only by the existence of cookie, right?
+    }
+
     function redirectToWordlyFrenzy() {
       window.location.href = '../wordly-frenzy/wordly-frenzy.html';
     }
@@ -48,6 +58,27 @@
     function redirectToWordlyRange() {
       window.location.href = '../shooting-range/index.html';
     }
+    function redirectToEditQuiz() {
+      window.location.href = '';
+    }
+
+    function getCookie(cname) {
+      let name = cname + "=";
+      let decodedCookie = decodeURIComponent(document.cookie);
+      let ca = decodedCookie.split(';');
+      for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+
+    main();
   </script>
 </body>
 </html>

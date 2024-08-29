@@ -37,11 +37,11 @@
         </div>
 
         <div class="row m-3">
-            <button class="ui-nav" style="background: #3DB2FF;" onclick="redirectToHomePage()">
-            Play Now
+            <button class="ui-nav" style="background: #3DB2FF;" id="buttonPlayNow">
+              Play Now
             </button>
-            <button class="ui-nav" style="background: #00CD2D;" onclick="redirectToWordlyRange()">
-            Sign In
+            <button class="ui-nav" style="background: #00CD2D;" id="buttonLogin">
+              Sign In
             </button>
         </div>
 
@@ -49,14 +49,6 @@
   </div>
   
   <script src="js/bootstrap.bundle.min.js"></script>
-  <script>
-    function redirectToHomePage() {
-      window.location.href = './home/index.html';
-    }
-
-    function redirectToWordlyRange() {
-      window.location.href = './login/login.html';
-    }
-  </script>
+  <script src="./scripts/login.js" type="module"></script>
 </body>
 </html>

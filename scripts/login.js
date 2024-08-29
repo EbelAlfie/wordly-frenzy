@@ -1,7 +1,6 @@
 import axios from "axios";
 import { configDotenv } from "dotenv";
 
-
 function onLoginSubmitted() {
     let nameText = document.getElementById("emailTextInput") ;
     let passText = document.getElementById("passwordTextInput") ;
@@ -25,17 +24,30 @@ function isPasswordValid(userName) {
 }
 
 function doLogin(userName, password) {
-    let dotEnv = configDotenv({
-        path:'../config/.env' 
+    configDotenv({
+        path:'.env' 
     });
 
-    axios.post(`${dotEnv.BASE_URL}wordly/user/login`, {
+    axios.post(`${process.env.BASE_URL}wordly/user/login`, {
         userName: userName,
         password: password
     }).then((result) => {
-        console.log(`${result}`)
+        if (result === true) {
+            document.cookie=`accessToken=${result}`
+            window.location.href = "../home/index.html"
+        }
     }).catch((error) => {
 
     })
 }
 
+function redirectToHomePage() {
+    window.location.href = './home/index.html';
+}
+
+function main() {
+    document.getElementById("buttonPlayNow").onclick = redirectToHomePage() ;
+    document.getElementById("buttonLogin").onclick = onLoginSubmitted() ;
+}
+
+main()
