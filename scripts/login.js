@@ -25,15 +25,15 @@ function isPasswordValid(userName) {
 }
 
 function doLogin(userName, password) {
-    configDotenv({
-        path:'.env' 
+    let dotEnv = configDotenv({
+        path:'../config/.env' 
     });
 
-    axios.post(`${process.env.BASE_URL}wordly/user/login`, {
+    axios.post(`${dotEnv.BASE_URL}wordly/user/login`, {
         userName: userName,
         password: password
     }).then((result) => {
-
+        console.log(`${result}`)
     }).catch((error) => {
 
     })
