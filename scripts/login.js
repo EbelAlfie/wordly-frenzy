@@ -1,22 +1,31 @@
-import axios from "axios";
-import { configDotenv } from "dotenv";
+import axios from "https://cdn.skypack.dev/axios";
+import { config } from "../config.js";
 
-function onLoginSubmitted() {
-    let nameText = document.getElementById("emailTextInput") ;
-    let passText = document.getElementById("passwordTextInput") ;
-    if (!checkUserName(nameText.innerHTML)) return;
-    if (!checkPassword(passText.innerHTML)) return; //TODO Error handling
-    doLogin(nameText.innerHTML, passText.innerHTML)
+function main() {
+    document.getElementById("buttonPlayNow").onclick = () => {
+        redirectToHomePage() 
+    } ;
+    document.getElementById("buttonLogin").onclick = () => {
+        onLoginSubmitted()
+    } ;
 }
 
-function isUserNameValid(userName) {
+function onLoginSubmitted() {
+    let nameText = document.getElementById("emailTextInput").value ;
+    let passText = document.getElementById("passwordTextInput").value ;
+    if (!checkUserName(nameText)) return;
+    if (!checkPassword(passText)) return; //TODO Error handling
+    doLogin(nameText, passText)
+}
+
+function checkUserName(userName) {
     if (userName === "") {
         return false
     }
     return true
 }
 
-function isPasswordValid(userName) {
+function checkPassword(userName) {
     if (userName === "") {
         return false
     }
@@ -24,11 +33,7 @@ function isPasswordValid(userName) {
 }
 
 function doLogin(userName, password) {
-    configDotenv({
-        path:'.env' 
-    });
-
-    axios.post(`${process.env.BASE_URL}wordly/user/login`, {
+    axios.post(`${config.BASE_URL}wordly/user/login`, {
         userName: userName,
         password: password
     }).then((result) => {
@@ -43,11 +48,6 @@ function doLogin(userName, password) {
 
 function redirectToHomePage() {
     window.location.href = './home/index.html';
-}
-
-function main() {
-    document.getElementById("buttonPlayNow").onclick = redirectToHomePage() ;
-    document.getElementById("buttonLogin").onclick = onLoginSubmitted() ;
 }
 
 main()
