@@ -36,9 +36,15 @@ function doLogin(userName, password) {
     axios.post(`${config.BASE_URL}wordly/user/login`, {
         userName: userName,
         password: password
+    }, {
+       headers: {
+        "Content-Type": "application/json"
+       } 
     }).then((result) => {
-        if (result === true) {
-            document.cookie=`accessToken=${result}`
+        console.log(result) ;
+        let token = result.data.authToken | null
+        if (token !== null) {
+            document.cookie=`accessToken=${token}`
             window.location.href = "../home/index.html"
         }
     }).catch((error) => {
