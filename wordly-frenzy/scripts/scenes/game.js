@@ -52,7 +52,7 @@ export class OceanScene extends Phaser.Scene {
       this.load.audio('wrong', '../asset/wrong.mp3');
       this.load.audio('scene-music', [ '../asset/frenzy.mp3']);
 
-      this.quizModule.loadAllQuizes(false) ;
+      this.quizModule.loadKalimatEfektif(false, 0) ;
     }
 
   showLoading() {
@@ -80,7 +80,7 @@ export class OceanScene extends Phaser.Scene {
 
   loadQuiz() {
     this.showLoading() ;
-    this.quizModule.queryQuiz("")
+    this.quizModule.queryQuiz()
     .then((quiz) => {
       if (quiz === null || quiz === undefined) {
         this.gameOver() ;
@@ -89,9 +89,6 @@ export class OceanScene extends Phaser.Scene {
       }
       this.dismissLoading() ;
     })
-    // .catch((error) => {
-    //   console.log("LOAD QUIZ ERROR " + error)
-    // }) ;
   }
 
   onQuizLoaded(quizModel) {
@@ -105,7 +102,7 @@ export class OceanScene extends Phaser.Scene {
       frames: this.anims.generateFrameNumbers('player', { start: 0, end: 5 }),
       frameRate: 12,
       repeat: -1
-  });
+    });
 
     let choosenBackground = Phaser.Math.RND.pick(background)
     this.bg = this.add.image(0, 0, choosenBackground).setOrigin(0)

@@ -18,24 +18,22 @@ export class QuizRepository {
     isCorrect = false ;
     isFirstWrong = false ;
 
-    async loadAllQuizes(local = true) { //TODO error handling in real API
+    async loadQuizes(local = true, type = 0) { //TODO error handling in real API
         let url = 'scripts/config/quizes.json'
         if (!local) {
-            url = config.BASE_URL
+            url = `${config.BASE_URL}quizes?quizType=${type}`
         }
 
         return axios.get(url)
         .then(response => {
-            console.log(response.data)
             this.quizes = response.data ;
         }) 
         .catch((error) => {
-            console.log(error) 
-            this.loadAllQuizes(true)
+            this.loadQuizes(true, type)
         })
     }
 
-    queryQuiz(type) {
+    queryQuiz() {
         return new Promise((resolve, reject) => {
             this.choosenQuiz = this.getQuiz() ;
             this.isFirstWrong = false ;
