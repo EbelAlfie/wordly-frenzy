@@ -1,0 +1,38 @@
+[
+  {
+    "question": "Kelihatan seorang kakek berjalan bersama cucunya seorang gadis belia yang cantik. Mereka duduk di bawah pohon yang rindang. Gadis itu meminta kakeknya menceritakan riwayat hidupnya, siapa sebenarnya kedua orang tuanya dan di mana mereka sekarang. Sang kakek terdiam sebentar, kemudian mulailah ia bercerita. “Delapan belas tahun yang lalu, seorang pemuda kota berjalan-jalan ke desa ini. Ia terpikat gadis cantik bunga desa ini, dan merekapun menikah. Gadis cantik itu adalah putri kakek satu-satunya.\n\nLatar tempat pada cerita di atas adalah...",
+    "targetTexts": ["Di bawah pohon rindang", "Di perkampungan", "Di hutan rimba", "Di jalan pedesaan", "Di perkotaan"],
+    "correctAnswer": "Di bawah pohon rindang",
+    "hint": "Coba perhatikan kalimat kedua dari cerpen ini..."
+  },
+  {
+    "question": "Kita sebagai pendidik tidak boleh memandang masalah secara hitam-putih pak, dia itu telah banyak menanggung beban hidup, sudah selayaknya kita ikut mendampingi dan membantunya, bukan malah menambah bebannya.\n\nAmanat yang terkandung dalam kutipan cerpen di atas adalah...",
+    "targetTexts": ["Sebagai manusia harus saling tolong-menolong", "Seorang pendidik harus bisa membantu\nsiswanya dalam mengatasi permasalahan hidup", "Guru harus bersikap professional dalam mendidik muridnya", "Guru harus memiliki sikap kasih sayang dalam mendidik"],
+    "correctAnswer": "Seorang pendidik harus bisa membantu\nsiswanya dalam mengatasi permasalahan hidup",
+    "hint": "Tokoh \"dia\" disini digambarkan sedang menanggung beban hidup."
+  },
+  {
+    "question": "Hanya itu alasan Mama melarang Dewi menikah dengan Lukas?” Bibir Dewi menyungging sinis. “Oh, alangkah picik pikiran Mama! Lalu, apa artinya kemuliaan hati Mama selama ini yang Dewi kagumi? Padahal dulu Mama tidak pernah mempermasalahkan status Lukas yang ternyata belum mempunyai pekerjaan tetap. Begitu pula dengan kakakku yang selama ini mendukungku, sekarang justru berbalik arah.\n\nKonflik di dalam kutipan cerpen tersebut yaitu...",
+    "targetTexts": ["Dewi dan Lukas batal menikah", "Dewi dilarang menikah oleh Mama dan kakaknya", "Mama berpikiran picik terhadap Lukas"],
+    "correctAnswer": "Dewi dilarang menikah oleh Mama dan kakaknya",
+    "hint": "Kalimat pertama dan terakhir cerpen tersebut mengungkapkan bahwa Dewi merasa kecewa dengan Mama dan kakak Dewi, rasa kecewa ini pasti disebabkan karena sesuatu yang Mama dan kaka Dewi perbuat.."
+  },
+  {
+    "question": "Aku memandang keluar jendela. Langit biru cerah dengan awan putih yang bergerombol. Burung-burung beterbangan riang. Aku tersenyum. Hari ini adalah hari yang indah.\n\nTokoh aku dalam penggalan cerpen di atas yaitu...",
+    "targetTexts": ["Orang pertama pelaku utama", "Orang pertama pelaku sampingan", "Orang kedua pelaku utama", "Orang kedua pelaku sampingan", "Orang ketiga pelaku utama"],
+    "correctAnswer": "Orang pertama pelaku utama",
+    "hint": "Tidak ada tokoh lain selain tokoh \"Aku\" dalam cerpen ini, maka tentunya dia adalah tokoh utama sekaligus orang pertama dalam cerpen ini."
+  },
+  {
+    "question": "Baik Hati pun pergi ke sebidang tanah tandus itu sambil membawa bibit semangka dan kuda pincang yang menjadi bagiannya. Meski mendapat warisan yang kurang menguntungkan, Baik Hati tidak putus asa. Ia langsung menanami lahan tandus itu dengan bibit semangka.\n\nSifat-sifat berikut yang tidak dimiliki oleh Baik Hati adalah",
+    "targetTexts": ["Pantang menyerah", "Pekerja keras", "Optimis", "Kreatif", "Rendah hati"],
+    "correctAnswer": "Rendah hati",
+    "hint": "Baik Hati memang tidak mengeluh dan pantang menyerah dan terlihat bahwa dia orang yang kreatif dengan mencoba menanam bibit semangka di lahan tandus, namun tidak ada kepastian bahwa Baik Hati itu adalah orang yang rendah hati dan tidak sombong"
+  },
+  {
+    "question": "Pada suatu hari, Diah pergi ke hutan untuk mencari kayu bakar. Di tengah hutan, Diah bertemu dengan seekor rusa yang terluka. Diah merasa iba dengan rusa tersebut, sehingga Diah membawanya pulang dan merawatnya. Alur yang digunakan dalam kutipan cerpen di atas adalah...",
+    "targetTexts": ["Alur maju", "Alur mundur", "Alur campuran", "Alur maju-mundur", "Alur mundur-maju"],
+    "correctAnswer": "Alur maju",
+    "hint": "Peristiwa yang diceritakan dalam cerpen tersebut diceritakan dari awal, tengah, sampai akhir secara berurutan"
+  }
+]

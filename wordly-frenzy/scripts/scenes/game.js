@@ -5,6 +5,7 @@ import { background, foodConfig, TIME_LIMIT } from "../config/game_config.js";
 import { animateClosingDoors, createHintBox, displayScore, playAnswerAnimation, playCorrectAudio, playWrongAudio, updateBgSize } from "../../../util/phaser-utils.js";
 import HintContainer from "../../../util/game-hint.js";
 import TextFormatter from "../../../util/text-formatter.js";
+import { showLoading, dismissLoading } from "../../../util/utils.js";
 
 export class OceanScene extends Phaser.Scene {
 
@@ -55,16 +56,6 @@ export class OceanScene extends Phaser.Scene {
       this.quizModule.loadQuizes(false, 0) ;
     }
 
-  showLoading() {
-    let loading = document.getElementById("loading-screen") ;
-    loading.style.visibility = "visible"
-  }
-
-  dismissLoading() {
-    let loading = document.getElementById("loading-screen") ;
-    loading.style.visibility = "hidden"
-  }
-
   resetGame() {
     this.quizModule.reset() ;
     this.create() ;
@@ -79,7 +70,7 @@ export class OceanScene extends Phaser.Scene {
   }
 
   loadQuiz() {
-    this.showLoading() ;
+    showLoading() ;
     this.quizModule.queryQuiz()
     .then((quiz) => {
       if (quiz === null || quiz === undefined) {
@@ -87,7 +78,7 @@ export class OceanScene extends Phaser.Scene {
       } else {
         this.onQuizLoaded(quiz) ;
       }
-      this.dismissLoading() ;
+      dismissLoading() ;
     })
   }
 
@@ -237,7 +228,7 @@ export class OceanScene extends Phaser.Scene {
         title: `${label} "${this.quizModule.choosenQuiz.jawabanBenar}"`,
         content: `${this.quizModule.getCurrentQuizIndex()} dari ${this.quizModule.getTotalQuestion()} terjawab`,
         onCompleted: () => {
-          this.showLoading() ;
+          showLoading() ;
           this.loadQuiz() ;
         }
       }
