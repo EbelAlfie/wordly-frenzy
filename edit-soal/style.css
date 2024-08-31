@@ -1,0 +1,8 @@
+body { 
+    height: 100vh;
+    padding-top: 70px; 
+}
+
+.quiz-type {
+    background-color: rgb(12, 192, 12);
+}

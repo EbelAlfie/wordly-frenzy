@@ -1,7 +1,6 @@
-import axios from "https://cdn.skypack.dev/axios";
-import { config } from "../../../config.js";
+import { quizRepository } from "../../../data/quiz_repository.js";
 
-export class QuizRepository {
+export class QuizController {
     score = 0;
     soalBenar = 0 ;
 
@@ -19,12 +18,7 @@ export class QuizRepository {
     isFirstWrong = false ;
 
     async loadQuizes(local = true, type = 0) { //TODO error handling in real API
-        let url = 'scripts/config/quizes.json'
-        if (!local) {
-            url = `${config.BASE_URL}quizes?quizType=${type}`
-        }
-
-        return axios.get(url)
+        return quizRepository.loadQuizes(local, type)
         .then(response => {
             this.quizes = response.data ;
         }) 

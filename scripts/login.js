@@ -41,11 +41,10 @@ function doLogin(userName, password) {
         "Content-Type": "application/json"
        } 
     }).then((result) => {
-        console.log(result) ;
-        let token = result.data.authToken | null
-        if (token !== null) {
+        let token = result.data["authToken"] || ""
+        if (token !== "") {
             document.cookie=`accessToken=${token}`
-            window.location.href = "../home/index.html"
+            redirectToHomePage()
         }
     }).catch((error) => {
 

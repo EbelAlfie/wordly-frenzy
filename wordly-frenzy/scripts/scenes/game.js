@@ -1,6 +1,6 @@
 import Player from "../player.js"
 import { FoodManager } from "../food_manager.js"
-import { QuizRepository } from "../data/quiz_repository.js"
+import { QuizController } from "../data/quiz_controller.js"
 import { background, foodConfig, TIME_LIMIT } from "../config/game_config.js";
 import { animateClosingDoors, createHintBox, displayScore, playAnswerAnimation, playCorrectAudio, playWrongAudio, updateBgSize } from "../../../util/phaser-utils.js";
 import HintContainer from "../../../util/game-hint.js";
@@ -8,7 +8,7 @@ import TextFormatter from "../../../util/text-formatter.js";
 
 export class OceanScene extends Phaser.Scene {
 
-  quizModule = new QuizRepository() ;
+  quizModule = new QuizController() ;
   player = null
 
   isAnswering = false ;
@@ -52,7 +52,7 @@ export class OceanScene extends Phaser.Scene {
       this.load.audio('wrong', '../asset/wrong.mp3');
       this.load.audio('scene-music', [ '../asset/frenzy.mp3']);
 
-      this.quizModule.loadKalimatEfektif(false, 0) ;
+      this.quizModule.loadQuizes(false, 0) ;
     }
 
   showLoading() {
