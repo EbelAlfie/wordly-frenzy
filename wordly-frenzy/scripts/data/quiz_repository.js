@@ -1,4 +1,5 @@
-import axios, { Axios } from "axios";
+import axios from "https://cdn.skypack.dev/axios";
+import { config } from "../../../config.js";
 
 export class QuizRepository {
     score = 0;
@@ -17,12 +18,21 @@ export class QuizRepository {
     isCorrect = false ;
     isFirstWrong = false ;
 
-    async loadAllQuizes() { //TODO error handling in real API
-        return axios('scripts/config/quizes.json')
-        .then(response => response.json())
-        .then(json => {
-            this.quizes = json ;
+    async loadAllQuizes(local = true) { //TODO error handling in real API
+        let url = 'scripts/config/quizes.json'
+        if (!local) {
+            url = config.BASE_URL
+        }
+
+        return axios.get(url)
+        .then(response => {
+            console.log(response.data)
+            this.quizes = response.data ;
         }) 
+        .catch((error) => {
+            console.log(error) 
+            this.loadAllQuizes(true)
+        })
     }
 
     queryQuiz(type) {

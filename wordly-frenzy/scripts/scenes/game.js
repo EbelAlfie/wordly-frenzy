@@ -52,7 +52,7 @@ export class OceanScene extends Phaser.Scene {
       this.load.audio('wrong', '../asset/wrong.mp3');
       this.load.audio('scene-music', [ '../asset/frenzy.mp3']);
 
-      this.quizModule.loadAllQuizes() ;
+      this.quizModule.loadAllQuizes(false) ;
     }
 
   showLoading() {
