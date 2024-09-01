@@ -19,6 +19,7 @@ async function queryMyQuizes(local) {
         dismissLoading()
         result.data.forEach(item => {
             addNewItem({
+                id: item["id"] || "",
                 soal: item["question"] || "",
                 category: item["type"] || ""
             }, false
@@ -59,6 +60,11 @@ function addNewItem(quizModel, isLoading) {
     let editBtn = document.createElement('a')
     editBtn.className = "btn btn-outline-primary align-self-center"
     editBtn.innerText = "Detail"
+    if (!isLoading && quizModel.id !== undefined) {
+        editBtn.onclick = () => {
+            window.location.href = `../edit-soal/edit.html?quizId=${quizModel.id}`
+        }
+    }
 
     header.appendChild(quizTitle)
     header.appendChild(editBtn)

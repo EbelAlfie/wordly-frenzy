@@ -2,10 +2,11 @@ import Player from "../player.js"
 import { FoodManager } from "../food_manager.js"
 import { QuizController } from "../data/quiz_controller.js"
 import { background, foodConfig, TIME_LIMIT } from "../config/game_config.js";
-import { animateClosingDoors, createHintBox, displayScore, playAnswerAnimation, playCorrectAudio, playWrongAudio, updateBgSize } from "../../../util/phaser-utils.js";
+import { animateClosingDoors, animateConfetti, createHintBox, displayScore, playAnswerAnimation, playCorrectAudio, playWrongAudio, updateBgSize } from "../../../util/phaser-utils.js";
 import HintContainer from "../../../util/game-hint.js";
 import TextFormatter from "../../../util/text-formatter.js";
 import { showLoading, dismissLoading } from "../../../util/utils.js";
+import { showConfetti } from "../../../util/confetti.js";
 
 export class OceanScene extends Phaser.Scene {
 
@@ -37,7 +38,7 @@ export class OceanScene extends Phaser.Scene {
           frameHeight: foodConfig["large"].frameHeight
         }
       )
-
+      
       this.load.spritesheet(
         'enemy', 
         'resource/enemy.png', 
@@ -52,7 +53,7 @@ export class OceanScene extends Phaser.Scene {
       this.load.audio('correct', '../asset/correct.mp3');
       this.load.audio('wrong', '../asset/wrong.mp3');
       this.load.audio('scene-music', [ '../asset/frenzy.mp3']);
-
+      
       this.quizModule.loadQuizes(false, 0) ;
     }
 
@@ -155,6 +156,8 @@ export class OceanScene extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.foodManager, (player, food) => this.eat(food, this.foodManager))
 
     this.loadQuiz() ;
+    showConfetti() ;
+    animateConfetti(this) ;
   }
 
   restart(currentQuiz) {

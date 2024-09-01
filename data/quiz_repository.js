@@ -10,12 +10,17 @@ class QuizRepository {
         else 
             quizType = "kalimat-efektif"
 
-        let url = `${quizType}`
+        let url = `../data/${quizType}.json`
         if (!local) {
             url = `${config.BASE_URL}quizes?quizType=${type}`
         }
 
         return axios.get(url)
+        // .then(response => {
+        //     if (local) {
+        //         response.filter(quiz => quiz["type"] == quizType)
+        //     }
+        // })
     }
 
     async loadQuizByTeacherId(local, teacherId) {
@@ -27,6 +32,14 @@ class QuizRepository {
         return axios.get(url)
     }
     
+    async getQuizDetail(local, quizId) {
+        let url = `../data/quizes.json`
+        if (!local) {
+            url = `${config.BASE_URL}quizDetail?quizId=${quizId}`
+        }
+
+        return axios.get(url)
+    }
 }
 
 export let quizRepository = new QuizRepository() ;

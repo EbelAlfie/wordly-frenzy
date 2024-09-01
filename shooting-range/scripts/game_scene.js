@@ -36,6 +36,8 @@ export class GameScene extends Phaser.Scene {
     this.load.audio('correct', '../asset/correct.mp3');
     this.load.audio('wrong', '../asset/wrong.mp3');
 
+    this.load.spritesheet('confetti', '../asset/sunset-raster.png', { frameWidth: 16, frameHeight: 16 });
+
     this.load.image('xImage', 'assets/X.png');
     this.load.image('correctImage', 'assets/correct.png');
   }
@@ -257,6 +259,8 @@ export class GameScene extends Phaser.Scene {
     this.updateTargetTexts();
 
     this.playBackgroundMusic();
+
+    
   }
 
   createHintBox() {

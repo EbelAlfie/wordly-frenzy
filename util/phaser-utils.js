@@ -320,3 +320,30 @@ export const animateTextLoading = (scene, title, content) => {
       }
     });
   }
+
+
+export const animateConfetti = (scene) => {
+  scene.add.particles(0, 0, 'confetti', {
+    speed: 100,
+    lifespan: 5000,
+    gravityY: 100,
+    frame: [0, 4, 8, 12, 16],
+    x: { min: 0, max: 800 },
+    scaleX: {
+        onEmit: (particle) => {
+            return -1.0
+        },
+        onUpdate: (particle) => {
+            return (particle.scaleX > 1.0 ? -1.0 : particle.scaleX + 0.05)
+        }
+    },
+    rotate: {
+        onEmit: (particle) => {
+            return 0
+        },
+        onUpdate: (particle) => {
+            return particle.angle + 1
+        }
+    }
+});
+}
