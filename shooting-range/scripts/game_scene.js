@@ -1,4 +1,4 @@
-import { createContainers, showConfetti } from "../../util/confetti";
+import { createContainers, showConfetti } from "../../util/confetti.js";
 
 export class GameScene extends Phaser.Scene {
   constructor() {
