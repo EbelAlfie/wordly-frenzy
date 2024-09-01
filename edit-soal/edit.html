@@ -19,27 +19,54 @@
     <body>
         <img class="bg" src="../asset/bg-home.png" alt="">
         <!-- Navbar -->
-        <nav class="navbar navbar-default navbar-fixed-top w-100 m-20">
+        <nav class="navbar navbar-default navbar-fixed-top fixed-top w-100 m-20">
             <div class="container">
             <a class="navbar-brand" href="#"><img src="../asset/Word.ly-white.png" alt="Word.ly" width="150"></a>
             <p class="float-end mb-0 text-white welcome-text">Selamat datang!</p>
             </div>
         </nav>
         
-        <div class="container d-flex ms-0 me-0" style="margin-top: 95px;">
+        <div class="container d-flex justify-content-center align-items-center p-5" style="margin-top: 95px;">
             <div class="container col">
 
-                <div class="row">
-                    <h1 class="col">Soal Saya</h1>
-                    <div class="col align-self-center">
-                        <button class="btn btn-primary">Buat Soal</button>
-                    </div>
+                <div class="form-floating mb-4">
+                    <textarea class="form-control" placeholder="Soal quiz" id="questionField" style="height: 200px;"></textarea>
+                    <label for="questionField">Soal Quiz</label>
                 </div>
-    
-                <ul class="row list-unstyled" id="quizList">
-                    
-                </ul>
 
+                <label class="form-label">Jawaban</label>
+                <div class="btn-group form-check" role="group">
+
+                    <input type="radio" class="btn-check" name="options-outlined" id="optionA" autocomplete="off" checked>
+                    <label class="btn btn-outline-success" for="optionA">A</label>
+
+                    <input class="form-control"></input>
+                
+                    <input type="radio" class="btn-check" name="options-outlined" id="optionB" autocomplete="off">
+                    <label class="btn btn-outline-success" for="optionB">B</label>
+                    
+                    <input class="form-control"></input>
+                
+                    <input type="radio" class="btn-check" name="options-outlined" id="optionC" autocomplete="off">
+                    <label class="btn btn-outline-success" for="optionC">C</label>
+
+                    <input class="form-control"></input>
+                
+                    <input type="radio" class="btn-check" name="options-outlined" id="optionD" autocomplete="off">
+                    <label class="btn btn-outline-success" for="optionD">D</label>
+
+                    <input class="form-control"></input>
+                </div>
+
+                <div class="form-floating mb-5">
+                    <textarea class="form-control" id="quizHint" placeholder="Hint" style="height: 100px;"></textarea>
+                    <label class="form-label" for="quizHint">Hint</label>
+                </div>
+                
+                <div class="row">
+                    <button class="col btn btn-success m-3">Tambah</button>
+                    <button class="col btn btn-danger m-3">Kembali</button>
+                </div>
             </div>
         </div>
 
