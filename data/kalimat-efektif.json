@@ -4,6 +4,7 @@
     "jawaban": ["Logis","Cermat","Berpadu","Kata sambung berlebihan"],
     "jawabanBenar": "Kata sambung berlebihan",
     "score": 1,
+    "type": "Kalimat Efektif",
     "tips": "Kalimat yang logis, cermat, dan berpadu adalah syarat yang membuat sebuah kalimat bisa disebut efektif."
   },
   {
@@ -11,6 +12,7 @@
     "jawaban": ["Semua, lomba, masuk", "Kepada, siswa, segera", "Semua, peserta, agar", "Kepada, semua, lomba"],
     "jawabanBenar": "Kepada, siswa, segera",
     "score": 1,
+    "type": "Kalimat Efektif",
     "tips": "Kalimat bisa disebut efektif jika memiliki kesepadanan struktur, kehematan kata, kesejajaran bentuk, ketegasan makna, kelogisan makna, dan kesesuaian ejaan."
   },
   {
@@ -18,6 +20,7 @@
     "jawaban": ["Daripada", "Walaupun", "Kemudian", "Sedangkan"],
     "jawabanBenar": "Sedangkan",
     "score": 1,
+    "type": "Kalimat Efektif",
     "tips": "Lalu adalah kata hubung atau konjungsi temporal/yang menyatakan waktu. Kalimat di atas memberi keadaan bahwa hiu memakan ikan-ikan besar, lumba-lumba memakan ikan-ikan kecil."
   },
   {
@@ -25,6 +28,7 @@
     "jawaban": ["Ibu", "sangat", "enak", "cucur"],
     "jawabanBenar": "sangat",
     "score": 1,
+    "type": "Kalimat Efektif",
     "tips": "Penggunaan kata “sangat” dan “terlalu” secara bersamaan memberikan kesan berlebihan dan tidak efektif."
   },
   {
@@ -32,6 +36,7 @@
     "jawaban": ["Sekali, seluruh", "Maksimal, bermanfaat", "Banyak, manusia", "Pekerjaan, dilakukan"],
     "jawabanBenar": "Sekali, seluruh",
     "score": 1,
+    "type": "Kalimat Efektif",
     "tips": "Kata profesional sudah cukup untuk menggambarkan tingkat tinggi dari sebuah keahlian dan kata banyak sudah cukup untuk menggambarkan jumlah yang tinggi dari kelompok tertentu."
   },
   {
@@ -39,6 +44,7 @@
     "jawaban": ["(1)", "(2)", "(3)", "(4)"],
     "jawabanBenar": "(2)",
     "score": 1,
+    "type": "Kalimat Efektif",
     "tips": "Tabrakan beruntun adalah tabrakan yang melibatkan lebih dari 2 kendaraan secara bersamaan. Sementara beruntung adalah bernasib baik."
   }
 ]
