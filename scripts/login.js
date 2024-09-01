@@ -52,7 +52,7 @@ function doLogin(userName, password) {
 }
 
 function redirectToHomePage() {
-    window.location.href = './home/index.html';
+    window.location.href = 'home/index.html';
 }
 
 main()
