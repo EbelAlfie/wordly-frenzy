@@ -1,7 +1,6 @@
 export function showConfetti() {
     var onlyOnKonami = false ;
-    var window = window,
-    random = Math.random,
+    var random = Math.random,
     cos = Math.cos,
     sin = Math.sin,
     PI = Math.PI,
@@ -13,13 +12,7 @@ export function showConfetti() {
     var runFor = 2000
     var isRunning = true
 
-    // setTimeout(() => {
-    //     isRunning = false
-    // }, runFor);
-
-    // Settings
-    var konami = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65],
-        pointer = 0;
+    var pointer = 0;
 
     var particles = 150,
         spread = 20,
@@ -75,12 +68,10 @@ export function showConfetti() {
         return 'rgb(' + r + ',' + g + ',' + b + ')';
     }
 
-    // Cosine interpolation
     function interpolation(a, b, t) {
         return (1 - cos(PI * t)) / 2 * (b - a) + a;
     }
 
-    // Create a 1D Maximal Poisson Disc over [0, 1]
     var radius = 1 / eccentricity,
         radius2 = radius + radius;
 
@@ -129,18 +120,7 @@ export function showConfetti() {
         return spline.sort();
     }
 
-    // Create the overarching container
-    var container = document.createElement('div');
-    container.style.position = 'fixed';
-    container.style.top = '0';
-    container.style.left = '0';
-    container.style.width = '100%';
-    container.style.height = '0';
-    container.style.overflow = 'visible';
-    container.style.zIndex = '9999';
-
-    // Confetto constructor
-    function Confetto(theme) {
+    function Confetti(theme) {
         this.frame = 0;
         this.outer = document.createElement('div');
         this.inner = document.createElement('div');
@@ -171,7 +151,6 @@ export function showConfetti() {
         outerStyle.left = this.x + 'px';
         outerStyle.top = this.y + 'px';
 
-        // Create the periodic spline
         this.splineX = createPoisson();
         this.splineY = [];
         for (var i = 1, l = this.splineX.length - 1; i < l; ++i)
@@ -184,7 +163,6 @@ export function showConfetti() {
             this.y += this.dy * delta;
             this.theta += this.dTheta * delta;
 
-            // Compute spline and convert to polar
             var phi = this.frame % 7777 / 7777,
                 i = 0,
                 j = 1;
@@ -203,33 +181,28 @@ export function showConfetti() {
         };
     }
 
-
     function poof() {
         if (!frame) {
-            // Append the container
-            document.body.appendChild(container);
-
-            // Add confetti
+            let container = document.getElementById('confetti') ;
+            console.log(container) ;
 
             var theme = colorThemes[onlyOnKonami ? colorThemes.length * random() | 0 : 0],
                 count = 0;
 
-            (function addConfetto() {
+            (function addConfetti() {
 
                 if (onlyOnKonami && ++count > particles)
                     return timer = undefined;
 
                 if (isRunning) {
-                    var confetto = new Confetto(theme);
-                    confetti.push(confetto);
+                    var confettiIns = new Confetti(theme);
+                    confetti.push(confettiIns);
 
-                    container.appendChild(confetto.outer);
-                    timer = setTimeout(addConfetto, spread * random());
+                    container.appendChild(confettiIns.outer);
+                    timer = setTimeout(addConfetti, spread * random());
                 }
             })(0);
 
-
-            // Start the loop
             var prev = undefined;
             requestAnimationFrame(function loop(timestamp) {
                 var delta = prev ? timestamp - prev : 0;
@@ -246,21 +219,29 @@ export function showConfetti() {
                 if (confetti.length)
                     return frame = requestAnimationFrame(loop);
 
-                // Cleanup
-                document.body.removeChild(container);
                 frame = undefined;
             });
         }
     }
 
-    // function update() {
-    //     if (Phaser.Input.Keyboard.JustDown(this.keyConfetti)) {
-    //         isRunning = true;
-    //         setTimeout(() => {
-    //             isRunning = false
-    //         }, runFor);
-    //         poof();
-    //     }
-    // }
-    poof() ;
+    isRunning = true;
+    setTimeout(() => {
+        isRunning = false
+    }, runFor);
+    poof();
+}
+
+export function createContainers() {
+    var container = document.createElement('div');
+    container.id = 'confetti' ;
+    container.style.position = 'fixed';
+    container.style.top = '0';
+    container.style.left = '0';
+    container.style.width = '100%';
+    container.style.height = '0';
+    container.style.overflow = 'visible';
+    container.style.zIndex = '9999';
+    // Append the container
+    document.body.appendChild(container);
+    return container ;
 }

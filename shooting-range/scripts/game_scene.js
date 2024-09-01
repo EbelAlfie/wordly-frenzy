@@ -260,7 +260,7 @@ export class GameScene extends Phaser.Scene {
 
     this.playBackgroundMusic();
 
-    
+    createContainers() ;
   }
 
   createHintBox() {
@@ -728,6 +728,8 @@ export class GameScene extends Phaser.Scene {
     button2Graphics.on('pointerdown', () => {
       window.location.href = "../index.html";
     });
+
+    if (finalScore == 100) showConfetti() ;
   }
 
   hideGameElements() {

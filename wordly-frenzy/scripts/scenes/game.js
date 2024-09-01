@@ -6,7 +6,7 @@ import { animateClosingDoors, animateConfetti, createHintBox, displayScore, play
 import HintContainer from "../../../util/game-hint.js";
 import TextFormatter from "../../../util/text-formatter.js";
 import { showLoading, dismissLoading } from "../../../util/utils.js";
-import { showConfetti } from "../../../util/confetti.js";
+import { showConfetti, createContainers } from "../../../util/confetti.js";
 
 export class OceanScene extends Phaser.Scene {
 
@@ -156,8 +156,7 @@ export class OceanScene extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.foodManager, (player, food) => this.eat(food, this.foodManager))
 
     this.loadQuiz() ;
-    showConfetti() ;
-    animateConfetti(this) ;
+    createContainers() ;
   }
 
   restart(currentQuiz) {
@@ -244,6 +243,7 @@ export class OceanScene extends Phaser.Scene {
     this.player.stop() ;
     this.foodManager.stop() ;
     this.showEndGameScreen()
+    if (this.quizModule.getFinalScore() == 100) showConfetti() ;
   }
 
   dismissQuiz() {
