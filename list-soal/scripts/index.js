@@ -1,39 +1,64 @@
 import { quizRepository } from "../../data/quiz_repository.js"
-import { dismissLoading } from "../../util/utils.js"
 
 const list = document.getElementById('quizList');
 const fragment = document.createDocumentFragment();
 
 function main() {
-    //queryMyQuizes()
-    Array(1,2,3,4,5,6).forEach(item => {
-        addNewItem(true)
-    })
+    showLoading()
+    
+    queryMyQuizes(false)
+    // Array(1,2,3,4,5,6).forEach(item => {
+    //     addNewItem(true)
+    // })
     list.appendChild(fragment)
 }
 
-async function queryMyQuizes() {
-    return quizRepository.loadQuizes()
+async function queryMyQuizes(local) {
+    return quizRepository.loadQuizByTeacherId(local, 1)
     .then(result => {
+        dismissLoading()
+        result.data.forEach(item => {
+            addNewItem({
+                soal: item["question"] || "",
+                category: item["type"] || ""
+            }, false
+            )
+        })
+        list.appendChild(fragment)
     })
     .catch(error => {
+        console.log(error)
+        queryMyQuizes(true)
     })
 }
 
-function addNewItem(isLoading) {
+function showLoading() {
+    addNewItem(null, true)
+    addNewItem(null, true)
+    addNewItem(null, true)
+    addNewItem(null, true)
+    addNewItem(null, true)
+    addNewItem(null, true)
+}
+
+function dismissLoading(data) {
+    list.innerHTML = ''
+}
+
+function addNewItem(quizModel, isLoading) {
     let container = document.createElement('li')
-    container.className = "card container d-flex flex-column p-0 mt-2 mb-2 ms-0 me-0"
+    container.className = "card container d-flex flex-column p-0 mt-2 mb-2"
 
     let header = document.createElement('div')
     header.className = "card-header d-flex flex-row justify-content-between"
     
     let quizTitle = document.createElement('h3')
-    quizTitle.className = "align-self-center"
-    quizTitle.innerText = "Judul"
+    quizTitle.className = "align-self-center text-truncate"
+    quizTitle.innerText = quizModel?.soal || "Judul"
 
     let editBtn = document.createElement('a')
-    editBtn.className = "btn btn-outlined-info align-self-center"
-    editBtn.innerText = "Edit >"
+    editBtn.className = "btn btn-outline-primary align-self-center"
+    editBtn.innerText = "Detail"
 
     header.appendChild(quizTitle)
     header.appendChild(editBtn)
@@ -43,7 +68,11 @@ function addNewItem(isLoading) {
 
     let quizCategory = document.createElement('h4')
     quizCategory.className = "rounded quiz-type p-2 text-white fs-6 text-center"
-    quizCategory.innerText = "Cerpen"
+    quizCategory.innerText = quizModel?.category || "Cerpen"
+    if (quizCategory.innerText == "Kalimat Efektif")
+        quizCategory.style = "background-color: #3DB2FF;"
+    else
+        quizCategory.style = "background-color: #00CD2D;"
 
     quizBody.appendChild(quizCategory)
 
