@@ -48,6 +48,13 @@ class QuizRepository {
                 return result.data || {"id": ""}
         })
     }
+
+    async addQuiz(quiz) {
+        let url = `${config.BASE_URL}wordly/quiz/add-quiz`
+        return axios.post(url, quiz, {
+            headers: {'Authorization': `Bearer ${getCookie("accessToken")}`}
+        })
+    }
 }
 
 export let quizRepository = new QuizRepository() ;

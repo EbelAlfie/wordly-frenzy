@@ -11,7 +11,7 @@ function main() {
 }
 
 function onLoginSubmitted() {
-    let nameText = document.getElementById("emailTextInput").value ;
+    let nameText = document.getElementById("nameTextInput").value ;
     let passText = document.getElementById("passwordTextInput").value ;
     if (!checkUserName(nameText)) return;
     if (!checkPassword(passText)) return; //TODO Error handling

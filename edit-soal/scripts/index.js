@@ -6,18 +6,21 @@ function main() {
 
 function setupPage() {
     const queryString = window.location.search
-    console.log(queryString)
     let params = new URLSearchParams(queryString) 
-    console.log(params.get("mode"))
+
+    let btnKembali = document.getElementById('btnReturn')
+    btnKembali.onclick = () => {
+        window.history.back()
+    }
 
     let mode = params.get("mode") || 0 //1 edit quiz, 0 new
-    if (mode == 1) setupAsEditPage()
+    if (mode === 1) setupAsEditPage()
     else setupAsAddQuiz() 
 }
 
 function setupAsAddQuiz() {
     let addButton = document.getElementById('btnAdd') ;
-    addButton.onClick = () => {
+    addButton.onclick = () => {
         addQuiz()
     }
 }
@@ -53,17 +56,33 @@ function getQuizById(local, quizId) {
 
 function addQuiz() {
     let quiz = validateForm() 
-    if (!quiz) return 
+    if (quiz === undefined) return 
     quizRepository.addQuiz(quiz)
+    .then(result => {
+        clearForm()
+        onAddQuizSuccess()
+    })
+}
+
+function onAddQuizSuccess() {
+    let modal = document.getElementById("alertModal")
+    let title = document.getElementById("modalTitle")
+    title.innerHTML = "Success"
+    let message = document.getElementById("modalMessage")
+    message.innerHTML = "Horee! Berhasil menambahkan quiz"
+    new bootstrap.Modal(modal).show()
 }
 
 async function updateQuiz(quiz) {
     quizRepository.updateQuiz(quiz)
+    .then(result => {
+        window.history.back()
+    })
 }
 
 function validateForm() {
-    let quiz = document.getElementById('questionField').textContent
-    if (quiz === undefined) return
+    let question = document.getElementById('questionField').value
+    if (question === undefined || question === "") return
 
     let choiceA = document.getElementById('choiceA').value
     if (choiceA === undefined || choiceA === "") return 
@@ -77,26 +96,40 @@ function validateForm() {
     let choiceD = document.getElementById('choiceD').value
     if (choiceD === undefined || choiceD === "") return 
 
-    let hint = document.getElementById('hint').textContent
+    let hint = document.getElementById('quizHint').value
     if (hint === undefined || hint === "") return
 
-    let correctAnswer = document.querySelector('input[name="options-outlined"]:checked').value;
-    console.log(correctAnswer) ;
+    let checked = document.querySelector('input[name="options-outlined"]:checked').id;
+    let correctAnswer 
+    switch (checked) {
+        case "optionB":
+            correctAnswer = choiceB; break;
+        case "optionC":
+            correctAnswer = choiceC; break;
+        case "optionD":
+            correctAnswer = choiceD; break;
+        default :
+            correctAnswer = choiceA; break;           
+    }
 
+    let type = document.getElementById("category")
+    let selectedType = type.options[type.selectedIndex].text
     return {
-        quiz: quiz,
+        question: question,
         choices: Array(choiceA, choiceB, choiceC, choiceD),
-        hint: hint
+        score: 1,
+        correctAnswer: correctAnswer,
+        hint: hint,
+        type: selectedType
     }
 }
 
 function setDefaultData(quizItem) {
-    console.log(quizItem) ;
     let choices = quizItem["choice"]
     let correctAnswer = choices.findIndex(item => item === quizItem["correctAnswer"])
 
     let question = document.getElementById("questionField")
-    question.textContent = quizItem["question"] 
+    question.value = quizItem["question"] 
 
     let choiceA = document.getElementById("choiceA")
     choiceA.value = choices[0]
@@ -118,12 +151,34 @@ function setDefaultData(quizItem) {
     }
 
     let hint = document.getElementById("quizHint")
-    hint.textContent = quizItem["hint"]
+    hint.value = quizItem["hint"]
 
     let addButton = document.getElementById('btnAdd') ;
-    addButton.onClick = () => {
+    addButton.onclick = () => {
         updateQuiz()
     }
+}
+
+function clearForm() {
+    let question = document.getElementById("questionField")
+    question.value = ''
+
+    let choiceA = document.getElementById("choiceA")
+    choiceA.value = ''
+
+    let choiceB = document.getElementById("choiceB")
+    choiceB.value = ''
+
+    let choiceC = document.getElementById("choiceC")
+    choiceC.value = ''
+
+    let choiceD = document.getElementById("choiceD")
+    choiceD.value = ''
+
+    document.getElementById("optionA").checked = true
+
+    let hint = document.getElementById("quizHint")
+    hint.value = ''
 }
 
 main()

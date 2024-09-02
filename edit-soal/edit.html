@@ -25,40 +25,82 @@
             <p class="float-end mb-0 text-white welcome-text">Selamat datang!</p>
             </div>
         </nav>
+
+        <div id="alertModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 id="modalTitle" class="modal-title fs-5">Title</h1>
+                    </div>
+                    <div class="modal-body">
+                        <p id="modalMessage">test.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
         
         <div class="container d-flex justify-content-center align-items-center p-5" style="margin-top: 95px;">
             <div class="container col">
+
+                <div class="row">
+                    <label class="col-sm-auto form-label align-self-center">Kategori</label>
+                    <select id="category" class="col form-select form-select-lg mb-3" aria-label="Large select example">
+                        <option value="cerpen" selected>Cerpen</option>
+                        <option value="kalimat-efektif">Kalimat Efektif</option>
+                    </select>
+                </div>
 
                 <div class="form-floating mb-4">
                     <textarea class="form-control" placeholder="Soal quiz" id="questionField" style="height: 200px;"></textarea>
                     <label for="questionField">Soal Quiz</label>
                 </div>
 
-                <div class="btn-group col" role="group">
+                <div class="container d-grid gap-2 btn-group mb-4" role="group">
 
                     <div class="row">
-                        <label class="form-label">Jawaban</label>
+                        <label class="col form-label"><b>Jawaban</b></label>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-auto">
+                            <input type="radio" class="btn-check" name="options-outlined" id="optionA" autocomplete="off" checked>
+                            <label class="btn btn-outline-success" for="optionA">A</label>
+                        </div>
+                        <div class="col">
+                            <input id="choiceA" class="col form-control"></input>
+                        </div>
                     </div>
                     
-                    <input type="radio" class="btn-check" name="options-outlined" id="optionA" autocomplete="off" checked>
-                    <label class="btn btn-outline-success" for="optionA">A</label>
+                    <div class="row">
+                        <div class="col-sm-auto">
+                            <input type="radio" class="btn-check" name="options-outlined" id="optionB" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="optionB">B</label>
+                        </div>
+                        <div class="col">
+                            <input id="choiceB" class="col form-control"></input>
+                        </div>
+                    </div>
 
-                    <input id="choiceA" class="form-control"></input>
-            
-                    <input type="radio" class="btn-check" name="options-outlined" id="optionB" autocomplete="off">
-                    <label class="btn btn-outline-success" for="optionB">B</label>
-                    
-                    <input id="choiceB" class="form-control"></input>
+                    <div class="row">
+                        <div class="col-sm-auto">
+                            <input type="radio" class="btn-check" name="options-outlined" id="optionC" autocomplete="off">
+                            <label class="btn btn-outline-info" for="optionC">C</label>
+                        </div>
+                        <div class="col">
+                            <input id="choiceC" class="col form-control"></input>
+                        </div>
+                    </div>
                 
-                    <input type="radio" class="btn-check" name="options-outlined" id="optionC" autocomplete="off">
-                    <label class="btn btn-outline-success" for="optionC">C</label>
+                    <div class="row">
+                        <div class="col-sm-auto">
+                            <input type="radio" class="btn-check" name="options-outlined" id="optionD" autocomplete="off">
+                            <label class="btn btn-outline-danger" for="optionD">D</label>
+                        </div>
+                        <div class="col">
+                            <input id="choiceD" class="col form-control"></input>
+                        </div>
+                    </div>
 
-                    <input id="choiceC" class="form-control"></input>
-                
-                    <input type="radio" class="btn-check" name="options-outlined" id="optionD" autocomplete="off">
-                    <label class="btn btn-outline-success" for="optionD">D</label>
-
-                    <input id="choiceD" class="form-control"></input>
                 </div>
 
                 <div class="form-floating mb-5">
@@ -67,8 +109,8 @@
                 </div>
                 
                 <div class="row">
-                    <button id="btnAdd" class="col btn btn-success m-3">Tambah</button>
-                    <button id="btnReturn" class="col btn btn-danger m-3">Kembali</button>
+                    <button id="btnAdd" class="col btn btn-success m-3 p-3">Tambah</button>
+                    <button id="btnReturn" class="col btn btn-danger m-3 p-3">Kembali</button>
                 </div>
             </div>
         </div>
