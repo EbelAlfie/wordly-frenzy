@@ -34,28 +34,31 @@
                     <label for="questionField">Soal Quiz</label>
                 </div>
 
-                <label class="form-label">Jawaban</label>
-                <div class="btn-group form-check" role="group">
+                <div class="btn-group col" role="group">
 
+                    <div class="row">
+                        <label class="form-label">Jawaban</label>
+                    </div>
+                    
                     <input type="radio" class="btn-check" name="options-outlined" id="optionA" autocomplete="off" checked>
                     <label class="btn btn-outline-success" for="optionA">A</label>
 
-                    <input class="form-control"></input>
-                
+                    <input id="choiceA" class="form-control"></input>
+            
                     <input type="radio" class="btn-check" name="options-outlined" id="optionB" autocomplete="off">
                     <label class="btn btn-outline-success" for="optionB">B</label>
                     
-                    <input class="form-control"></input>
+                    <input id="choiceB" class="form-control"></input>
                 
                     <input type="radio" class="btn-check" name="options-outlined" id="optionC" autocomplete="off">
                     <label class="btn btn-outline-success" for="optionC">C</label>
 
-                    <input class="form-control"></input>
+                    <input id="choiceC" class="form-control"></input>
                 
                     <input type="radio" class="btn-check" name="options-outlined" id="optionD" autocomplete="off">
                     <label class="btn btn-outline-success" for="optionD">D</label>
 
-                    <input class="form-control"></input>
+                    <input id="choiceD" class="form-control"></input>
                 </div>
 
                 <div class="form-floating mb-5">
@@ -64,8 +67,8 @@
                 </div>
                 
                 <div class="row">
-                    <button class="col btn btn-success m-3">Tambah</button>
-                    <button class="col btn btn-danger m-3">Kembali</button>
+                    <button id="btnAdd" class="col btn btn-success m-3">Tambah</button>
+                    <button id="btnReturn" class="col btn btn-danger m-3">Kembali</button>
                 </div>
             </div>
         </div>

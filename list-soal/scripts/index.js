@@ -7,9 +7,7 @@ function main() {
     showLoading()
     
     queryMyQuizes(false)
-    // Array(1,2,3,4,5,6).forEach(item => {
-    //     addNewItem(true)
-    // })
+    setupNewQuizButton()
     list.appendChild(fragment)
 }
 
@@ -31,6 +29,13 @@ async function queryMyQuizes(local) {
         console.log(error)
         queryMyQuizes(true)
     })
+}
+
+function setupNewQuizButton() {
+    let newQuizBtn = document.getElementById("btnNewQuiz") 
+    newQuizBtn.onclick = () => {
+        window.location.href = `../edit-soal/edit.html?mode=0`
+    }
 }
 
 function showLoading() {
@@ -62,7 +67,7 @@ function addNewItem(quizModel, isLoading) {
     editBtn.innerText = "Detail"
     if (!isLoading && quizModel.id !== undefined) {
         editBtn.onclick = () => {
-            window.location.href = `../edit-soal/edit.html?quizId=${quizModel.id}`
+            window.location.href = `../edit-soal/edit.html?mode=1&quizId=${quizModel.id}`
         }
     }
 
