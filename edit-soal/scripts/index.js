@@ -14,7 +14,7 @@ function setupPage() {
     }
 
     let mode = params.get("mode") || 0 //1 edit quiz, 0 new
-    if (mode === 1) setupAsEditPage()
+    if (mode == 1) setupAsEditPage()
     else setupAsAddQuiz() 
 }
 
@@ -26,6 +26,7 @@ function setupAsAddQuiz() {
 }
 
 function setupAsEditPage() {
+    showLoading(true)
     loadQuizById()
 }
 
@@ -47,6 +48,7 @@ function getQuizById(local, quizId) {
             getQuizById(true, quizId)
             return 
         }
+        showLoading(false)
         setDefaultData(item)
     })
     .catch(error => {
@@ -114,18 +116,24 @@ function validateForm() {
 
     let type = document.getElementById("category")
     let selectedType = type.options[type.selectedIndex].text
+    let typeId 
+    if (selectedType === "cerpen")
+        typeId = 1
+    else 
+        typeId = 2
+
     return {
         question: question,
         choices: Array(choiceA, choiceB, choiceC, choiceD),
         score: 1,
         correctAnswer: correctAnswer,
         hint: hint,
-        type: selectedType
+        type: typeId
     }
 }
 
 function setDefaultData(quizItem) {
-    let choices = quizItem["choice"]
+    let choices = quizItem["choices"]
     let correctAnswer = choices.findIndex(item => item === quizItem["correctAnswer"])
 
     let question = document.getElementById("questionField")
@@ -153,6 +161,9 @@ function setDefaultData(quizItem) {
     let hint = document.getElementById("quizHint")
     hint.value = quizItem["hint"]
 
+    let option = document.getElementById("category")
+    option.options[quizItem["type"]-1].selected = 'selected';
+
     let addButton = document.getElementById('btnAdd') ;
     addButton.onclick = () => {
         updateQuiz()
@@ -179,6 +190,34 @@ function clearForm() {
 
     let hint = document.getElementById("quizHint")
     hint.value = ''
+}
+
+function showLoading(show) {
+    let question = document.getElementById("questionField")
+    if (show) question.className = `${question.className} placeholder`
+    else question.className = "form-control"
+
+    let choiceA = document.getElementById("choiceA")
+    if (show) choiceA.className = `${choiceA.className} placeholder`
+    else choiceA.className = "col form-control"
+
+    let choiceB = document.getElementById("choiceB")
+    if (show) choiceB.className = `${choiceB.className} placeholder`
+    else choiceB.className = "col form-control"
+
+    let choiceC = document.getElementById("choiceC")
+    if (show) choiceC.className = `${choiceC.className} placeholder`
+    else choiceC.className = "col form-control"
+
+    let choiceD = document.getElementById("choiceD")
+    if (show) choiceD.className = `${choiceD.className} placeholder`
+    else choiceD.className = "col form-control"
+
+    document.getElementById("optionA").checked = true
+
+    let hint = document.getElementById("quizHint")
+    if (show) hint.className = `${hint.className} placeholder`
+    else hint.className = "form-control"
 }
 
 main()

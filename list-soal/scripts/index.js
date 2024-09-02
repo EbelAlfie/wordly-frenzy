@@ -79,7 +79,13 @@ function addNewItem(quizModel, isLoading) {
 
     let quizCategory = document.createElement('h4')
     quizCategory.className = "rounded quiz-type p-2 text-white fs-6 text-center"
-    quizCategory.innerText = quizModel?.category || "Cerpen"
+    if (quizModel?.category === 1) {
+        quizCategory.innerText = "Cerpen"
+    }
+    else {
+        quizCategory.innerText = "Kalimat Efektif"
+    }
+    
     if (!isLoading && quizCategory.innerText == "Kalimat Efektif")
         quizCategory.style = "background-color: #3DB2FF;"
     else if (!isLoading)

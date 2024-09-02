@@ -27,10 +27,12 @@ class QuizRepository {
     async loadQuizByTeacherId(local, teacherId) {
         let url = `../data/quizes.json`
         if (!local) {
-            url = `${config.BASE_URL}wordly/quiz/quizes?quizType=0`
+            url = `${config.BASE_URL}wordly/quiz/my-quiz`
         }
 
-        return axios.get(url)
+        return axios.get(url, {
+            headers: {'Authorization': `Bearer ${getCookie("accessToken")}`}
+        })
     }
     
     async getQuizDetail(local, quizId) {
