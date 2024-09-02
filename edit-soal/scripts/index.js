@@ -22,7 +22,7 @@ function setupAsAddQuiz() {
     }
 }
 
-function setupAsEditQuiz() {
+function setupAsEditPage() {
     loadQuizById()
 }
 
@@ -38,8 +38,9 @@ function loadQuizById() {
 function getQuizById(local, quizId) {
     quizRepository.getQuizDetail(local, quizId.get("quizId"))
     .then(item => {
-        if (item === undefined || item === null) {
-            if (local == true) return
+        console.log(item)
+        if (item["id"] === "") {
+            if (local === true) return
             getQuizById(true, quizId)
             return 
         }
@@ -64,16 +65,16 @@ function validateForm() {
     let quiz = document.getElementById('questionField').textContent
     if (quiz === undefined) return
 
-    let choiceA = document.getElementById('choiceA').textContent
+    let choiceA = document.getElementById('choiceA').value
     if (choiceA === undefined || choiceA === "") return 
 
-    let choiceB = document.getElementById('choiceB').textContent
+    let choiceB = document.getElementById('choiceB').value
     if (choiceB === undefined || choiceB === "") return 
 
-    let choiceC = document.getElementById('choiceC').textContent
+    let choiceC = document.getElementById('choiceC').value
     if (choiceC === undefined || choiceC === "") return 
 
-    let choiceD = document.getElementById('choiceD').textContent
+    let choiceD = document.getElementById('choiceD').value
     if (choiceD === undefined || choiceD === "") return 
 
     let hint = document.getElementById('hint').textContent
@@ -91,6 +92,33 @@ function validateForm() {
 
 function setDefaultData(quizItem) {
     console.log(quizItem) ;
+    let choices = quizItem["choice"]
+    let correctAnswer = choices.findIndex(item => item === quizItem["correctAnswer"])
+
+    let question = document.getElementById("questionField")
+    question.textContent = quizItem["question"] 
+
+    let choiceA = document.getElementById("choiceA")
+    choiceA.value = choices[0]
+
+    let choiceB = document.getElementById("choiceB")
+    choiceB.value = choices[1]
+
+    let choiceC = document.getElementById("choiceC")
+    choiceC.value = choices[2]
+
+    let choiceD = document.getElementById("choiceD")
+    choiceD.value = choices[3]
+
+    switch (correctAnswer) {
+        case 1: document.getElementById("optionB").checked = true; break;
+        case 2: document.getElementById("optionC").checked = true; break;
+        case 3: document.getElementById("optionD").checked = true; break;
+        default: document.getElementById("optionA").checked = true
+    }
+
+    let hint = document.getElementById("quizHint")
+    hint.textContent = quizItem["hint"]
 
     let addButton = document.getElementById('btnAdd') ;
     addButton.onClick = () => {

@@ -1,5 +1,6 @@
-import axios from "https://cdn.skypack.dev/axios";
+import axios from "https://cdn.skypack.dev/axios"; //https://cdn.skypack.dev/
 import { config } from "../config.js";
+import getCookie from "../util/cookie.js";
 
 class QuizRepository {
     async loadQuizes(local = true, type = 0) { //TODO error handling in real API
@@ -12,7 +13,7 @@ class QuizRepository {
 
         let url = `../data/${quizType}.json`
         if (!local) {
-            url = `${config.BASE_URL}quizes?quizType=${type}`
+            url = `${config.BASE_URL}wordly/quiz/quizes?quizType=${type}`
         }
 
         return axios.get(url)
@@ -26,7 +27,7 @@ class QuizRepository {
     async loadQuizByTeacherId(local, teacherId) {
         let url = `../data/quizes.json`
         if (!local) {
-            url = `${config.BASE_URL}quizes?quizType=0`
+            url = `${config.BASE_URL}wordly/quiz/quizes?quizType=0`
         }
 
         return axios.get(url)
@@ -35,10 +36,17 @@ class QuizRepository {
     async getQuizDetail(local, quizId) {
         let url = `../data/quizes.json`
         if (!local) {
-            url = `${config.BASE_URL}quizDetail?quizId=${quizId}`
+            url = `${config.BASE_URL}wordly/quiz/quiz-detail?quizId=${quizId}`
         }
 
-        return axios.get(url)
+        return axios.get(url, {
+            headers: {'Authorization': `Bearer ${getCookie("accessToken")}`}
+        }).then(result => {
+            if (local === true) 
+                return result.data.filter(item => item.id == quizId)[0] || {"id": ""}
+            else 
+                return result.data || {"id": ""}
+        })
     }
 }
 

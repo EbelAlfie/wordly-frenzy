@@ -11,6 +11,7 @@
   <link href="../css/style.css" rel="stylesheet">
 
   <link href="../style.css" rel="stylesheet">
+  <script src="index.js" type="module"></script>
 </head>
 <body>
   <img class="bg" src="../asset/bg-home.png" alt="">
@@ -27,17 +28,17 @@
   <div class="container d-flex justify-content-center align-items-center vh-100">
     <div class="col">
       <div class="row">
-        <button class="ui-nav" style="background: #3DB2FF;" onclick="redirectToWordlyFrenzy()">
+        <button id="btnFrenzy" class="ui-nav" style="background: #3DB2FF;">
           Mulai Wordly Frenzy
         </button>
       </div>
       <div class="row">
-        <button class="ui-nav" style="background: #00CD2D;" onclick="redirectToWordlyRange()">
+        <button id="btnRange" class="ui-nav" style="background: #00CD2D;">
           Mulai Wordly Range
         </button>
       </div>
       <div class="row invisible" id="buttonEditQuiz">
-        <button class="ui-nav" style="background: #ff0202;" onclick="redirectToEditQuiz()">
+        <button id="btnEdit" class="ui-nav" style="background: #ff0202;">
           Edit Soal
         </button>
       </div>
@@ -45,40 +46,5 @@
   </div>
   
   <script src="../js/bootstrap.bundle.min.js"></script>
-  <script>
-    function main() {
-      let accessToken = getCookie("accessToken") 
-      if (accessToken !== "") document.getElementById("buttonEditQuiz").className = "row visible" ; //TODO, should show not only by the existence of cookie, right?
-    }
-
-    function redirectToWordlyFrenzy() {
-      window.location.href = '../wordly-frenzy/wordly-frenzy.html';
-    }
-
-    function redirectToWordlyRange() {
-      window.location.href = '../shooting-range/index.html';
-    }
-    function redirectToEditQuiz() {
-      window.location.href = '../list-soal/list.html';
-    }
-
-    function getCookie(cname) {
-      let name = cname + "=";
-      let decodedCookie = decodeURIComponent(document.cookie);
-      let ca = decodedCookie.split(';');
-      for(let i = 0; i <ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-          c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-          return c.substring(name.length, c.length);
-        }
-      }
-      return "";
-    }
-
-    main();
-  </script>
 </body>
 </html>
