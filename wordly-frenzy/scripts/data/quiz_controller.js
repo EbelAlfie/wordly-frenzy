@@ -52,7 +52,7 @@ export class QuizController {
     }
     
     postAnswer(answer) {
-        if (answer != this.choosenQuiz.jawabanBenar) {
+        if (answer != this.choosenQuiz.correctAnswer) {
             this.isCorrect = false ;
             this.isFirstWrong = true ;
         } else {
@@ -97,7 +97,7 @@ export class QuizController {
     }
 
     getHint() {
-        console.log(this.choosenQuiz.tips) ;
-        return this.choosenQuiz.tips || "" ;
+        console.log(this.choosenQuiz.hint) ;
+        return this.choosenQuiz.hint || "" ;
     }
 }

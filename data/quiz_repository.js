@@ -17,11 +17,6 @@ class QuizRepository {
         }
 
         return axios.get(url)
-        // .then(response => {
-        //     if (local) {
-        //         response.filter(quiz => quiz["type"] == quizType)
-        //     }
-        // })
     }
 
     async loadQuizByTeacherId(local, teacherId) {

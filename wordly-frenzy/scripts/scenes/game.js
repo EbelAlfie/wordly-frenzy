@@ -54,7 +54,7 @@ export class OceanScene extends Phaser.Scene {
       this.load.audio('wrong', '../asset/wrong.mp3');
       this.load.audio('scene-music', [ '../asset/frenzy.mp3']);
       
-      this.quizModule.loadQuizes(false, 0) ;
+      this.quizModule.loadQuizes(false, 2) ;
     }
 
   resetGame() {
@@ -84,7 +84,7 @@ export class OceanScene extends Phaser.Scene {
   }
 
   onQuizLoaded(quizModel) {
-    this.paragraphText.setQuiz(quizModel.soal) ;
+    this.paragraphText.setQuiz(quizModel.question) ;
     this.restart(quizModel);
   }
 
@@ -179,7 +179,7 @@ export class OceanScene extends Phaser.Scene {
         this.onRoundFail();
       }
     }, 1000);
-    this.foodManager.spawn(currentQuiz.jawaban) ;
+    this.foodManager.spawn(currentQuiz.choices) ;
     this.isAnswering = false ;
   }
 
@@ -227,7 +227,7 @@ export class OceanScene extends Phaser.Scene {
     animateClosingDoors(
       {
         scene: this,
-        title: `${label} "${this.quizModule.choosenQuiz.jawabanBenar}"`,
+        title: `${label} "${this.quizModule.choosenQuiz.correctAnswer}"`,
         content: `${this.quizModule.getCurrentQuizIndex()} dari ${this.quizModule.getTotalQuestion()} terjawab`,
         onCompleted: () => {
           showLoading() ;
