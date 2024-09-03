@@ -2,6 +2,8 @@ import axios from "https://cdn.skypack.dev/axios";
 import { config } from "../config.js";
 
 function main() {
+    document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
+
     document.getElementById("buttonPlayNow").onclick = () => {
         redirectToHomePage() 
     } ;
