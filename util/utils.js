@@ -8,18 +8,35 @@ export function showLoading() {
     loading.style.visibility = "visible"
 }
 
-export function showUnauthorized() {
+export function showError(
+    titleText, 
+    messageText, 
+    buttonLabel,
+    onClick
+) {
     document.cookie = ''
     let modal = document.getElementById("errorModal")
     let title = document.getElementById("errorTitle")
-    title.innerHTML = "Warning"
+    title.innerHTML = titleText
     let message = document.getElementById("errorMessage")
-    message.innerHTML = "Sesi kamu telah habis, silakan login kembali"
+    message.innerHTML = messageText
 
     let button = document.getElementById("errorButton")
+    button.innerText = buttonLabel
     button.onclick = () => {
-        window.location.href = "../index.html"
+        onClick()
     }
 
     new bootstrap.Modal(modal).show()
+}
+
+export function showUnauthorized() {
+    showError(
+        "Warning",
+        "Sesi kamu telah habis",
+        "Kembali",
+        () => {
+            window.location.replace("../index.html")
+        }
+    )
 }

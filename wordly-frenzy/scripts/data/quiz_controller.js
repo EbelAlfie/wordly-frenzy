@@ -20,6 +20,7 @@ export class QuizController {
     async loadQuizes(local = true, type = 0) { //TODO error handling in real API
         return quizRepository.loadQuizes(local, type)
         .then(response => {
+            console.log(response)
             this.quizes = response.data ;
         }) 
         .catch((error) => {

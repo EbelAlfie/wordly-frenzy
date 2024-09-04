@@ -1,6 +1,7 @@
 import axios from "https://cdn.skypack.dev/axios"; //https://cdn.skypack.dev/
 import { config } from "../config.js";
 import getCookie from "../util/cookie.js";
+import { showUnauthorized } from "../util/utils.js";
 
 class QuizRepository {
     async loadQuizes(local = true, type = 0) { //TODO error handling in real API
@@ -27,6 +28,10 @@ class QuizRepository {
 
         return axios.get(url, {
             headers: {'Authorization': `Bearer ${getCookie("accessToken")}`}
+        }).catch(error => {
+            let statusCode = error?.status || 401
+            if (statusCode === 401) showUnauthorized()
+            else throw error
         })
     }
     
@@ -43,6 +48,10 @@ class QuizRepository {
                 return result.data.filter(item => item.id == quizId)[0] || {"id": ""}
             else 
                 return result.data || {"id": ""}
+        }).catch(error => {
+            let statusCode = error?.status || 401
+            if (statusCode === 401) showUnauthorized()
+            else throw error
         })
     }
 
