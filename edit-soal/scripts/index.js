@@ -82,7 +82,7 @@ async function updateQuiz(quiz) {
     })
 }
 
-function validateForm() {
+function validateForm(quizId) {
     let question = document.getElementById('questionField').value
     if (question === undefined || question === "") return
 
@@ -123,6 +123,7 @@ function validateForm() {
         typeId = 2
 
     return {
+        id: quizId,
         question: question,
         choices: Array(choiceA, choiceB, choiceC, choiceD),
         score: 1,
@@ -166,8 +167,14 @@ function setDefaultData(quizItem) {
 
     let addButton = document.getElementById('btnAdd') ;
     addButton.onclick = () => {
-        updateQuiz()
+        update(quizItem["id"])
     }
+}
+
+function update(quizId) {
+    let quiz = validateForm(quizId) 
+    if (quiz === undefined) return 
+    updateQuiz(quiz)
 }
 
 function clearForm() {

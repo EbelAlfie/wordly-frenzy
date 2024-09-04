@@ -52,6 +52,13 @@ class QuizRepository {
             headers: {'Authorization': `Bearer ${getCookie("accessToken")}`}
         })
     }
+
+    async updateQuiz(quiz) {
+        let url = `${config.BASE_URL}wordly/quiz/update`
+        return axios.post(url, quiz, {
+            headers: {'Authorization': `Bearer ${getCookie("accessToken")}`}
+        })
+    }
 }
 
 export let quizRepository = new QuizRepository() ;
