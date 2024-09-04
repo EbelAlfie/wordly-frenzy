@@ -268,7 +268,8 @@ export class GameScene extends Phaser.Scene {
   async loadQuizes(local, cerpenType) {
     await quizRepository.loadQuizes(local, cerpenType)
     .then(result => {
-      this.gameData = shuffle(result.data) ;
+      this.gameData = result.data ;
+      shuffle(this.gameData);
       this.totalQuestion = Object.keys(this.gameData).length;
       this.updateTargetTexts();
     })
@@ -318,9 +319,6 @@ export class GameScene extends Phaser.Scene {
       });
     }
   }
-
-
-
 
   loadBackgroundImage() {
     if (!this.background) {

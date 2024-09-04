@@ -1,5 +1,6 @@
 import axios from "https://cdn.skypack.dev/axios";
 import { config } from "../config.js";
+import { showError } from "../util/utils.js";
 
 function main() {
     document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
@@ -49,7 +50,11 @@ function doLogin(userName, password) {
             redirectToHomePage()
         }
     }).catch((error) => {
-
+        showError(
+            "Terjadi kesalahan",
+            "Mohon coba lagi",
+            "Ok"
+        )
     })
 }
 
