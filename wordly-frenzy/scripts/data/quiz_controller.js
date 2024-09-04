@@ -1,4 +1,5 @@
 import { quizRepository } from "../../../data/quiz_repository.js";
+import { shuffle } from "../../../util/utils.js"
 
 export class QuizController {
     score = 0;
@@ -20,7 +21,7 @@ export class QuizController {
     async loadQuizes(local = true, type = 0) { //TODO error handling in real API
         return quizRepository.loadQuizes(local, type)
         .then(response => {
-            console.log(response)
+            if (local) shuffle(response.data)
             this.quizes = response.data ;
         }) 
         .catch((error) => {
