@@ -78,11 +78,11 @@ function onAddQuizSuccess() {
 async function updateQuiz(quiz) {
     quizRepository.updateQuiz(quiz)
     .then(result => {
-        window.history.back()
+        //window.history.back()
     })
 }
 
-function validateForm(quizId) {
+function validateForm(quizId, choiceId) {
     let question = document.getElementById('questionField').value
     if (question === undefined || question === "") return
 
@@ -123,8 +123,9 @@ function validateForm(quizId) {
         typeId = 2
 
     return {
-        id: quizId,
+        quizId: quizId,
         question: question,
+        choiceId: choiceId,
         choices: Array(choiceA, choiceB, choiceC, choiceD),
         score: 1,
         correctAnswer: correctAnswer,
@@ -167,12 +168,12 @@ function setDefaultData(quizItem) {
 
     let addButton = document.getElementById('btnAdd') ;
     addButton.onclick = () => {
-        update(quizItem["id"])
+        update(quizItem["id"], quizItem["choiceId"])
     }
 }
 
-function update(quizId) {
-    let quiz = validateForm(quizId) 
+function update(quizId, choiceId) {
+    let quiz = validateForm(quizId, choiceId) 
     if (quiz === undefined) return 
     updateQuiz(quiz)
 }
