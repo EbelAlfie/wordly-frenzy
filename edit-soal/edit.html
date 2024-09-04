@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Wordly | Edit Soal </title>
+
+        <script src="scripts/index.js" type="module"></script>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Include -->
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font.css" rel="stylesheet">
+        <link href="../css/style.css" rel="stylesheet">
+        <link href="../style.css" rel="stylesheet">
+        <link href="style.css" rel="stylesheet">
+
+    </head>
+
+    <body>
+        <img class="bg" src="../asset/bg-home.png" alt="">
+        <!-- Navbar -->
+        <nav class="navbar navbar-default navbar-fixed-top fixed-top w-100 m-20">
+            <div class="container">
+            <a class="navbar-brand" href="#"><img src="../asset/Word.ly-white.png" alt="Word.ly" width="150"></a>
+            <p class="float-end mb-0 text-white welcome-text">Selamat datang!</p>
+            </div>
+        </nav>
+
+        <div id="alertModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 id="modalTitle" class="modal-title fs-5">Title</h1>
+                    </div>
+                    <div class="modal-body">
+                        <p id="modalMessage">test.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container d-flex justify-content-center align-items-center p-5" style="margin-top: 95px;">
+            <div class="container col placeholder-glow">
+
+                <div class="row">
+                    <label class="col-sm-auto form-label align-self-center">Kategori</label>
+                    <select id="category" class="col form-select form-select-lg mb-3" aria-label="Large select example">
+                        <option value="cerpen" selected>Cerpen</option>
+                        <option value="kalimat-efektif">Kalimat Efektif</option>
+                    </select>
+                </div>
+
+                <div class="form-floating mb-4">
+                    <textarea class="form-control" placeholder="Soal quiz" id="questionField" style="height: 200px;"></textarea>
+                    <label for="questionField">Soal Quiz</label>
+                </div>
+
+                <div class="container d-grid gap-2 btn-group mb-4" role="group">
+
+                    <div class="row">
+                        <label class="col form-label"><b>Jawaban</b></label>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-auto">
+                            <input type="radio" class="btn-check" name="options-outlined" id="optionA" autocomplete="off" checked>
+                            <label class="btn btn-outline-success" for="optionA">A</label>
+                        </div>
+                        <div class="col">
+                            <input id="choiceA" class="col form-control"></input>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-sm-auto">
+                            <input type="radio" class="btn-check" name="options-outlined" id="optionB" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="optionB">B</label>
+                        </div>
+                        <div class="col">
+                            <input id="choiceB" class="col form-control"></input>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-auto">
+                            <input type="radio" class="btn-check" name="options-outlined" id="optionC" autocomplete="off">
+                            <label class="btn btn-outline-info" for="optionC">C</label>
+                        </div>
+                        <div class="col">
+                            <input id="choiceC" class="col form-control"></input>
+                        </div>
+                    </div>
+                
+                    <div class="row">
+                        <div class="col-sm-auto">
+                            <input type="radio" class="btn-check" name="options-outlined" id="optionD" autocomplete="off">
+                            <label class="btn btn-outline-danger" for="optionD">D</label>
+                        </div>
+                        <div class="col">
+                            <input id="choiceD" class="col form-control"></input>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-floating mb-5">
+                    <textarea class="form-control" id="quizHint" placeholder="Hint" style="height: 100px;"></textarea>
+                    <label class="form-label" for="quizHint">Hint</label>
+                </div>
+                
+                <div class="row">
+                    <button id="btnAdd" class="col btn btn-success m-3 p-3">Tambah</button>
+                    <button id="btnReturn" class="col btn btn-danger m-3 p-3">Kembali</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="errorModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 id="errorTitle" class="modal-title fs-5">Title</h1>
+                    </div>
+                    <div class="modal-body">
+                        <p id="errorMessage">test.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="errorButton" class="btn btn-primary">Kembali</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>

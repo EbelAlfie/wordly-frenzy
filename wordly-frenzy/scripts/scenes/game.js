@@ -1,14 +1,16 @@
 import Player from "../player.js"
 import { FoodManager } from "../food_manager.js"
-import { QuizRepository } from "../data/quiz_repository.js"
+import { QuizController } from "../data/quiz_controller.js"
 import { background, foodConfig, TIME_LIMIT } from "../config/game_config.js";
-import { animateClosingDoors, createHintBox, displayScore, playAnswerAnimation, playCorrectAudio, playWrongAudio, updateBgSize } from "../../../util/phaser-utils.js";
+import { animateClosingDoors, animateConfetti, createHintBox, displayScore, playAnswerAnimation, playCorrectAudio, playWrongAudio, updateBgSize } from "../../../util/phaser-utils.js";
 import HintContainer from "../../../util/game-hint.js";
 import TextFormatter from "../../../util/text-formatter.js";
+import { showLoading, dismissLoading } from "../../../util/utils.js";
+import { showConfetti, createContainers } from "../../../util/confetti.js";
 
 export class OceanScene extends Phaser.Scene {
 
-  quizModule = new QuizRepository() ;
+  quizModule = new QuizController() ;
   player = null
 
   isAnswering = false ;
@@ -36,7 +38,7 @@ export class OceanScene extends Phaser.Scene {
           frameHeight: foodConfig["large"].frameHeight
         }
       )
-
+      
       this.load.spritesheet(
         'enemy', 
         'resource/enemy.png', 
@@ -51,19 +53,9 @@ export class OceanScene extends Phaser.Scene {
       this.load.audio('correct', '../asset/correct.mp3');
       this.load.audio('wrong', '../asset/wrong.mp3');
       this.load.audio('scene-music', [ '../asset/frenzy.mp3']);
-
-      this.quizModule.loadAllQuizes() ;
+      
+      this.quizModule.loadQuizes(false, 2) ;
     }
-
-  showLoading() {
-    let loading = document.getElementById("loading-screen") ;
-    loading.style.visibility = "visible"
-  }
-
-  dismissLoading() {
-    let loading = document.getElementById("loading-screen") ;
-    loading.style.visibility = "hidden"
-  }
 
   resetGame() {
     this.quizModule.reset() ;
@@ -79,23 +71,20 @@ export class OceanScene extends Phaser.Scene {
   }
 
   loadQuiz() {
-    this.showLoading() ;
-    this.quizModule.queryQuiz("")
+    showLoading() ;
+    this.quizModule.queryQuiz()
     .then((quiz) => {
       if (quiz === null || quiz === undefined) {
         this.gameOver() ;
       } else {
         this.onQuizLoaded(quiz) ;
       }
-      this.dismissLoading() ;
+      dismissLoading() ;
     })
-    // .catch((error) => {
-    //   console.log("LOAD QUIZ ERROR " + error)
-    // }) ;
   }
 
   onQuizLoaded(quizModel) {
-    this.paragraphText.setQuiz(quizModel.soal) ;
+    this.paragraphText.setQuiz(quizModel.question) ;
     this.restart(quizModel);
   }
 
@@ -105,7 +94,7 @@ export class OceanScene extends Phaser.Scene {
       frames: this.anims.generateFrameNumbers('player', { start: 0, end: 5 }),
       frameRate: 12,
       repeat: -1
-  });
+    });
 
     let choosenBackground = Phaser.Math.RND.pick(background)
     this.bg = this.add.image(0, 0, choosenBackground).setOrigin(0)
@@ -167,6 +156,7 @@ export class OceanScene extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.foodManager, (player, food) => this.eat(food, this.foodManager))
 
     this.loadQuiz() ;
+    createContainers() ;
   }
 
   restart(currentQuiz) {
@@ -189,7 +179,7 @@ export class OceanScene extends Phaser.Scene {
         this.onRoundFail();
       }
     }, 1000);
-    this.foodManager.spawn(currentQuiz.jawaban) ;
+    this.foodManager.spawn(currentQuiz.choices) ;
     this.isAnswering = false ;
   }
 
@@ -237,10 +227,10 @@ export class OceanScene extends Phaser.Scene {
     animateClosingDoors(
       {
         scene: this,
-        title: `${label} "${this.quizModule.choosenQuiz.jawabanBenar}"`,
+        title: `${label} "${this.quizModule.choosenQuiz.correctAnswer}"`,
         content: `${this.quizModule.getCurrentQuizIndex()} dari ${this.quizModule.getTotalQuestion()} terjawab`,
         onCompleted: () => {
-          this.showLoading() ;
+          showLoading() ;
           this.loadQuiz() ;
         }
       }
@@ -253,6 +243,7 @@ export class OceanScene extends Phaser.Scene {
     this.player.stop() ;
     this.foodManager.stop() ;
     this.showEndGameScreen()
+    if (this.quizModule.getFinalScore() == 100) showConfetti() ;
   }
 
   dismissQuiz() {

@@ -1,3 +1,7 @@
+import { quizRepository } from "../../data/quiz_repository.js";
+import { createContainers, showConfetti } from "../../util/confetti.js";
+import { shuffle } from "../../util/utils.js";
+
 export class GameScene extends Phaser.Scene {
   constructor() {
     super({ key: 'GameScene' });
@@ -18,6 +22,8 @@ export class GameScene extends Phaser.Scene {
     this.hintText = null;
     this.hitBox = null;
     this.loadingText = null;
+
+    this.gameData = [] ;
   }
 
   preload() {
@@ -29,12 +35,14 @@ export class GameScene extends Phaser.Scene {
     this.load.css('google-fonts', 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap');
 
     // load the question and answer from a JSON file
-    this.load.json('gameData', 'scripts/game_data.json');
+    //this.load.json('gameData', 'scripts/game_data.json');
 
     // load audio
     this.load.audio('backgroundMusic', '../asset/frenzy.mp3');
     this.load.audio('correct', '../asset/correct.mp3');
     this.load.audio('wrong', '../asset/wrong.mp3');
+
+    this.load.spritesheet('confetti', '../asset/sunset-raster.png', { frameWidth: 16, frameHeight: 16 });
 
     this.load.image('xImage', 'assets/X.png');
     this.load.image('correctImage', 'assets/correct.png');
@@ -70,11 +78,10 @@ export class GameScene extends Phaser.Scene {
   updateTargetTexts() {
     this.first = true;
 
-    const gameData = this.cache.json.get('gameData');
-    const levelData = gameData[this.currentQuestionIndex];
+    const levelData = this.gameData[this.currentQuestionIndex];
 
     // update target texts and correct answer for the current level
-    this.targetTexts = levelData.targetTexts;
+    this.targetTexts = levelData.choices;
     this.question = levelData.question;
     this.correctAnswer = levelData.correctAnswer;
     this.hint = levelData.hint; // get the hint for the current level
@@ -242,9 +249,6 @@ export class GameScene extends Phaser.Scene {
   }
   
   create() {
-    const gameData = this.cache.json.get('gameData');
-    this.totalQuestion = Object.keys(gameData).length;
-
     this.game.canvas.style.cursor = 'none'; // hide cursor
 
     this.bg = this.add.image(0, 0, 'background').setOrigin(0);
@@ -254,9 +258,24 @@ export class GameScene extends Phaser.Scene {
     this.crosshair.setOrigin(0.5); // center origin
     this.crosshair.setDepth(3); // higher depth value (e.g., 1) to render on top
 
-    this.updateTargetTexts();
-
     this.playBackgroundMusic();
+
+    createContainers() ;
+
+    this.loadQuizes(false, 1) ;
+  }
+
+  async loadQuizes(local, cerpenType) {
+    await quizRepository.loadQuizes(local, cerpenType)
+    .then(result => {
+      this.gameData = result.data ;
+      shuffle(this.gameData);
+      this.totalQuestion = Object.keys(this.gameData).length;
+      this.updateTargetTexts();
+    })
+    .catch(error => {
+      if (!local) this.loadQuizes(true, cerpenType) ;
+    });
   }
 
   createHintBox() {
@@ -300,9 +319,6 @@ export class GameScene extends Phaser.Scene {
       });
     }
   }
-
-
-
 
   loadBackgroundImage() {
     if (!this.background) {
@@ -498,8 +514,7 @@ export class GameScene extends Phaser.Scene {
 
         this.currentQuestionIndex++;
 
-        const gameData = this.cache.json.get('gameData');
-        if (this.currentQuestionIndex < gameData.length) {
+        if (this.currentQuestionIndex < this.gameData.length) {
           this.bottomBar.destroy();
           this.paragraphText.destroy();
           this.timerText.destroy();
@@ -724,6 +739,8 @@ export class GameScene extends Phaser.Scene {
     button2Graphics.on('pointerdown', () => {
       window.location.href = "../index.html";
     });
+
+    if (finalScore == 100) showConfetti() ;
   }
 
   hideGameElements() {

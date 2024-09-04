@@ -1,0 +1,106 @@
+[
+    {
+      "id": "kaek1",
+      "question": "Berikut adalah syarat-syarat kalimat efektif, kecuali..",
+      "choices": ["Logis","Cermat","Berpadu","Kata sambung berlebihan"],
+      "correctAnswer": "Kata sambung berlebihan",
+      "score": 1,
+      "type": "Kalimat Efektif",
+      "hint": "Kalimat yang logis, cermat, dan berpadu adalah syarat yang membuat sebuah kalimat bisa disebut efektif."
+    },
+    {
+      "id": "kaek2",  
+      "question": "Kepada semua siswa peserta lomba, agar segera masuk ke dalam ruang seleksi. Pelaksanaan lomba akan segera dimulai. Agar kalimat tersebut efektif, kata yang dihilangkan adalah...",
+      "choices": ["Semua, lomba, masuk", "Kepada, siswa, segera", "Semua, peserta, agar", "Kepada, semua, lomba"],
+      "correctAnswer": "Kepada, siswa, segera",
+      "score": 1,
+      "type": "Kalimat Efektif",
+      "hint": "Kalimat bisa disebut efektif jika memiliki kesepadanan struktur, kehematan kata, kesejajaran bentuk, ketegasan makna, kelogisan makna, dan kesesuaian ejaan."
+    },
+    {
+      "id": "kaek3",  
+      "question": "Hiu dengan buasnya melahap ikan-ikan yang besar lalu lumba-lumba hanya memakan ikan-ikan kecil yang berada di dekatnya. Perbaikan kata lalu pada kalimat tersebut semoga menjadi kalimat efektif adalah...",
+      "choices": ["Daripada", "Walaupun", "Kemudian", "Sedangkan"],
+      "correctAnswer": "Sedangkan",
+      "score": 1,
+      "type": "Kalimat Efektif",
+      "hint": "Lalu adalah kata hubung atau konjungsi temporal/yang menyatakan waktu. Kalimat di atas memberi keadaan bahwa hiu memakan ikan-ikan besar, lumba-lumba memakan ikan-ikan kecil."
+    },
+    {
+      "id": "kaek4",  
+      "question": "Ibu membuat kue cucur sangat terlalu manis, sehingga tak enak dimakan. Kalimat tersebut akan menjadi efektif jika dihilangkan kata…",
+      "choices": ["Ibu", "sangat", "enak", "cucur"],
+      "correctAnswer": "sangat",
+      "score": 1,
+      "type": "Kalimat Efektif",
+      "hint": "Penggunaan kata “sangat” dan “terlalu” secara bersamaan memberikan kesan berlebihan dan tidak efektif."
+    },
+    {
+      "id": "kaek5",  
+      "question": "Pekerjaan yang dilakukan dengan sangat profesional sekali akan membuahkan hasil yang begitu maksimal dan sangat bermanfaat bagi seluruh banyak manusia di sekitarnya. Kalimat di atas perlu menghilangkan beberapa kata supaya menjadi kalimat yang efektif. Beberapa kata yang perlu dihilangkan pada kalimat tersebut adalah:",
+      "choices": ["Sekali, seluruh", "Maksimal, bermanfaat", "Banyak, manusia", "Pekerjaan, dilakukan"],
+      "correctAnswer": "Sekali, seluruh",
+      "score": 1,
+      "type": "Kalimat Efektif",
+      "hint": "Kata profesional sudah cukup untuk menggambarkan tingkat tinggi dari sebuah keahlian dan kata banyak sudah cukup untuk menggambarkan jumlah yang tinggi dari kelompok tertentu."
+    },
+    {
+      "id": "kaek6",  
+      "question": "Perhatikan kalimat berikut dengan seksama! (1) Kemarin siang telah (2) terjadi tabrakan beruntung (3) yang melibatkan lima kendaraan dan(4) mengakibatkan dua penumpang luka berat. Penggunan kata yang tidak tepat pada kalimat tersebut ditandai nomor...",
+      "choices": ["(1)", "(2)", "(3)", "(4)"],
+      "correctAnswer": "(2)",
+      "score": 1,
+      "type": "Kalimat Efektif",
+      "hint": "Tabrakan beruntun adalah tabrakan yang melibatkan lebih dari 2 kendaraan secara bersamaan. Sementara beruntung adalah bernasib baik."
+    },
+
+    {
+        "id": "cerp1",
+        "question": "Kelihatan seorang kakek berjalan bersama cucunya seorang gadis belia yang cantik. Mereka duduk di bawah pohon yang rindang. Gadis itu meminta kakeknya menceritakan riwayat hidupnya, siapa sebenarnya kedua orang tuanya dan di mana mereka sekarang. Sang kakek terdiam sebentar, kemudian mulailah ia bercerita. “Delapan belas tahun yang lalu, seorang pemuda kota berjalan-jalan ke desa ini. Ia terpikat gadis cantik bunga desa ini, dan merekapun menikah. Gadis cantik itu adalah putri kakek satu-satunya.\n\nLatar tempat pada cerita di atas adalah...",
+        "choices": ["Di bawah pohon rindang", "Di perkampungan", "Di hutan rimba", "Di jalan pedesaan", "Di perkotaan"],
+        "correctAnswer": "Di bawah pohon rindang",
+        "type": "Cerpen",
+        "hint": "Coba perhatikan kalimat kedua dari cerpen ini..."
+    },
+    {
+        "id": "cerp2",
+        "question": "Kita sebagai pendidik tidak boleh memandang masalah secara hitam-putih pak, dia itu telah banyak menanggung beban hidup, sudah selayaknya kita ikut mendampingi dan membantunya, bukan malah menambah bebannya.\n\nAmanat yang terkandung dalam kutipan cerpen di atas adalah...",
+        "choices": ["Sebagai manusia harus saling tolong-menolong", "Seorang pendidik harus bisa membantu\nsiswanya dalam mengatasi permasalahan hidup", "Guru harus bersikap professional dalam mendidik muridnya", "Guru harus memiliki sikap kasih sayang dalam mendidik"],
+        "correctAnswer": "Seorang pendidik harus bisa membantu\nsiswanya dalam mengatasi permasalahan hidup",
+        "type": "Cerpen",
+        "hint": "Tokoh \"dia\" disini digambarkan sedang menanggung beban hidup."
+    },
+    {
+        "id": "cerp3",
+        "question": "Hanya itu alasan Mama melarang Dewi menikah dengan Lukas?” Bibir Dewi menyungging sinis. “Oh, alangkah picik pikiran Mama! Lalu, apa artinya kemuliaan hati Mama selama ini yang Dewi kagumi? Padahal dulu Mama tidak pernah mempermasalahkan status Lukas yang ternyata belum mempunyai pekerjaan tetap. Begitu pula dengan kakakku yang selama ini mendukungku, sekarang justru berbalik arah.\n\nKonflik di dalam kutipan cerpen tersebut yaitu...",
+        "choices": ["Dewi dan Lukas batal menikah", "Dewi dilarang menikah oleh Mama dan kakaknya", "Mama berpikiran picik terhadap Lukas"],
+        "correctAnswer": "Dewi dilarang menikah oleh Mama dan kakaknya",
+        "type": "Cerpen",
+        "hint": "Kalimat pertama dan terakhir cerpen tersebut mengungkapkan bahwa Dewi merasa kecewa dengan Mama dan kakak Dewi, rasa kecewa ini pasti disebabkan karena sesuatu yang Mama dan kaka Dewi perbuat.."
+    },
+    {
+        "id": "cerp4",
+        "question": "Aku memandang keluar jendela. Langit biru cerah dengan awan putih yang bergerombol. Burung-burung beterbangan riang. Aku tersenyum. Hari ini adalah hari yang indah.\n\nTokoh aku dalam penggalan cerpen di atas yaitu...",
+        "choices": ["Orang pertama pelaku utama", "Orang pertama pelaku sampingan", "Orang kedua pelaku utama", "Orang kedua pelaku sampingan", "Orang ketiga pelaku utama"],
+        "correctAnswer": "Orang pertama pelaku utama",
+        "type": "Cerpen",
+        "hint": "Tidak ada tokoh lain selain tokoh \"Aku\" dalam cerpen ini, maka tentunya dia adalah tokoh utama sekaligus orang pertama dalam cerpen ini."
+    },
+    {
+        "id": "cerp5",
+        "question": "Baik Hati pun pergi ke sebidang tanah tandus itu sambil membawa bibit semangka dan kuda pincang yang menjadi bagiannya. Meski mendapat warisan yang kurang menguntungkan, Baik Hati tidak putus asa. Ia langsung menanami lahan tandus itu dengan bibit semangka.\n\nSifat-sifat berikut yang tidak dimiliki oleh Baik Hati adalah",
+        "choices": ["Pantang menyerah", "Pekerja keras", "Optimis", "Kreatif", "Rendah hati"],
+        "correctAnswer": "Rendah hati",
+        "type": "Cerpen",
+        "hint": "Baik Hati memang tidak mengeluh dan pantang menyerah dan terlihat bahwa dia orang yang kreatif dengan mencoba menanam bibit semangka di lahan tandus, namun tidak ada kepastian bahwa Baik Hati itu adalah orang yang rendah hati dan tidak sombong"
+    },
+    {
+        "id": "cerp6",
+        "question": "Pada suatu hari, Diah pergi ke hutan untuk mencari kayu bakar. Di tengah hutan, Diah bertemu dengan seekor rusa yang terluka. Diah merasa iba dengan rusa tersebut, sehingga Diah membawanya pulang dan merawatnya. Alur yang digunakan dalam kutipan cerpen di atas adalah...",
+        "choices": ["Alur maju", "Alur mundur", "Alur campuran", "Alur maju-mundur", "Alur mundur-maju"],
+        "correctAnswer": "Alur maju",
+        "type": "Cerpen",
+        "hint": "Peristiwa yang diceritakan dalam cerpen tersebut diceritakan dari awal, tengah, sampai akhir secara berurutan"
+    }
+]
+  

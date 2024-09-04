@@ -1,4 +1,7 @@
-export class QuizRepository {
+import { quizRepository } from "../../../data/quiz_repository.js";
+import { shuffle } from "../../../util/utils.js"
+
+export class QuizController {
     score = 0;
     soalBenar = 0 ;
 
@@ -15,15 +18,18 @@ export class QuizRepository {
     isCorrect = false ;
     isFirstWrong = false ;
 
-    async loadAllQuizes() { //TODO error handling in real API
-        return fetch('scripts/config/quizes.json')
-        .then(response => response.json())
-        .then(json => {
-            this.quizes = json ;
+    async loadQuizes(local = true, type = 0) { //TODO error handling in real API
+        return quizRepository.loadQuizes(local, type)
+        .then(response => {
+            if (local) shuffle(response.data)
+            this.quizes = response.data ;
         }) 
+        .catch((error) => {
+            this.loadQuizes(true, type)
+        })
     }
 
-    queryQuiz(type) {
+    queryQuiz() {
         return new Promise((resolve, reject) => {
             this.choosenQuiz = this.getQuiz() ;
             this.isFirstWrong = false ;
@@ -48,7 +54,7 @@ export class QuizRepository {
     }
     
     postAnswer(answer) {
-        if (answer != this.choosenQuiz.jawabanBenar) {
+        if (answer != this.choosenQuiz.correctAnswer) {
             this.isCorrect = false ;
             this.isFirstWrong = true ;
         } else {
@@ -93,7 +99,7 @@ export class QuizRepository {
     }
 
     getHint() {
-        console.log(this.choosenQuiz.tips) ;
-        return this.choosenQuiz.tips || "" ;
+        console.log(this.choosenQuiz.hint) ;
+        return this.choosenQuiz.hint || "" ;
     }
 }

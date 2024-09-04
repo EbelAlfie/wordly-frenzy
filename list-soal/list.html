@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Wordly | Edit Soal </title>
+
+        <script src="scripts/index.js" type="module"></script>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Include -->
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font.css" rel="stylesheet">
+        <link href="../css/style.css" rel="stylesheet">
+        <link href="../style.css" rel="stylesheet">
+        <link href="style.css" rel="stylesheet">
+
+    </head>
+
+    <body>
+        <img class="bg" src="../asset/bg-home.png" alt="">
+        <!-- Navbar -->
+        <nav class="navbar navbar-default navbar-fixed-top fixed-top w-100 m-20">
+            <div class="container">
+            <a class="navbar-brand" href="#"><img src="../asset/Word.ly-white.png" alt="Word.ly" width="150"></a>
+            <p class="float-end mb-0 text-white welcome-text">Selamat datang!</p>
+            </div>
+        </nav>
+        
+        <div class="container d-flex ms-0 me-0" style="margin-top: 95px;">
+            <div class="container col">
+
+                <div class="row">
+                    <h1 class="col">Soal Saya</h1>
+                    <div class="col align-self-center">
+                        <button id="btnNewQuiz" class="btn btn-primary">Buat Soal</button>
+                    </div>
+                </div>
+    
+                <ul class="row list-unstyled" id="quizList">
+                    
+                </ul>
+
+            </div>
+        </div>
+
+        <div id="errorModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 id="errorTitle" class="modal-title fs-5">Title</h1>
+                    </div>
+                    <div class="modal-body">
+                        <p id="errorMessage">test.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="errorButton" class="btn btn-primary">Kembali</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
