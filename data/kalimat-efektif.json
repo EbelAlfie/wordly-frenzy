@@ -52,5 +52,131 @@
     "score": 1,
     "type": "Kalimat Efektif",
     "hint": "Tabrakan beruntun adalah tabrakan yang melibatkan lebih dari 2 kendaraan secara bersamaan. Sementara beruntung adalah bernasib baik."
+  },
+  {
+    "id": "kaek7",
+    "question": "Perhatikan kalimat-kalimat di bawah ini:\n(1). Pemberian penghargaan dapat menstimulasi semangat berkarya pemuda.\n(2). Kurangnya apresiasi dapat mengakibatkan malasnya pemuda dalam berkarya.\n(3). Aris menabung dengan tujuan ingin membeli mobil baru.\n(4). Bu Ina menyeduhkan teh hangat yang sangat manis sekali ke dalam cangkir kami.\n\nKalimat tidak efektif ditunjukkan pada kalimat nomor...",
+    "choices": ["1", "2", "3", "4"],
+    "correctAnswer": "4",
+    "score": 1,
+    "type": "Kalimat Efektif",
+    "hint": "Semanis itukah teh hangat yang dituangkan Bu Ina sampai harus menggunakan ekspresi \"sangat\" dan \"sekali\" dalam satu kalimat?"
+  },
+  {
+    "id": "kaek8",
+    "question": "Salah satu objek wisata dikabupaten Pesisir Barat adalah Pulau Pisang.\n\nKesalahan penulisan pada kalimat di atas ditunjukkan pada...",
+    "choices": ["Objek seharusnya subyek", "Barat seharusnya timur", "Kata hubung \"di\" pada dikabupaten seharusnya dipisah", "Pulau pisang seharusnya pulau nias"],
+    "correctAnswer": "Kata hubung \"di\" pada dikabupaten seharusnya dipisah",
+    "score": 1,
+    "type": "Kalimat Efektif",
+    "hint": "Kata hubung \"di\" hanya boleh disambung jika diikuti oleh kata kerja atau sebagai kata depan."
+  },
+  {
+    "id": "kaek9",
+    "question": "Berikut ini adalah kalimat yang tidak efektif...",
+    "choices": ["Pemerintah harusnya tidak antirakyat", "Kenaikan harga sembako membuat rakyat menjerit", "Cara untuk merawat kulit adalah sangatlah mudah", "Menjaga kesehatan tidaklah semudah yang dikira"],
+    "correctAnswer": "Cara untuk merawat kulit adalah sangatlah mudah",
+    "score": 1,
+    "type": "Kalimat Efektif",
+    "hint": "\"Sangatlah mudah\" itu bukan layaknya definisi yang datang setelah \"adalah\"."
+  },
+  {
+    "id": "kaek10",
+    "question": "Kemarin, \"banyak para\" karyawan melakukan unjuk rasa.\n\nKata yang didalam tanda petik seharusnya...",
+    "choices": ["Banyak para-para", "Para", "Banyak-banyak para-para", "Banyak-banyak para"],
+    "correctAnswer": "Para",
+    "score": 1,
+    "type": "Kalimat Efektif",
+    "hint": "\"Para\" sudah cukup untuk menggambarkan subjek yang berjumlah banyak."
+  },
+  {
+    "id": "kaek11",
+    "question": "(1) Arsa menasehati Keval agar dirinya belajar mengendarai sepeda motor.\n(2) Supaya dirinya tak selalu menggantungkan dirinya kepada Arsa untuk mengantarnya kemana-mana.\n(3) Kini Arsa telah sibuk bekerja sehingga tak punya banyak waktu untuk mengantar Keval pergi ke kampusnya.\n(4) Bulan depan Keval sudah mulai aktif kuliah. Ia mendapatkan beasiswa di kampusnya.\n\nKalimat yang tidak padu dalam paragraf di atas ialah...",
+    "choices": ["Kalimat 1", "Kalimat 2", "Kalimat 3", "Kalimat 4"],
+    "correctAnswer": "Kalimat 4",
+    "score": 1,
+    "type": "Kalimat Efektif",
+    "hint": "Keval mendapatkan beasiswa tidak mempengaruhi konteks dari cerita saat ini."
+  },
+  {
+    "id": "kaek12",
+    "question": "Pemberian dana BLT (Bantuan Langsung Tunai) dinilai sebagai langkah yang tidak ... bagi masyarakat. Mengingat bantuan ini bersifat ... yang akan cepat habis. Seharusnya pemberian bantuan dilakukan dengan cara pelatihan kerja atau wirausaha serta pembukaan lapangan pekerjaan yang seluas-luasnya agar rakyat bisa lebih ... dan ...\n\nIstilah yang tepat untuk mengisi ruang rumpang pada kalimat-kalimat di atas ialah ...",
+    "choices": ["Mendidik, konsumtif, produktif, mandiri", "Pendidikan, konsumsi, produktivitas, kemandirian", "Didiklah, konsumen, produsen, berdikari", "Didik, mengonsumsi, memproduksi, memandirikan"],
+    "correctAnswer": "Mendidik, konsumtif, produktif, mandiri",
+    "score": 1,
+    "type": "Kalimat Efektif",
+    "hint": "Cukup pilih satu jawaban saja yang benar karena semua pilihan jawaban ini memiliki opsi pertama yang berbeda dari yang lainnya."
+  },
+  {
+    "id": "kaek13",
+    "question": "Ibu membuat kue cucur sangat terlalu manis, sehingga tak enak dimakan.\n\nKalimat tersebut akan menjadi efektif dihilangkan kata...",
+    "choices": ["Dihilangkan kata \"Ibu\"", "Dihilangkan kata \"cucur\"", "Dihilangkan kata \"enak\"", "Dihilangkan kata \"sangat\""],
+    "correctAnswer": "Dihilangkan kata \"sangat\"",
+    "score": 1,
+    "type": "Kalimat Efektif",
+    "hint": "\"Sangat\" dan \"Terlalu\" menggambarkan keterangan, cukup satu saja."
+  },
+  {
+    "id": "kaek14",
+    "question": "Pada akhirnya Alif mampu ... pertaruhan dengan Raja untuk ... foto Sarah, seorang gadis cantik keponakan Tuan Rais.\n\nIstilah yang tepat untuk melengkapi kalimat ruang rumpang di atas ialah ...",
+    "choices": ["Memenangkan, mendapatkan", "Menang, dapat", "Dimenangkan, didapatkan", "Menang, didapatkan"],
+    "correctAnswer": "Memenangkan, mendapatkan",
+    "score": 1,
+    "type": "Kalimat Efektif",
+    "hint": "Cukup pilih satu jawaban saja yang benar karena semua pilihan jawaban ini memiliki opsi pertama yang berbeda dari yang lainnya."
+  },
+  {
+    "id": "kaek15",
+    "question": "Boarding School dewasa ini menjadi ... pilihan yang cukup baik dalam upaya pendidikan bagi anak. Sistem pendidikan agama yang secara khusus ... dengan pendidikan umum menjadi nilai jual yang cukup menjanjikan. Selain itu para santri juga secara langsung akan terdidik disiplin dengan ... pembelajaran yang ada di boarding school.\n\nIstilah yang tepat untuk melengkapi kalimat rumpang pada paragraf di atas ialah ...",
+    "choices": ["Alternatif, diintegrasikan, pola", "Suprematif, reboisasi, konsep", "Komposisi, perubahan, akulturasi", "Kompetitif, toleransi, pluralis"],
+    "correctAnswer": "Alternatif, diintegrasikan, pola",
+    "score": 1,
+    "type": "Kalimat Efektif",
+    "hint": "Cukup pilih satu jawaban saja yang benar karena semua pilihan jawaban ini memiliki opsi pertama yang berbeda dari yang lainnya."
+  },
+  {
+    "id": "kaek16",
+    "question": "Kenzie pergi ke mini market, kemudian Kenzie pergi ke sekolah.\n\nKalimat efektif yang tepat dari kalimat di atas adalah...",
+    "choices": ["Kenzie pergi ke mini market, kemudian kenzie pergi ke sekolah", "Kenzie pergi ke mini market, Kemudian Kenzie pergi ke sekolah", "Kenzie pergi ke mini market, kemudian Ia pergi ke sekolah", "Ia pergi ke mini market, kemudian Kenzie pergi ke sekolah"],
+    "correctAnswer": "Kenzie pergi ke mini market, kemudian Ia pergi ke sekolah",
+    "score": 1,
+    "type": "Kalimat Efektif",
+    "hint": "Nama orang tidak perlu disebutkan lebih dari satu kali jika alur cerita itu adalah alur maju, terutama jika masih dalam satu kalimat yang sama."
+  },
+  {
+    "id": "kaek17",
+    "question": "Suplemen ini memiliki berbagai khasiat seperti melancarkan peredaran darah, ... nafsu makan, dan meningkatkan daya tahan tubuh.\n\nKata berimbuhan yang tepat untuk mengisi kekosongan pada kalimat di atas ialah...",
+    "choices": ["Menambahkan", "Menambahi", "Menambah", "Ditambahkan"],
+    "correctAnswer": "Menambah",
+    "score": 1,
+    "type": "Kalimat Efektif",
+    "hint": "Suplemen pada umumnya akan menambah nafsu makan."
+  },
+  {
+    "id": "kaek18",
+    "question": "Setelah sekian lama akhirnya Dilan mampu “mempikat” hati Milea dan minggu depan ia akan mempersunting gadis cantik itu.\n\nKata yang dikutip pada kalimat diatas seharusnya...",
+    "choices": ["Memikat", "Meperikat", "Mengikat", "Pikat"],
+    "correctAnswer": "Memikat",
+    "score": 1,
+    "type": "Kalimat Efektif",
+    "hint": "Awal \"me\" dari kata kerja pikat adalah \"memikat\""
+  },
+  {
+    "id": "kaek19",
+    "question": "Kakak menolong anak itu dengan dipapahnya ke pinggir jalan.\n\nPerbaikan kalimat di atas agar menjadi kalimat efektif adalah...",
+    "choices": ["Kakak diganti menjadi Adik", "Pinggir jalan diubah menjadi tengah jalan", "Dipapahnya seharusnya memapahnya", "Menolong menjadi ditolong"],
+    "correctAnswer": "Dipapahnya seharusnya memapahnya",
+    "score": 1,
+    "type": "Kalimat Efektif",
+    "hint": "Kakak itu sedang melakukan pertolongan untuk anak itu, maka ia menggunakan kata kerja \"me\" untuk apapun yang sedang ia lakukan."
+  },
+  {
+    "id": "kaek20",
+    "question": "\"Bunga-bunga mawar, anyelir, dan melati sangat disukainya.\"\n\nKalimat efektif yang benar dari kalimat tersebut adalah...",
+    "choices": ["Bunga-bunga diganti menjadi bunga", "Hilangkan kata \"bunga-bunga\"", "Disukainya menjadi menyukainya", "Hilangkan kata \"dan\""],
+    "correctAnswer": "Bunga-bunga diganti menjadi bunga",
+    "score": 1,
+    "type": "Kalimat Efektif",
+    "hint": "Subjek jika diikuti dengan nama-nama jenisnya maka hanya perlu disebutkan sekali."
   }
 ]

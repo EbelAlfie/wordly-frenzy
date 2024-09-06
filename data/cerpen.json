@@ -18,7 +18,7 @@
 {
     "id": "cerp3",
     "question": "Hanya itu alasan Mama melarang Dewi menikah dengan Lukas?” Bibir Dewi menyungging sinis. “Oh, alangkah picik pikiran Mama! Lalu, apa artinya kemuliaan hati Mama selama ini yang Dewi kagumi? Padahal dulu Mama tidak pernah mempermasalahkan status Lukas yang ternyata belum mempunyai pekerjaan tetap. Begitu pula dengan kakakku yang selama ini mendukungku, sekarang justru berbalik arah.\n\nKonflik di dalam kutipan cerpen tersebut yaitu...",
-    "choices": ["Dewi dan Lukas batal menikah", "Dewi dilarang menikah oleh Mama dan kakaknya", "Mama berpikiran picik terhadap Lukas"],
+    "choices": ["Dewi dan Lukas batal menikah", "Dewi dilarang menikah oleh Mama dan kakaknya", "Mama berpikiran picik terhadap Lukas", "Konflik tidak disebutkan"],
     "correctAnswer": "Dewi dilarang menikah oleh Mama dan kakaknya",
     "type": "Cerpen",
     "hint": "Kalimat pertama dan terakhir cerpen tersebut mengungkapkan bahwa Dewi merasa kecewa dengan Mama dan kakak Dewi, rasa kecewa ini pasti disebabkan karena sesuatu yang Mama dan kaka Dewi perbuat.."
@@ -46,5 +46,125 @@
     "correctAnswer": "Alur maju",
     "type": "Cerpen",
     "hint": "Peristiwa yang diceritakan dalam cerpen tersebut diceritakan dari awal, tengah, sampai akhir secara berurutan"
+},
+{
+    "id": "cerp7",
+    "question": "Pada suatu hari, di sebuah desa terpencil, hiduplah seorang pemuda bernama Badu. Badu adalah pemuda yang rajin dan tekun bekerja. Ia bekerja sebagai petani untuk menghidupi keluarganya.\n\nAmanat yang terkandung dalam kutipan cerpen di atas adalah...",
+    "choices": ["Kita harus selalu bekerja keras untuk meraih cita-cita", "Kita harus selalu bersyukur atas apa yang kita miliki", "Kita harus selalu membantu orang yang membutuhkan", "Kita harus selalu rendah hati dalam menghadapi segala keberhasilan"],
+    "correctAnswer": "Kita harus selalu bekerja keras untuk meraih cita-cita",
+    "type": "Cerpen",
+    "hint": "Apa pesan yang penulis ingin sampaikan ke pembaca melalui tokoh Badu?"
+},
+{
+    "id": "cerp8",
+    "question": "Pak Usman dan Larasati adalah sepasang suami istri yang tinggal di desa. Mereka memiliki seorang anak perempuan bernama Diah. Latar waktu pada kutipan cerpen di atas adalah...",
+    "choices": ["Pagi hari", "Siang hari", "Malam hari", "Tidak ada keterangan"],
+    "correctAnswer": "Tidak ada keterangan",
+    "type": "Cerpen",
+    "hint": "Perhatian apakah ada keterangan waktu pada kutipan cerpen di atas..."
+},
+{
+    "id": "cerp9",
+    "question": "Pada suatu hari, Diah pergi ke hutan untuk mencari kayu bakar. Di tengah hutan, Diah bertemu dengan seekor rusa yang terluka. Diah merasa iba dengan rusa tersebut, sehingga Diah membawanya pulang dan merawatnya.\n\nAlur yang digunakan dalam kutipan cerpen di atas adalah...",
+    "choices": ["Alur maju", "Alur mundur", "Alur campuran", "Alur maju-mundur"],
+    "correctAnswer": "Alur maju",
+    "type": "Cerpen",
+    "hint": "Perhatikan bagaimana alur cerita tersebut diceritakan dari awal hingga akhir..."
+},
+{
+    "id": "cerp10",
+    "question": "Di sebuah desa terpencil, hiduplah seorang gadis bernama Rindu. Rindu adalah gadis yang cantik dan baik hati. Ia selalu membantu orang yang membutuhkan.\n\nNilai-nilai moral yang terkandung dalam kutipan cerpen di atas adalah...",
+    "choices": ["Kebaikan", "Kepedulian", "Kejujuran", "Tanggung jawab"],
+    "correctAnswer": "Kepedulian",
+    "type": "Cerpen",
+    "hint": "Perhatian bagaimana sifat dan karakter Rindu pada ketipan cerpen di atas..."
+},
+{
+    "id": "cerp11",
+    "question": "\"Nanda, di sebelah toko Bunda ada kios yang dijual. Bagaimana kalau kita patungan untuk membeli kios itu. Lalu kita jual pakaian di sana?\" tanya Kak Ica.\n\nIa mengajak berpatungan untuk membeli kios itu. Kami mulai berbisnis pakaian. Tidak kusangka, usaha itu menuai hasil yang melimpah.\n\nTokoh aku dalam penggalan cerpen di atas yaitu...",
+    "choices": ["Bunda", "Ica", "Nanda", "Penjual kios"],
+    "correctAnswer": "Nanda",
+    "type": "Cerpen",
+    "hint": "Perhatikan dengan baik kepada siapa Kak Ica berbicara dengan?"
+},
+{
+    "id": "cerp12",
+    "question": "Hanya itu alasan Mama melarang Dewi menikah dengan Lukas?” Bibir Dewi menyungging sinis. “Oh, alangkah picik pikiran Mama! Lalu, apa artinya kemuliaan hati Mama selama ini yang Dewi kagumi? Padahal dulu Mama tidak pernah mempermasalahkan status Lukas yang ternyata belum mempunyai pekerjaan tetap. Begitu pula dengan kakakku yang selama ini mendukungku, sekarang justru berbalik arah.\n\nPenyebab munculnya konflik pada kutipan cerpen tersebut adalah...",
+    "choices": ["Mama ingin memiliki menantu orang kaya", "Lukas belum memiliki pekerjaan tetap", "Mama yang mempersalahkan masa lalu Lukas", "Mama melarang Dewi menikah dengan Lukas"],
+    "correctAnswer": "Lukas belum memiliki pekerjaan tetap",
+    "type": "Cerpen",
+    "hint": "Perhatikan dengan baik kenapa Mama melarang Dewi menikah dengan Lukas..."
+},
+{
+    "id": "cerp13",
+    "question": "Perbedaan antara cerpen dan puisi adalah...",
+    "choices": ["Adanya penggunaan imajinasi", "Adanya alur", "Adanya gaya bahasa tertentu", "Adanya tema"],
+    "correctAnswer": "Adanya alur",
+    "type": "Cerpen",
+    "hint": "Cerpen adalah suatu bentuk narasi fiksi berupa cerita singkat, sedangkan puisi adalah bentuk sastra yang menggunakan bahasa secara kreatif dan artistik."
+},
+{
+    "id": "cerp14",
+    "question": "Maria pun pergi ke sebidang tanah tandus itu sambal membawa bibit semangka dan kuda pincang yang menjadi bagiannya. Meski mendapat warisan yang kurang menguntungkan, Maria tidak putus asa. Ia langsung menanami lahan tandus itu dengan bibit semangka.\n\nKuda pincang yang ia tambatkan di pohon membuang kotoran sembarangan. Namun, Maria tidak marah. Ia malah mengumpulkan kotoran itu dan menjadikannya pupuk.\n\nSifat-sifat berikut yang tidak dimiliki oleh Maria adalah...",
+    "choices": ["Sabar", "Suka menolong", "Kreatif", "Rajin"],
+    "correctAnswer": "Suka menolong",
+    "type": "Cerpen",
+    "hint": "Perhatikan dengan teliti sifat apa yang kutipan cerpen tersebut tidak sebutkan mengenai Maria..."
+},
+{
+    "id": "cerp15",
+    "question": "\"Kang, kita harus benar-benar pergi dari sini?\" tanya Siti Halimah di sela tangisnya.\n\n\"Tentu saja. Seperkasa apa pun perlawanan kita, ternyata tetap kalah melawan yang berkuasa. Kita ini hanya orang miskin,\" sahut Karjan sembari melihat rumah Lik Paijan yang siap diruntuhkan.\n\nTema yang terdapat dalam kutipan cerpen tersebut adalah...",
+    "choices": ["Sosial", "Agama", "Ekonomi", "Pendidikan"],
+    "correctAnswer": "Sosial",
+    "type": "Cerpen",
+    "hint": "Perhatikan dengan teliti apa topik utama yang mereka bicarakan..."
+},
+{
+    "id": "cerp16",
+    "question": "Berikut adalah unsur ekstrinsik cerpen, yaitu...",
+    "choices": ["Gaya penyampaian cerita", "Penokohan", "Latar budaya penulis", "Tanggapan pembaca"],
+    "correctAnswer": "Latar budaya penulis",
+    "type": "Cerpen",
+    "hint": "Unsur ekstrinsik cerpen merupakan unsur pembangun cerpen yang berasal dari luar cerpen"
+},
+{
+    "id": "cerp17",
+    "question": "Matahari baru saja terbit, namun Ersa dengan tergesa-gesa menaiki bus yang nyaris berangkat. Dari kejauhan terdengar sayup suara \"penumpang bus Gemilang harap untuk segera memasuki kendaraan\". Hati Ersa pun tenang karena dia sudah berada di dalamnya. \"Mudah-mudahan sore nanti aku bisa berada di acara itu,\" harapnya dalam hati.\n\nLatar waktu dan tempat pada penggalan cerpen tersebut adalah...",
+    "choices": ["Sore hari, terminal", "Siang hari, perjalanan ", "Pagi hari, rumah ", "Pagi hari, terminal"],
+    "correctAnswer": "Pagi hari, terminal",
+    "type": "Cerpen",
+    "hint": "Perhatikan kalimat pertama dari penggalan cerpen diatas dengan teliti..."
+},
+{
+    "id": "cerp18",
+    "question": "Pengarang menuturkan cerita dirinya sendiri, dengan pelaku aku/orang pertama tunggal/jamak, berarti kedudukan pengarang dalam cerpen tersebut sebagai...",
+    "choices": ["Tokoh bawahan", "Tokoh pengamat", "Pendamping", "Tokoh utama"],
+    "correctAnswer": "Tokoh utama",
+    "type": "Cerpen",
+    "hint": "Pengarang yang menceritakan dirinya sendiri, dimana hal tersebut memberi kedudukan pengarang cerita sebagai..."
+},
+{
+    "id": "cerp19",
+    "question": "\"Saya khawatir, keinginan bapak untuk menghabisi Natasha itu karena kebencian bapak terhadap saya. Selama ini orang kan tahu saya sangat perhatin terhadap Natasha. Dia anak yang lemah pak, sudah mengalami berbagai cobaan hidup, sering murung karena menerima beban yang terlalu banyak dalam hidupnya.\"\n\nSifat tokoh saya berdasarkan kutipan di atas adalah?",
+    "choices": ["Sabar dan penakut", "Angkuh dan disiplin", "Tegas dan pemberani", "Penuh perhatian dan peka"],
+    "correctAnswer": "Penuh perhatian dan peka",
+    "type": "Cerpen",
+    "hint": "Perhatikan apa yang karakter saya katakana di kalimat terakhir dari penggalan cerpen diatas..."
+},
+{
+    "id": "cerp20",
+    "question": "Setelah tiga hari, habislah masa berpikir yang diberikan padaku. Aku dipanggil lagi ke meja makan. Gemuruh di dadaku telah tiada. Tapi hatiku ciut dan pikiranku kalut. Satu-satunya persediaan kata yang bisa kukatakan, agar aku tidak dimurkai, \"Terserah Ibu dan Papa.\"\n\nTentukan isi tersirat kutipan cerpen tersebut!",
+    "choices": ["Tokoh Aku pasrah kepada keputusan orang tuanya", "Tokoh Aku takut akan dimarahi kedua orang tuanya", "Tokoh aku bingung dalam memilih suatu keputusan", "Tokoh Aku berontak dengan keputusan orang tuanya"],
+    "correctAnswer": "Tokoh Aku pasrah kepada keputusan orang tuanya",
+    "type": "Cerpen",
+    "hint": "Apa yang tokoh aku katakan di kalimat terakhir dari penggalan cerpen diatas?"
+},
+{
+    "id": "cerp21",
+    "question": "Nalea tersenyum. Sebenarnya, lelaki itu sudah lama ingin bercerita, bahwa ia bukan ayahnya. Dahulu, ketika sedang memulung barang bekas, ia melihat seorang wanita turun dari mobil, meletakkan kardus di bawah sudut jembatan layang, kemudian kembali ke mobil dan pergi. Ketika didekati, didapatinya di dalam kardus itu seorang bayi. Saat itulah, lelaki itu merasa iba, lalu merawatnya. Ia memberinya nama Nalea.\n\nNilai moral yang terdapat dalam kutipan cerpen tersebut adalah...",
+    "choices": ["Menolong dengan ikhlas orang yang membutuhkan", "Tidak dibutuhkannya alasan untuk menolong dengan ikhlas", "Mengorbankan hidup untuk sesamanya", "Mengorbankan hidup untuk orang tua"],
+    "correctAnswer": "Tidak dibutuhkannya alasan untuk menolong dengan ikhlas",
+    "type": "Cerpen",
+    "hint": "Lelaki itu tidak berpikir panjang ketika menemukan bayi di kardus tersebut"
 }
 ]
