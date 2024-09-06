@@ -19,7 +19,7 @@ export class QuizController {
     isFirstWrong = false ;
 
     async loadQuizes(local = true, type = 0) { //TODO error handling in real API
-        return quizRepository.loadQuizes(local, type)
+        return await quizRepository.loadQuizes(local, type)
         .then(response => {
             if (local) shuffle(response.data)
             this.quizes = response.data ;
